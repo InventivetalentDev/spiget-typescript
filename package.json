@@ -1,0 +1,16 @@
+{
+  "name": "spiget",
+  "version": "1.0.0",
+  "description": "Javascript/Typescript client for the spiget.org API",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc"
+  },
+  "author": "Haylee Schäfer",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2"
+  }
+}

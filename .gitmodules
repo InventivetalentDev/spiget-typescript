@@ -1,0 +1,3 @@
+[submodule "spiget-documentation"]
+	path = spiget-documentation
+	url = https://github.com/SpiGetOrg/Documentation
