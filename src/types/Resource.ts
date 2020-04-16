@@ -5,7 +5,7 @@ import ResourceRating from "./ResourceRating";
 import Icon from "./Icon";
 import ResourceReview from "./ResourceReview";
 
-/* Generated on Thu, 16 Apr 2020 11:51:52 GMT*/
+/* Generated on Thu, 16 Apr 2020 12:59:02 GMT*/
 export class Resource extends SpigetType {
   id: number;
   name: string;

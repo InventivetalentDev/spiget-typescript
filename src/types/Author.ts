@@ -2,7 +2,7 @@ import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 import Icon from "./Icon";
 
-/* Generated on Thu, 16 Apr 2020 11:51:52 GMT*/
+/* Generated on Thu, 16 Apr 2020 12:59:02 GMT*/
 export class Author extends SpigetType {
   id: number;
   name: string;

@@ -15,8 +15,7 @@ Object.keys(definitions).forEach(k => {
 
         let imports = "import Spiget from \"../Spiget\"\n" +
             "import SpigetType from \"../SpigetType\"\n";
-        let content = "/* Generated on " + new Date().toUTCString() + "*/\n" +
-            "export class " + k + " extends SpigetType {\n";
+        let content = "export class " + k + " extends SpigetType {\n";
         let constr = "  constructor(source: any, spiget: Spiget = new Spiget()) {\n" +
             "    super(source, spiget);\n" +
             "    if (source !== undefined) {\n";
@@ -133,9 +132,9 @@ Object.keys(paths).forEach(p => {
         queryParamNames.forEach(q => {
             func += "    query[\"" + q + "\"] = " + q + ";\n";
         });
-        let replacedPath  =p;
-        pathParamNames.forEach(n=>{
-           replacedPath = replacedPath.replace("{"+n+"}","\"+"+n+"+\"");
+        let replacedPath = p;
+        pathParamNames.forEach(n => {
+            replacedPath = replacedPath.replace("{" + n + "}", "\"+" + n + "+\"");
         });
         func += "    this.__request(\"" + method.toUpperCase() + "\", \"" + replacedPath + "\", query).then(res" + (isArrayReturn ? "Arr" : "") + " => {\n";
         func += "      resolve(this.__mapType" + (isArrayReturn ? "List" : "") + "(res" + (isArrayReturn ? "Arr" : "") + ", " + returnTypeBase + "));\n";

@@ -1,7 +1,7 @@
 import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 
-/* Generated on Thu, 16 Apr 2020 11:51:52 GMT*/
+/* Generated on Thu, 16 Apr 2020 12:59:02 GMT*/
 export class ResourceFile extends SpigetType {
   type: string;
   size: number;
