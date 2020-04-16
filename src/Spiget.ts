@@ -12,6 +12,7 @@ import Category from "./types/Category";
 import IdReference from "./types/IdReference";
 import Error from "./Error"
 import Pagination from "./Pagination";
+import SpigetType, { Constructor as TypeConstructor } from "./SpigetType";
 
 
 export default class Spiget {
@@ -64,7 +65,17 @@ export default class Spiget {
         return query;
     }
 
-    mapType<T>(data: any, type: T){
+    __mapType<T extends SpigetType>(data: any, type: TypeConstructor<T>): T {
+        return new type(data, this);
+        //return this.__typeFactory.create(type, data, this)
+    }
+
+    __mapTypeList<T extends SpigetType>(data: any, type: TypeConstructor<T>):Array<T>{
+        let mapped = [];
+        data.forEach(d=>{
+            mapped.push(this.__mapType(d, type));
+        });
+        return mapped;
     }
 
     ///// AUTHORS
@@ -72,13 +83,8 @@ export default class Spiget {
     getAuthors(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Author>> {
         return new Promise((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-            this.__request("GET", "/authors", query).then(rawAuthorList => {
-                let authorList = [];
-
-                rawAuthorList.forEach(ra => {
-                    authorList.push(new Author(ra, this))
-                });
-                resolve(authorList);
+            this.__request("GET", "/authors", query).then(authors => {
+                resolve(this.__mapTypeList(authors, Author));
             }).catch(reject);
         })
     }
