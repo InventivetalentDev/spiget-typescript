@@ -5,8 +5,8 @@ import ResourceRating from "./ResourceRating";
 import Icon from "./Icon";
 import ResourceReview from "./ResourceReview";
 
-/* Generated on Thu, 16 Apr 2020 10:50:06 GMT*/
-export default class Resource extends SpigetType {
+/* Generated on Thu, 16 Apr 2020 11:51:52 GMT*/
+export class Resource extends SpigetType {
   id: number;
   name: string;
   tag: string;
@@ -50,3 +50,4 @@ export default class Resource extends SpigetType {
     }
   }
 }
+export default Resource;

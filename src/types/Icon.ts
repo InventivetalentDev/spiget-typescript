@@ -1,8 +1,8 @@
 import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 
-/* Generated on Thu, 16 Apr 2020 10:50:06 GMT*/
-export default class Icon extends SpigetType {
+/* Generated on Thu, 16 Apr 2020 11:51:52 GMT*/
+export class Icon extends SpigetType {
   url: string;
   data: string;
 
@@ -14,3 +14,4 @@ export default class Icon extends SpigetType {
     }
   }
 }
+export default Icon;

@@ -15,7 +15,7 @@ Object.keys(definitions).forEach(k => {
         let imports = "import Spiget from \"../Spiget\"\n" +
             "import SpigetType from \"../SpigetType\"\n";
         let content = "/* Generated on " + new Date().toUTCString() + "*/\n" +
-            "export default class " + k + " extends SpigetType {\n";
+            "export class " + k + " extends SpigetType {\n";
         let constr = "  constructor(source: any, spiget: Spiget = new Spiget()) {\n" +
             "    super(source, spiget);\n" +
             "    if (source !== undefined) {\n";
@@ -40,7 +40,8 @@ Object.keys(definitions).forEach(k => {
         constr += "    }\n";
         constr += "  }\n";
         content += "\n" + constr;
-        content += "}\n";
+        content += "}\n" +
+            "export default "+k+";\n";
 
         combinedImports += 'import ' + k + ' from "./types/' + k + '";\n';
 

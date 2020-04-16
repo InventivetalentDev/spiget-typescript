@@ -2,8 +2,8 @@ import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 import Icon from "./Icon";
 
-/* Generated on Thu, 16 Apr 2020 10:50:06 GMT*/
-export default class Author extends SpigetType {
+/* Generated on Thu, 16 Apr 2020 11:51:52 GMT*/
+export class Author extends SpigetType {
   id: number;
   name: string;
   icon: Icon;
@@ -17,3 +17,4 @@ export default class Author extends SpigetType {
     }
   }
 }
+export default Author;

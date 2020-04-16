@@ -1,8 +1,8 @@
 import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 
-/* Generated on Thu, 16 Apr 2020 10:50:06 GMT*/
-export default class ResourceFile extends SpigetType {
+/* Generated on Thu, 16 Apr 2020 11:51:52 GMT*/
+export class ResourceFile extends SpigetType {
   type: string;
   size: number;
   sizeUnit: string;
@@ -18,3 +18,4 @@ export default class ResourceFile extends SpigetType {
     }
   }
 }
+export default ResourceFile;

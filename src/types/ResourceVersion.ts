@@ -2,8 +2,8 @@ import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 import ResourceRating from "./ResourceRating";
 
-/* Generated on Thu, 16 Apr 2020 10:50:06 GMT*/
-export default class ResourceVersion extends SpigetType {
+/* Generated on Thu, 16 Apr 2020 11:51:52 GMT*/
+export class ResourceVersion extends SpigetType {
   id: number;
   name: string;
   releaseDate: number;
@@ -21,3 +21,4 @@ export default class ResourceVersion extends SpigetType {
     }
   }
 }
+export default ResourceVersion;

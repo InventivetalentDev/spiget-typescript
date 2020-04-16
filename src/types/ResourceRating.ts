@@ -1,8 +1,8 @@
 import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 
-/* Generated on Thu, 16 Apr 2020 10:50:06 GMT*/
-export default class ResourceRating extends SpigetType {
+/* Generated on Thu, 16 Apr 2020 11:51:52 GMT*/
+export class ResourceRating extends SpigetType {
   count: number;
   average: number;
 
@@ -14,3 +14,4 @@ export default class ResourceRating extends SpigetType {
     }
   }
 }
+export default ResourceRating;

@@ -1,4 +1,4 @@
-export default class Error {
+export class Error {
     code: number;
     error: string;
 
@@ -6,3 +6,4 @@ export default class Error {
         this.error = source.error
     }
 }
+export default Error;

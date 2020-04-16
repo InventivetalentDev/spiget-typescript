@@ -3,8 +3,8 @@ import SpigetType from "../SpigetType"
 import Author from "./Author";
 import ResourceRating from "./ResourceRating";
 
-/* Generated on Thu, 16 Apr 2020 10:50:06 GMT*/
-export default class ResourceReview extends SpigetType {
+/* Generated on Thu, 16 Apr 2020 11:51:52 GMT*/
+export class ResourceReview extends SpigetType {
   author: Author;
   rating: ResourceRating;
   message: string;
@@ -24,3 +24,4 @@ export default class ResourceReview extends SpigetType {
     }
   }
 }
+export default ResourceReview;
