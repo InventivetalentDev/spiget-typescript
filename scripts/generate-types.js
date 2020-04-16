@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const swagger = require("../spiget-documentation/swagger.json");
 const definitions = swagger.definitions;
+const paths = swagger.paths;
 
 const TYPES_DIR = "../src/types";
 
@@ -41,7 +42,7 @@ Object.keys(definitions).forEach(k => {
         constr += "  }\n";
         content += "\n" + constr;
         content += "}\n" +
-            "export default "+k+";\n";
+            "export default " + k + ";\n";
 
         combinedImports += 'import ' + k + ' from "./types/' + k + '";\n';
 
@@ -49,13 +50,103 @@ Object.keys(definitions).forEach(k => {
 
         let implPath = path.join(TYPES_DIR + "_", k + "Impl.ts");
         if (!fs.existsSync(implPath)) {
-            fs.writeFileSync(implPath, "import "+k+" from \"../types/"+k+"\";\n\n" +
-                "export default class "+k+"Impl extends "+k+" {\n" +
+            fs.writeFileSync(implPath, "import " + k + " from \"../types/" + k + "\";\n\n" +
+                "export default class " + k + "Impl extends " + k + " {\n" +
                 "}\n")
         }
     }
 });
 fs.writeFileSync(path.join(TYPES_DIR, "_imports.txt"), combinedImports, "utf8");
+
+let functions = "class Paths {\n";
+Object.keys(paths).forEach(p => {
+    let path = paths[p];
+    Object.keys(path).forEach(method => {
+        let pathM = path[method];
+
+        console.log("Generating " + method.toUpperCase() + " " + p);
+
+        let func = "";
+        func += "/** \n" +
+            method.toUpperCase() + " " + p + "\n" +
+            pathM.description + "\n" +
+            "**/\n"
+        func += method.trim() + pathM.summary.replace(/\s/g, "");
+        func += "(";
+        let first = true;
+        let hasPagination = false;
+        let hasFields = false;
+        let pathParamNames = [];
+        let queryParamNames = [];
+        pathM.parameters.forEach(param => {
+            if (param.name === "page" || param.name === "sort") {// ignored, handled by size
+                return;
+            }
+            if (!first) {
+                func += ", ";
+            }
+            if (param.name === "size") {
+                func += "pagination: Pagination";
+                hasPagination = true;
+            } else if (param.name === "fields") {
+                func += "fields: Fields";
+                hasFields = true;
+            } else {
+                func += param.name + ": " + convertPropType(param);
+                if (param.in === "path") {
+                    pathParamNames.push(param.name);
+                } else if (param.in === "query") {
+                    queryParamNames.push(param.name);
+                }
+            }
+            first = false;
+        });
+        func += ")";
+        let returnType = "any";
+        let returnTypeBase = "any";
+        let isArrayReturn = false;
+        if (pathM.hasOwnProperty("responses")) {
+            let responses = pathM["responses"];
+            if (responses.hasOwnProperty("200")) {
+                let ok = responses["200"];
+                if (ok.hasOwnProperty("schema")) {
+                    let c = convertPropType(ok.schema);
+                    let t = c[0];
+                    if (t.startsWith("inline_response_")) {
+                        t = "any";
+                        returnTypeBase = "any";
+                    } else {
+                        returnTypeBase = c[1];
+                    }
+                    returnType = "Promise<" + t + ">";
+                    func += ": " + returnType;
+                    isArrayReturn = ok.schema.type === "array";
+                } else {
+                    returnType = "Promise<any>";
+                    func += ": " + returnType;
+                }
+            }
+        }
+        func += " {\n";
+        func += "  return new " + returnType + "((resolve, reject) => {\n";
+        func += "    let query = " + ((hasPagination || hasFields) ? "this.__addPaginationAndFieldsToQuery(pagination, fields)" : "{}") + ";\n";
+        queryParamNames.forEach(q => {
+            func += "    query[\"" + q + "\"] = " + q + ";\n";
+        });
+        let replacedPath  =p;
+        pathParamNames.forEach(n=>{
+           replacedPath = replacedPath.replace("{"+n+"}","\"+"+n+"+\"");
+        });
+        func += "    this.__request(\"" + method.toUpperCase() + "\", \"" + replacedPath + "\", query).then(res" + (isArrayReturn ? "Arr" : "") + " => {\n";
+        func += "      resolve(this.__mapType" + (isArrayReturn ? "List" : "") + "(res" + (isArrayReturn ? "Arr" : "") + ", " + returnTypeBase + "));\n";
+        func += "    }).catch(reject);\n"
+        func += "  });\n";
+        func += "}\n";
+        functions += func + "\n\n";
+    })
+});
+functions += "}\n";
+fs.writeFileSync(path.join(TYPES_DIR, "_functions.ts"), functions, "utf8");
 
 function convertPropType(prop) {
     if (prop.hasOwnProperty("$ref")) {
