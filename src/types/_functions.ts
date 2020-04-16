@@ -1,5 +1,5 @@
 class Paths {
-/**
+/** 
 GET /authors
 Get a list of available authors
 Note: This only includes members involved with resources, either being their author or having reviewed a resource
@@ -15,7 +15,7 @@ getAuthorList(pagination: Pagination, fields: Fields): Promise<Array<Author>> {
 }
 
 
-/**
+/** 
 GET /authors/{author}
 Get details about an author
 
@@ -30,7 +30,7 @@ getAuthorDetails(author: string): Promise<Author> {
 }
 
 
-/**
+/** 
 GET /authors/{author}/resources
 Get an author's resources
 
@@ -45,7 +45,7 @@ getAuthorresources(author: string, pagination: Pagination, fields: Fields): Prom
 }
 
 
-/**
+/** 
 GET /authors/{author}/reviews
 Get an author's reviews left on resources
 
@@ -60,7 +60,7 @@ getAuthorreviews(author: string, pagination: Pagination, fields: Fields): Promis
 }
 
 
-/**
+/** 
 GET /categories
 Get a list of categories
 
@@ -75,7 +75,7 @@ getCategoryList(pagination: Pagination, fields: Fields): Promise<Array<Category>
 }
 
 
-/**
+/** 
 GET /categories/{category}
 Get details about a category
 
@@ -90,7 +90,7 @@ getCategoryDetails(category: string): Promise<Category> {
 }
 
 
-/**
+/** 
 GET /categories/{category}/resources
 Get the resources in a category
 
@@ -105,7 +105,7 @@ getCategoryResources(category: string, pagination: Pagination, fields: Fields): 
 }
 
 
-/**
+/** 
 GET /resources
 Get a list of available resources (premium and free)
 
@@ -120,7 +120,7 @@ getResourceList(pagination: Pagination, fields: Fields): Promise<Array<Resource>
 }
 
 
-/**
+/** 
 GET /resources/for/{version}
 Get resources for the specified version(s)
 
@@ -136,7 +136,7 @@ getResourcesforVersions(version: string, method: string, pagination: Pagination,
 }
 
 
-/**
+/** 
 GET /resources/free
 Get a list of available free resources
 
@@ -151,7 +151,7 @@ getFreeResourceList(pagination: Pagination, fields: Fields): Promise<Array<Resou
 }
 
 
-/**
+/** 
 GET /resources/new
 Get all new resources
 
@@ -166,7 +166,7 @@ getNewResources(pagination: Pagination, fields: Fields): Promise<Array<Resource>
 }
 
 
-/**
+/** 
 GET /resources/premium
 Get a list of available premium resources
 
@@ -181,7 +181,7 @@ getPremiumResourceList(pagination: Pagination, fields: Fields): Promise<Array<Re
 }
 
 
-/**
+/** 
 GET /resources/{resource}
 Get a resource by its ID or name
 
@@ -196,7 +196,7 @@ getResourceDetails(resource: string): Promise<Resource> {
 }
 
 
-/**
+/** 
 GET /resources/{resource}/author
 Get the resource author
 
@@ -211,7 +211,7 @@ getResourceAuthor(resource: string): Promise<Author> {
 }
 
 
-/**
+/** 
 GET /resources/{resource}/download
 Download a resource
 
@@ -226,7 +226,7 @@ getResourceDownload(resource: string): Promise<any> {
 }
 
 
-/**
+/** 
 GET /resources/{resource}/reviews
 Get reviews of a resource
 
@@ -241,7 +241,7 @@ getResourceReviews(resource: string, pagination: Pagination, fields: Fields): Pr
 }
 
 
-/**
+/** 
 GET /resources/{resource}/updates
 Get updates of a resource
 
@@ -256,7 +256,7 @@ getResourceUpdates(resource: string, pagination: Pagination, fields: Fields): Pr
 }
 
 
-/**
+/** 
 GET /resources/{resource}/versions
 Get versions of a resource
 
@@ -271,7 +271,7 @@ getResourceVersions(resource: string, pagination: Pagination, fields: Fields): P
 }
 
 
-/**
+/** 
 GET /resources/{resource}/versions/{version}/download
 Download a specific resource version
 
@@ -288,7 +288,7 @@ getResourceVersionDownload(resource: string, version: string) {
 }
 
 
-/**
+/** 
 GET /search/authors/{query}
 Search authors
 
@@ -304,7 +304,7 @@ getAuthorSearch(query: string, field: string, pagination: Pagination, fields: Fi
 }
 
 
-/**
+/** 
 GET /search/resources/{query}
 Search resources
 
@@ -320,7 +320,7 @@ getResourceSearch(query: string, field: string, pagination: Pagination, fields: 
 }
 
 
-/**
+/** 
 GET /status
 Get the API status
 
@@ -335,7 +335,7 @@ getAPIStatus(): Promise<any> {
 }
 
 
-/**
+/** 
 DELETE /webhook/delete/{id}/{secret}
 Delete a Webhook
 
@@ -350,7 +350,7 @@ deleteDeleteWebhook(id: string, secret: string): Promise<any> {
 }
 
 
-/**
+/** 
 GET /webhook/events
 Get a list of available events
 
@@ -365,7 +365,7 @@ getWebhookevents(): Promise<any> {
 }
 
 
-/**
+/** 
 POST /webhook/register
 Register a new Webhook
 
@@ -382,7 +382,7 @@ postRegisterWebhook(url: string, events: Array<string>,): Promise<any> {
 }
 
 
-/**
+/** 
 GET /webhook/status/{id}
 Get the status of a Webhook
 

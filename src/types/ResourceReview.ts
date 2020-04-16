@@ -3,7 +3,6 @@ import SpigetType from "../SpigetType"
 import Author from "./Author";
 import ResourceRating from "./ResourceRating";
 
-/* Generated on Thu, 16 Apr 2020 12:59:02 GMT*/
 export class ResourceReview extends SpigetType {
   author: Author;
   rating: ResourceRating;

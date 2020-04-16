@@ -2,7 +2,6 @@ import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 import ResourceRating from "./ResourceRating";
 
-/* Generated on Thu, 16 Apr 2020 12:59:02 GMT*/
 export class ResourceVersion extends SpigetType {
   id: number;
   name: string;

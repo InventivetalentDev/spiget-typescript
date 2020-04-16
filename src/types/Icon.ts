@@ -1,7 +1,6 @@
 import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 
-/* Generated on Thu, 16 Apr 2020 12:59:02 GMT*/
 export class Icon extends SpigetType {
   url: string;
   data: string;
