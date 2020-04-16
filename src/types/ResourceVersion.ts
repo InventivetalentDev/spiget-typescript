@@ -1,10 +1,9 @@
-import Spiget from '../Spiget'
+import Spiget from "../Spiget"
+import SpigetType from "../SpigetType"
 import ResourceRating from "./ResourceRating";
 
-/* Generated on Thu, 16 Apr 2020 10:39:57 GMT*/
-export default class ResourceVersion {
-  _raw: any;
-  _spiget: Spiget;
+/* Generated on Thu, 16 Apr 2020 10:50:06 GMT*/
+export default class ResourceVersion extends SpigetType {
   id: number;
   name: string;
   releaseDate: number;
@@ -12,8 +11,7 @@ export default class ResourceVersion {
   rating: ResourceRating;
 
   constructor(source: any, spiget: Spiget = new Spiget()) {
-    this._raw = source;
-    this._spiget = spiget;
+    super(source, spiget);
     if (source !== undefined) {
       if (source.hasOwnProperty("id")) this.id = source.id;
       if (source.hasOwnProperty("name")) this.name = source.name;

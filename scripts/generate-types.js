@@ -12,14 +12,12 @@ Object.keys(definitions).forEach(k => {
     if (v.hasOwnProperty("type")) {
         console.log("Generating Type Class for " + k + " of type " + v.type)
 
-        let imports = "import Spiget from '../Spiget'\n";
+        let imports = "import Spiget from \"../Spiget\"\n" +
+            "import SpigetType from \"../SpigetType\"\n";
         let content = "/* Generated on " + new Date().toUTCString() + "*/\n" +
-            "export default class " + k + " {\n" +
-            "  _raw: any;\n" +
-            "  _spiget: Spiget;\n";
+            "export default class " + k + " extends SpigetType {\n";
         let constr = "  constructor(source: any, spiget: Spiget = new Spiget()) {\n" +
-            "    this._raw = source;\n" +
-            "    this._spiget = spiget;\n" +
+            "    super(source, spiget);\n" +
             "    if (source !== undefined) {\n";
         Object.keys(v.properties).forEach(p => {
             if (v.hasOwnProperty("properties")) {

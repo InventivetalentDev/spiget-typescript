@@ -64,6 +64,9 @@ export default class Spiget {
         return query;
     }
 
+    mapType<T>(data: any, type: T){
+    }
+
     ///// AUTHORS
 
     getAuthors(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Author>> {
@@ -73,8 +76,8 @@ export default class Spiget {
                 let authorList = [];
 
                 rawAuthorList.forEach(ra => {
-                    authorList.push(new Author(ra))
-                })
+                    authorList.push(new Author(ra, this))
+                });
                 resolve(authorList);
             }).catch(reject);
         })
