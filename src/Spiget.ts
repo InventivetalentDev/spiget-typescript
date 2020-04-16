@@ -11,10 +11,12 @@ import Author from "./types/Author";
 import Category from "./types/Category";
 import IdReference from "./types/IdReference";
 import Error from "./Error"
-import {Pagination} from "./Pagination";
+import { Pagination } from "./Pagination";
 import SpigetType, { Constructor as TypeConstructor } from "./SpigetType";
 import AuthorImpl from "./types_/AuthorImpl";
 import ResourceImpl from "./types_/ResourceImpl";
+import ResourceReviewImpl from "./types_/ResourceReviewImpl";
+import CategoryImpl from "./types_/CategoryImpl";
 
 
 export class Spiget {
@@ -91,7 +93,7 @@ export class Spiget {
         })
     }
 
-    getAuthor(author: Id): Promise<Author>{
+    getAuthor(author: Id): Promise<Author> {
         return new Promise<Author>((resolve, reject) => {
             this.__request("GET", "/authors/" + author).then(author => {
                 resolve(this.__mapType(author, AuthorImpl));
@@ -108,14 +110,55 @@ export class Spiget {
         })
     }
 
+    getAuthorReviews(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
+        return new Promise<Array<ResourceReviewImpl>>((resolve, reject) => {
+            let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
+            this.__request("GET", "/authors/" + author + "/reviews", query).then(reviews => {
+                resolve(this.__mapTypeList(reviews, ResourceReviewImpl));
+            }).catch(reject);
+        })
+    }
+
+    ///// CATEGORIES
+
+    getCategories(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Category>> {
+        return new Promise<Array<Category>>((resolve, reject) => {
+            let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
+            this.__request("GET", "/categories", query).then(categories => {
+                resolve(this.__mapTypeList(categories, CategoryImpl));
+            }).catch(reject);
+        })
+    }
+
+    getCategory(category: Id): Promise<Category> {
+        return new Promise<Category>((resolve, reject) => {
+            this.__request("GET", "/categories/" + category).then(category => {
+                resolve(this.__mapType(category, CategoryImpl));
+            }).catch(reject);
+        })
+    }
+
+
+    getCategoryResources(category: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+        return new Promise<Array<Resource>>((resolve, reject) => {
+            let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
+            this.__request("GET", "/categories/" + category + "/resources", query).then(resources => {
+                resolve(this.__mapTypeList(resources, ResourceImpl));
+            }).catch(reject);
+        })
+    }
+
+    ///// RESOURCES
+
 
 
 }
+
 export default Spiget
 
 export type Id = number
 export type IdOrName = number | string
 export type Fields = Array<string>
 
-export {Author, Category, Icon, Resource, ResourceFile, ResourceRating, ResourceReview, ResourceUpdate, ResourceVersion}
-export {Pagination, Error, SpigetType}
+export { Author, Category, Icon, Resource, ResourceFile, ResourceRating, ResourceReview, ResourceUpdate, ResourceVersion }
+export { Pagination, Error, SpigetType }

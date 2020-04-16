@@ -1,13 +1,13 @@
 {
   "name": "spiget",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Javascript/Typescript client for the spiget.org API",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "test": "mocha",
     "compile": "tsc",
-    "generate-types": "node ./scripts/generate-types.js"
+    "generate-types": "node ./scripts/generate-types.js",
+    "build": "npm run compile"
   },
   "author": "Haylee Schäfer",
   "license": "MIT",
