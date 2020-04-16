@@ -1,9 +1,11 @@
+import Spiget from '../Spiget'
 import Author from "./Author";
 import ResourceRating from "./ResourceRating";
 
-/* Generated on Tue, 14 Apr 2020 23:48:14 GMT*/
+/* Generated on Thu, 16 Apr 2020 10:39:57 GMT*/
 export default class ResourceReview {
   _raw: any;
+  _spiget: Spiget;
   author: Author;
   rating: ResourceRating;
   message: string;
@@ -11,8 +13,9 @@ export default class ResourceReview {
   version: string;
   date: number;
 
-  constructor(source: any) {
+  constructor(source: any, spiget: Spiget = new Spiget()) {
     this._raw = source;
+    this._spiget = spiget;
     if (source !== undefined) {
       if (source.hasOwnProperty("author")) this.author = source.author;
       if (source.hasOwnProperty("rating")) this.rating = source.rating;

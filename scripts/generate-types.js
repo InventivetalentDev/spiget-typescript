@@ -12,12 +12,14 @@ Object.keys(definitions).forEach(k => {
     if (v.hasOwnProperty("type")) {
         console.log("Generating Type Class for " + k + " of type " + v.type)
 
-        let imports = "";
+        let imports = "import Spiget from '../Spiget'\n";
         let content = "/* Generated on " + new Date().toUTCString() + "*/\n" +
             "export default class " + k + " {\n" +
-            "  _raw: any;\n";
-        let constr = "  constructor(source: any) {\n" +
+            "  _raw: any;\n" +
+            "  _spiget: Spiget;\n";
+        let constr = "  constructor(source: any, spiget: Spiget = new Spiget()) {\n" +
             "    this._raw = source;\n" +
+            "    this._spiget = spiget;\n" +
             "    if (source !== undefined) {\n";
         Object.keys(v.properties).forEach(p => {
             if (v.hasOwnProperty("properties")) {
@@ -45,6 +47,13 @@ Object.keys(definitions).forEach(k => {
         combinedImports += 'import ' + k + ' from "./types/' + k + '";\n';
 
         fs.writeFileSync(path.join(TYPES_DIR, k + ".ts"), imports + "\n" + content, "utf8");
+
+        let implPath = path.join(TYPES_DIR + "_", k + "Impl.ts");
+        if (!fs.existsSync(implPath)) {
+            fs.writeFileSync(implPath, "import "+k+" from \"../types/"+k+"\";\n\n" +
+                "export default class "+k+"Impl extends "+k+" {\n" +
+                "}\n")
+        }
     }
 });
 fs.writeFileSync(path.join(TYPES_DIR, "_imports.txt"), combinedImports, "utf8");

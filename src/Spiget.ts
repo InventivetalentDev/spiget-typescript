@@ -14,13 +14,15 @@ import Error from "./Error"
 import Pagination from "./Pagination";
 
 
-export class Spiget {
+export default class Spiget {
 
     __apiBase: String;
-    axios: AxiosInstance
+    __spigotMcUrl: String;
+    axios: AxiosInstance;
 
-    constructor(apiBase = "https://api.spiget.org/v2", userAgent = "spiget-typescript") {
-        this.__apiBase = apiBase
+    constructor(apiBase = "https://api.spiget.org/v2", userAgent = "spiget-typescript", spigotMcUrl = "https://spigotmc.org") {
+        this.__apiBase = apiBase;
+        this.__spigotMcUrl = spigotMcUrl;
         this.axios = Axios.create({
             baseURL: apiBase,
             timeout: 10000,
