@@ -84,43 +84,6 @@ export class Spiget {
 
     ///// AUTHORS
 
-    /*
-    getAuthors(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Author>> {
-        return new Promise<Array<Author>>((resolve, reject) => {
-            let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-            this.__request("GET", "/authors", query).then(authors => {
-                resolve(this.__mapTypeList(authors, AuthorImpl));
-            }).catch(reject);
-        })
-    }
-
-    getAuthor(author: Id): Promise<Author> {
-        return new Promise<Author>((resolve, reject) => {
-            this.__request("GET", "/authors/" + author).then(author => {
-                resolve(this.__mapType(author, AuthorImpl));
-            }).catch(reject);
-        })
-    }
-
-    getAuthorResources(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-        return new Promise<Array<Resource>>((resolve, reject) => {
-            let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-            this.__request("GET", "/authors/" + author + "/resources", query).then(resources => {
-                resolve(this.__mapTypeList(resources, ResourceImpl));
-            }).catch(reject);
-        })
-    }
-
-    getAuthorReviews(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
-        return new Promise<Array<ResourceReviewImpl>>((resolve, reject) => {
-            let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-            this.__request("GET", "/authors/" + author + "/reviews", query).then(reviews => {
-                resolve(this.__mapTypeList(reviews, ResourceReviewImpl));
-            }).catch(reject);
-        })
-    }
-    */
-
     getAuthors(pagination: Pagination, fields: Fields): Promise<Array<Author>> {
         return this.getAuthorList(pagination, fields);
     }
@@ -140,13 +103,16 @@ export class Spiget {
         });
     }
 
+    getAuthor(author: Id): Promise<Author> {
+        return this.getAuthorDetails(author);
+    }
 
     /**
      GET /authors/{author}
      Get details about an author
 
      **/
-    getAuthorDetails(author: string): Promise<Author> {
+    getAuthorDetails(author: Id): Promise<Author> {
         return new Promise<Author>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/authors/"+author+"", query).then(res => {
@@ -161,7 +127,7 @@ export class Spiget {
      Get an author's resources
 
      **/
-    getAuthorResources(author: string, pagination: Pagination, fields: Fields): Promise<Array<Resource>> {
+    getAuthorResources(author: Id, pagination: Pagination, fields: Fields): Promise<Array<Resource>> {
         return new Promise<Array<Resource>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/authors/"+author+"/resources", query).then(resArr => {
@@ -176,7 +142,7 @@ export class Spiget {
      Get an author's reviews left on resources
 
      **/
-    getAuthorReviews(author: string, pagination: Pagination, fields: Fields): Promise<Array<ResourceReview>> {
+    getAuthorReviews(author: Id, pagination: Pagination, fields: Fields): Promise<Array<ResourceReview>> {
         return new Promise<Array<ResourceReview>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/authors/"+author+"/reviews", query).then(resArr => {
@@ -186,35 +152,6 @@ export class Spiget {
     }
 
     ///// CATEGORIES
-
-    /*
-    getCategories(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Category>> {
-        return new Promise<Array<Category>>((resolve, reject) => {
-            let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-            this.__request("GET", "/categories", query).then(categories => {
-                resolve(this.__mapTypeList(categories, CategoryImpl));
-            }).catch(reject);
-        })
-    }
-
-    getCategory(category: Id): Promise<Category> {
-        return new Promise<Category>((resolve, reject) => {
-            this.__request("GET", "/categories/" + category).then(category => {
-                resolve(this.__mapType(category, CategoryImpl));
-            }).catch(reject);
-        })
-    }
-
-
-    getCategoryResources(category: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-        return new Promise<Array<Resource>>((resolve, reject) => {
-            let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-            this.__request("GET", "/categories/" + category + "/resources", query).then(resources => {
-                resolve(this.__mapTypeList(resources, ResourceImpl));
-            }).catch(reject);
-        })
-    }
-    */
 
     getCategories(pagination: Pagination, fields: Fields): Promise<Array<Category>> {
         return this.getCategoryList(pagination, fields);
@@ -240,7 +177,7 @@ export class Spiget {
      Get details about a category
 
      **/
-    getCategoryDetails(category: string): Promise<Category> {
+    getCategoryDetails(category: Id): Promise<Category> {
         return new Promise<Category>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/categories/"+category+"", query).then(res => {
@@ -255,7 +192,7 @@ export class Spiget {
      Get the resources in a category
 
      **/
-    getCategoryResources(category: string, pagination: Pagination, fields: Fields): Promise<Array<Resource>> {
+    getCategoryResources(category: Id, pagination: Pagination, fields: Fields): Promise<Array<Resource>> {
         return new Promise<Array<Resource>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/categories/"+category+"/resources", query).then(resArr => {
@@ -301,6 +238,9 @@ export class Spiget {
         });
     }
 
+    getFreeResources(pagination: Pagination, fields: Fields): Promise<Array<Resource>> {
+        return this.getFreeResourceList(pagination, fields);
+    }
 
     /**
      GET /resources/free
@@ -332,6 +272,10 @@ export class Spiget {
     }
 
 
+    getPremiumResources(pagination: Pagination, fields: Fields): Promise<Array<Resource>> {
+        return this.getPremiumResourceList(pagination, fields);
+    }
+
     /**
      GET /resources/premium
      Get a list of available premium resources
@@ -347,12 +291,16 @@ export class Spiget {
     }
 
 
+    getResource(resource: Id): Promise<Resource> {
+        return this.getResourceDetails(resource);
+    }
+
     /**
      GET /resources/{resource}
      Get a resource by its ID or name
 
      **/
-    getResourceDetails(resource: string): Promise<Resource> {
+    getResourceDetails(resource: Id): Promise<Resource> {
         return new Promise<Resource>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/resources/"+resource+"", query).then(res => {
@@ -367,7 +315,7 @@ export class Spiget {
      Get the resource author
 
      **/
-    getResourceAuthor(resource: string): Promise<Author> {
+    getResourceAuthor(resource: Id): Promise<Author> {
         return new Promise<Author>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/resources/"+resource+"/author", query).then(res => {
@@ -377,27 +325,13 @@ export class Spiget {
     }
 
 
-    /**
-     GET /resources/{resource}/download
-     Download a resource
-
-     **/
-    getResourceDownload(resource: string): Promise<any> {
-        return new Promise<any>((resolve, reject) => {
-            let query = {};
-            this.__request("GET", "/resources/"+resource+"/download", query).then(res => {
-                resolve(this.__mapType(res, any));
-            }).catch(reject);
-        });
-    }
-
 
     /**
      GET /resources/{resource}/reviews
      Get reviews of a resource
 
      **/
-    getResourceReviews(resource: string, pagination: Pagination, fields: Fields): Promise<Array<ResourceReview>> {
+    getResourceReviews(resource: Id, pagination: Pagination, fields: Fields): Promise<Array<ResourceReview>> {
         return new Promise<Array<ResourceReview>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/"+resource+"/reviews", query).then(resArr => {
@@ -412,7 +346,7 @@ export class Spiget {
      Get updates of a resource
 
      **/
-    getResourceUpdates(resource: string, pagination: Pagination, fields: Fields): Promise<Array<ResourceUpdate>> {
+    getResourceUpdates(resource: Id, pagination: Pagination, fields: Fields): Promise<Array<ResourceUpdate>> {
         return new Promise<Array<ResourceUpdate>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/"+resource+"/updates", query).then(resArr => {
@@ -427,7 +361,7 @@ export class Spiget {
      Get versions of a resource
 
      **/
-    getResourceVersions(resource: string, pagination: Pagination, fields: Fields): Promise<Array<ResourceVersion>> {
+    getResourceVersions(resource: Id, pagination: Pagination, fields: Fields): Promise<Array<ResourceVersion>> {
         return new Promise<Array<ResourceVersion>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/"+resource+"/versions", query).then(resArr => {
@@ -435,24 +369,6 @@ export class Spiget {
             }).catch(reject);
         });
     }
-
-
-    /**
-     GET /resources/{resource}/versions/{version}/download
-     Download a specific resource version
-
-     Note: This only redirects to the stored download location and might not download a file (i.e. for external resources)
-
-     **/
-    getResourceVersionDownload(resource: string, version: string) {
-        return new any((resolve, reject) => {
-            let query = {};
-            this.__request("GET", "/resources/"+resource+"/versions/"+version+"/download", query).then(res => {
-                resolve(this.__mapType(res, any));
-            }).catch(reject);
-        });
-    }
-
 
 
 }
