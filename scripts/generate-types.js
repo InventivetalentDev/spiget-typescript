@@ -57,6 +57,18 @@ Object.keys(definitions).forEach(k => {
 });
 fs.writeFileSync(path.join(TYPES_DIR, "_imports.txt"), combinedImports, "utf8");
 
+/* original => alias */
+const pathAliases = {
+    "getAuthorDetails": "getAuthor",
+    "getAuthorList": "getAuthors",
+    "getCategoryList": "getCategories",
+    "getCategoryDetails": "getCategory",
+    "getResourceList": "getResources",
+    "getResourceDetails": "getResource",
+    "getFreeResourceList": "getFreeResources",
+    "getPremiumResourceList": "getPremiumResources"
+};
+
 let functions = "class Paths {\n";
 Object.keys(paths).forEach(p => {
     let path = paths[p];
@@ -70,40 +82,50 @@ Object.keys(paths).forEach(p => {
             method.toUpperCase() + " " + p + "\n" +
             pathM.description + "\n" +
             "**/\n"
-        func +=  camelize(method.trim()+pathM.summary);
+        let funcName = camelize(method.trim()+pathM.summary);
+        func += funcName;
         func += "(";
         let first = true;
         let hasPagination = false;
         let hasFields = false;
         let pathParamNames = [];
         let queryParamNames = [];
+        let paramsInOrder = [];
+
+        let paramString = "";
         pathM.parameters.forEach(param => {
             if (param.name === "page" || param.name === "sort") {// ignored, handled by size
                 return;
             }
             if (!first) {
-                func += ", ";
+                paramString += ", ";
             }
             if (param.name === "size") {
-                func += "pagination: Pagination = undefined";
+                paramString += "pagination: Pagination = undefined";
                 hasPagination = true;
+                paramsInOrder.push("pagination");
             } else if (param.name === "fields") {
-                func += "fields: Fields = []";
+                paramString += "fields: Fields = []";
                 hasFields = true;
+                paramsInOrder.push("fields");
             } else {
-                func += param.name + ": " + convertPropType(param);
+                paramString += param.name + ": " + convertPropType(param);
                 if (param.in === "path") {
                     pathParamNames.push(param.name);
                 } else if (param.in === "query") {
                     queryParamNames.push(param.name);
                 }
+                paramsInOrder.push(param.name);
             }
             first = false;
         });
+        func += paramString;
         func += ")";
         let returnType = "any";
         let returnTypeBase = "any";
         let isArrayReturn = false;
+
+        let returnString = "";
         if (pathM.hasOwnProperty("responses")) {
             let responses = pathM["responses"];
             if (responses.hasOwnProperty("200")) {
@@ -118,14 +140,15 @@ Object.keys(paths).forEach(p => {
                         returnTypeBase = c[1];
                     }
                     returnType = "Promise<" + t + ">";
-                    func += ": " + returnType;
+                    returnString += ": " + returnType;
                     isArrayReturn = ok.schema.type === "array";
                 } else {
                     returnType = "Promise<any>";
-                    func += ": " + returnType;
+                    returnString += ": " + returnType;
                 }
             }
         }
+        func += returnString;
         func += " {\n";
         func += "  return new " + returnType + "((resolve, reject) => {\n";
         func += "    let query = " + ((hasPagination || hasFields) ? "this.__addPaginationAndFieldsToQuery(pagination, fields)" : "{}") + ";\n";
@@ -142,6 +165,15 @@ Object.keys(paths).forEach(p => {
         func += "  });\n";
         func += "}\n";
         functions += func + "\n\n";
+
+        if (pathAliases.hasOwnProperty(funcName)) {
+            functions+="/**\n" +
+                "Alias of "+funcName+"\n" +
+                "**/\n";
+            functions += pathAliases[funcName]+"("+paramString+")"+returnString+" {\n" +
+                "  return this."+funcName+"("+paramsInOrder.join(",")+");\n" +
+                "}\n\n"
+        }
     })
 });
 functions += "}\n";

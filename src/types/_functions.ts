@@ -15,6 +15,13 @@ getAuthorList(pagination: Pagination = undefined, fields: Fields = []): Promise<
 }
 
 
+/**
+Alias of getAuthorList
+**/
+getAuthors(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Author>> {
+  return this.getAuthorList(pagination,fields);
+}
+
 /** 
 GET /authors/{author}
 Get details about an author
@@ -29,6 +36,13 @@ getAuthorDetails(author: string): Promise<Author> {
   });
 }
 
+
+/**
+Alias of getAuthorDetails
+**/
+getAuthor(author: string): Promise<Author> {
+  return this.getAuthorDetails(author);
+}
 
 /** 
 GET /authors/{author}/resources
@@ -75,6 +89,13 @@ getCategoryList(pagination: Pagination = undefined, fields: Fields = []): Promis
 }
 
 
+/**
+Alias of getCategoryList
+**/
+getCategories(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Category>> {
+  return this.getCategoryList(pagination,fields);
+}
+
 /** 
 GET /categories/{category}
 Get details about a category
@@ -89,6 +110,13 @@ getCategoryDetails(category: string): Promise<Category> {
   });
 }
 
+
+/**
+Alias of getCategoryDetails
+**/
+getCategory(category: string): Promise<Category> {
+  return this.getCategoryDetails(category);
+}
 
 /** 
 GET /categories/{category}/resources
@@ -119,6 +147,13 @@ getResourceList(pagination: Pagination = undefined, fields: Fields = []): Promis
   });
 }
 
+
+/**
+Alias of getResourceList
+**/
+getResources(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+  return this.getResourceList(pagination,fields);
+}
 
 /** 
 GET /resources/for/{version}
@@ -151,6 +186,13 @@ getFreeResourceList(pagination: Pagination = undefined, fields: Fields = []): Pr
 }
 
 
+/**
+Alias of getFreeResourceList
+**/
+getFreeResources(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+  return this.getFreeResourceList(pagination,fields);
+}
+
 /** 
 GET /resources/new
 Get all new resources
@@ -181,6 +223,13 @@ getPremiumResourceList(pagination: Pagination = undefined, fields: Fields = []):
 }
 
 
+/**
+Alias of getPremiumResourceList
+**/
+getPremiumResources(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+  return this.getPremiumResourceList(pagination,fields);
+}
+
 /** 
 GET /resources/{resource}
 Get a resource by its ID or name
@@ -195,6 +244,13 @@ getResourceDetails(resource: string): Promise<Resource> {
   });
 }
 
+
+/**
+Alias of getResourceDetails
+**/
+getResource(resource: string): Promise<Resource> {
+  return this.getResourceDetails(resource);
+}
 
 /** 
 GET /resources/{resource}/author
