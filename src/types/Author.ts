@@ -1,10 +1,10 @@
-import Spiget from "../Spiget"
+import Spiget, {Id} from "../Spiget"
 import SpigetType from "../SpigetType"
 import Icon from "./Icon";
 
 export class Author extends SpigetType {
   /** Id of the author **/
-  id: number;
+  id: Id;
   /** Author name **/
   name: string;
   icon: Icon;

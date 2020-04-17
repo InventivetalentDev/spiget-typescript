@@ -1,4 +1,4 @@
-import Spiget from "../Spiget"
+import Spiget, {Id} from "../Spiget"
 import SpigetType from "../SpigetType"
 
 export class ResourceFile extends SpigetType {

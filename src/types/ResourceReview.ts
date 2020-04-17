@@ -1,4 +1,4 @@
-import Spiget from "../Spiget"
+import Spiget, {Id} from "../Spiget"
 import SpigetType from "../SpigetType"
 import Author from "./Author";
 import ResourceRating from "./ResourceRating";

@@ -1,9 +1,9 @@
-import Spiget from "../Spiget"
+import Spiget, {Id} from "../Spiget"
 import SpigetType from "../SpigetType"
 
 export class Category extends SpigetType {
   /** Category ID **/
-  id: number;
+  id: Id;
   /** Category name **/
   name: string;
 

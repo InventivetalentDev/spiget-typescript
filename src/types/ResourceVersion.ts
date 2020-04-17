@@ -1,10 +1,10 @@
-import Spiget from "../Spiget"
+import Spiget, {Id} from "../Spiget"
 import SpigetType from "../SpigetType"
 import ResourceRating from "./ResourceRating";
 
 export class ResourceVersion extends SpigetType {
   /** Version ID **/
-  id: number;
+  id: Id;
   /** Version name (e.g. v1.0) **/
   name: string;
   /** Timestamp of the version's release date **/

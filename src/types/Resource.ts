@@ -1,4 +1,4 @@
-import Spiget from "../Spiget"
+import Spiget, {Id} from "../Spiget"
 import SpigetType from "../SpigetType"
 import ResourceFile from "./ResourceFile";
 import ResourceRating from "./ResourceRating";
@@ -7,7 +7,7 @@ import ResourceReview from "./ResourceReview";
 
 export class Resource extends SpigetType {
   /** Id of the Resource **/
-  id: number;
+  id: Id;
   /** Name of the Resource **/
   name: string;
   /** Tag line of the Resource **/

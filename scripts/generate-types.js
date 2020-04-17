@@ -13,7 +13,7 @@ Object.keys(definitions).forEach(k => {
     if (v.hasOwnProperty("type")) {
         console.log("Generating Type Class for " + k + " of type " + v.type)
 
-        let imports = "import Spiget from \"../Spiget\"\n" +
+        let imports = "import Spiget, {Id} from \"../Spiget\"\n" +
             "import SpigetType from \"../SpigetType\"\n";
         let content = "export class " + k + " extends SpigetType {\n";
         let constr = "  constructor(source: any, spiget: Spiget = new Spiget()) {\n" +
@@ -23,11 +23,15 @@ Object.keys(definitions).forEach(k => {
             if (v.hasOwnProperty("properties")) {
                 let prop = v.properties[p];
                 let conv = convertPropType(prop);
+                let propT = conv[0];
                 if (prop.hasOwnProperty("description")) {
                     content += "  /** " + prop.description + " **/\n"
+                    if (propT === "number" && prop.description.toLowerCase().indexOf("id") !== -1) {
+                        propT = "Id";
+                    }
                 }
                 content += "  " + p + ": ";
-                content += conv[0];
+                content += propT;
                 content += ";\n";
 
                 constr += "      if (source.hasOwnProperty(\"" + p + "\")) this." + p + " = source." + p + ";\n";

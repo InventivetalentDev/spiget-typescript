@@ -1,9 +1,9 @@
-import Spiget from "../Spiget"
+import Spiget, {Id} from "../Spiget"
 import SpigetType from "../SpigetType"
 
 export class ResourceUpdate extends SpigetType {
   /** Update ID **/
-  id: number;
+  id: Id;
   /** Update title **/
   title: string;
   /** Base64-Encoded description of the update **/
