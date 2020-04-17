@@ -85,10 +85,10 @@ Object.keys(paths).forEach(p => {
                 func += ", ";
             }
             if (param.name === "size") {
-                func += "pagination: Pagination";
+                func += "pagination: Pagination = undefined";
                 hasPagination = true;
             } else if (param.name === "fields") {
-                func += "fields: Fields";
+                func += "fields: Fields = []";
                 hasFields = true;
             } else {
                 func += param.name + ": " + convertPropType(param);
