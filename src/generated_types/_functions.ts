@@ -9,7 +9,7 @@ getAuthorList(pagination: Pagination = undefined, fields: Fields = []): Promise<
   return new Promise<Array<Author>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/authors", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, AuthorImpl));
+      resolve(this.__mapTypeList(resArr, Author));
     }).catch(reject);
   });
 }
@@ -32,7 +32,7 @@ getAuthorDetails(author: Id): Promise<Author> {
   return new Promise<Author>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/authors/" + author + "", query).then(res => {
-      resolve(this.__mapType(res, AuthorImpl));
+      resolve(this.__mapType(res, Author));
     }).catch(reject);
   });
 }
@@ -55,7 +55,7 @@ getAuthorResources(author: Id, pagination: Pagination = undefined, fields: Field
   return new Promise<Array<Resource>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/authors/" + author + "/resources", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceImpl));
+      resolve(this.__mapTypeList(resArr, Resource));
     }).catch(reject);
   });
 }
@@ -71,7 +71,7 @@ getAuthorReviews(author: Id, pagination: Pagination = undefined, fields: Fields 
   return new Promise<Array<ResourceReview>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/authors/" + author + "/reviews", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceReviewImpl));
+      resolve(this.__mapTypeList(resArr, ResourceReview));
     }).catch(reject);
   });
 }
@@ -86,7 +86,7 @@ getCategoryList(pagination: Pagination = undefined, fields: Fields = []): Promis
   return new Promise<Array<Category>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/categories", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, CategoryImpl));
+      resolve(this.__mapTypeList(resArr, Category));
     }).catch(reject);
   });
 }
@@ -109,7 +109,7 @@ getCategoryDetails(category: Id): Promise<Category> {
   return new Promise<Category>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/categories/" + category + "", query).then(res => {
-      resolve(this.__mapType(res, CategoryImpl));
+      resolve(this.__mapType(res, Category));
     }).catch(reject);
   });
 }
@@ -132,7 +132,7 @@ getCategoryResources(category: Id, pagination: Pagination = undefined, fields: F
   return new Promise<Array<Resource>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/categories/" + category + "/resources", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceImpl));
+      resolve(this.__mapTypeList(resArr, Resource));
     }).catch(reject);
   });
 }
@@ -147,7 +147,7 @@ getResourceList(pagination: Pagination = undefined, fields: Fields = []): Promis
   return new Promise<Array<Resource>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/resources", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceImpl));
+      resolve(this.__mapTypeList(resArr, Resource));
     }).catch(reject);
   });
 }
@@ -172,7 +172,7 @@ getResourcesForVersions(version: string, method: string, pagination: Pagination 
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     query["method"] = method;
     this.__request("GET", "/resources/for/" + version + "", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceImpl));
+      resolve(this.__mapTypeList(resArr, Resource));
     }).catch(reject);
   });
 }
@@ -187,7 +187,7 @@ getFreeResourceList(pagination: Pagination = undefined, fields: Fields = []): Pr
   return new Promise<Array<Resource>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/resources/free", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceImpl));
+      resolve(this.__mapTypeList(resArr, Resource));
     }).catch(reject);
   });
 }
@@ -209,7 +209,7 @@ getNewResources(pagination: Pagination = undefined, fields: Fields = []): Promis
   return new Promise<Array<Resource>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/resources/new", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceImpl));
+      resolve(this.__mapTypeList(resArr, Resource));
     }).catch(reject);
   });
 }
@@ -224,7 +224,7 @@ getPremiumResourceList(pagination: Pagination = undefined, fields: Fields = []):
   return new Promise<Array<Resource>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/resources/premium", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceImpl));
+      resolve(this.__mapTypeList(resArr, Resource));
     }).catch(reject);
   });
 }
@@ -247,7 +247,7 @@ getResourceDetails(resource: Id): Promise<Resource> {
   return new Promise<Resource>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/resources/" + resource + "", query).then(res => {
-      resolve(this.__mapType(res, ResourceImpl));
+      resolve(this.__mapType(res, Resource));
     }).catch(reject);
   });
 }
@@ -270,7 +270,7 @@ getResourceAuthor(resource: Id): Promise<Author> {
   return new Promise<Author>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/resources/" + resource + "/author", query).then(res => {
-      resolve(this.__mapType(res, AuthorImpl));
+      resolve(this.__mapType(res, Author));
     }).catch(reject);
   });
 }
@@ -286,7 +286,7 @@ getResourceDownload(resource: Id): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/resources/" + resource + "/download", query).then(res => {
-      resolve(this.__mapType(res, anyImpl));
+      resolve(this.__mapType(res, any));
     }).catch(reject);
   });
 }
@@ -302,7 +302,7 @@ getResourceReviews(resource: Id, pagination: Pagination = undefined, fields: Fie
   return new Promise<Array<ResourceReview>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/resources/" + resource + "/reviews", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceReviewImpl));
+      resolve(this.__mapTypeList(resArr, ResourceReview));
     }).catch(reject);
   });
 }
@@ -318,7 +318,7 @@ getResourceUpdates(resource: Id, pagination: Pagination = undefined, fields: Fie
   return new Promise<Array<ResourceUpdate>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/resources/" + resource + "/updates", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceUpdateImpl));
+      resolve(this.__mapTypeList(resArr, ResourceUpdate));
     }).catch(reject);
   });
 }
@@ -334,7 +334,7 @@ getResourceVersions(resource: Id, pagination: Pagination = undefined, fields: Fi
   return new Promise<Array<ResourceVersion>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/resources/" + resource + "/versions", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceVersionImpl));
+      resolve(this.__mapTypeList(resArr, ResourceVersion));
     }).catch(reject);
   });
 }
@@ -353,7 +353,7 @@ getResourceVersionDownload(resource: Id, version: string) {
   return new any((resolve, reject) => {
     let query = {};
     this.__request("GET", "/resources/" + resource + "/versions/" + version + "/download", query).then(res => {
-      resolve(this.__mapType(res, anyImpl));
+      resolve(this.__mapType(res, any));
     }).catch(reject);
   });
 }
@@ -371,7 +371,7 @@ getAuthorSearch(query: string, field: string, pagination: Pagination = undefined
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     query["field"] = field;
     this.__request("GET", "/search/authors/" + query + "", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, AuthorImpl));
+      resolve(this.__mapTypeList(resArr, Author));
     }).catch(reject);
   });
 }
@@ -389,7 +389,7 @@ getResourceSearch(query: string, field: string, pagination: Pagination = undefin
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     query["field"] = field;
     this.__request("GET", "/search/resources/" + query + "", query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceImpl));
+      resolve(this.__mapTypeList(resArr, Resource));
     }).catch(reject);
   });
 }
@@ -404,7 +404,7 @@ getAPIStatus(): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/status", query).then(res => {
-      resolve(this.__mapType(res, anyImpl));
+      resolve(this.__mapType(res, any));
     }).catch(reject);
   });
 }
@@ -421,7 +421,7 @@ deleteDeleteWebhook(id: string, secret: string): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     let query = {};
     this.__request("DELETE", "/webhook/delete/" + id + "/" + secret + "", query).then(res => {
-      resolve(this.__mapType(res, anyImpl));
+      resolve(this.__mapType(res, any));
     }).catch(reject);
   });
 }
@@ -436,7 +436,7 @@ getWebhookEvents(): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/webhook/events", query).then(res => {
-      resolve(this.__mapType(res, anyImpl));
+      resolve(this.__mapType(res, any));
     }).catch(reject);
   });
 }
@@ -455,7 +455,7 @@ postRegisterWebhook(url: string, events: Array<string>): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     let query = {};
     this.__request("POST", "/webhook/register", query).then(res => {
-      resolve(this.__mapType(res, anyImpl));
+      resolve(this.__mapType(res, any));
     }).catch(reject);
   });
 }
@@ -471,7 +471,7 @@ getWebhookStatus(id: string): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/webhook/status/" + id + "", query).then(res => {
-      resolve(this.__mapType(res, anyImpl));
+      resolve(this.__mapType(res, any));
     }).catch(reject);
   });
 }

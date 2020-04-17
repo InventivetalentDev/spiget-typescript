@@ -1,18 +1,12 @@
-import Spiget, {Id} from "../Spiget"
-import SpigetType from "../SpigetType"
+import CategoryBase from "../generated_types/CategoryBase";
+import { Pagination } from "../Pagination";
+import { Fields } from "../Spiget";
+import Resource from "./Resource";
 
-export class Category extends SpigetType {
-  /** Category ID **/
-  id: Id;
-  /** Category name **/
-  name: string;
+export default class Category extends CategoryBase {
 
-  constructor(source: any, spiget: Spiget = new Spiget()) {
-    super(source, spiget);
-    if (source !== undefined) {
-      if (source.hasOwnProperty("id")) this.id = source.id;
-      if (source.hasOwnProperty("name")) this.name = source.name;
+    getResources(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+        return this._spiget.getCategoryResources(this.id, pagination, fields);
     }
-  }
+
 }
-export default Category;

@@ -13,12 +13,6 @@ import IdReference from "./types/IdReference";
 import Error from "./Error"
 import { Pagination } from "./Pagination";
 import SpigetType, { Constructor as TypeConstructor } from "./SpigetType";
-import AuthorImpl from "./types_/AuthorImpl";
-import ResourceImpl from "./types_/ResourceImpl";
-import ResourceReviewImpl from "./types_/ResourceReviewImpl";
-import CategoryImpl from "./types_/CategoryImpl";
-import ResourceUpdateImpl from "./types_/ResourceUpdateImpl";
-import ResourceVersionImpl from "./types_/ResourceVersionImpl";
 
 
 export class Spiget {
@@ -113,7 +107,7 @@ export class Spiget {
         return new Promise<Array<Author>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/authors", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, AuthorImpl));
+                resolve(this.__mapTypeList(resArr, Author));
             }).catch(reject);
         });
     }
@@ -136,7 +130,7 @@ export class Spiget {
         return new Promise<Author>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/authors/" + author + "", query).then(res => {
-                resolve(this.__mapType(res, AuthorImpl));
+                resolve(this.__mapType(res, Author));
             }).catch(reject);
         });
     }
@@ -159,7 +153,7 @@ export class Spiget {
         return new Promise<Array<Resource>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/authors/" + author + "/resources", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceImpl));
+                resolve(this.__mapTypeList(resArr, Resource));
             }).catch(reject);
         });
     }
@@ -175,7 +169,7 @@ export class Spiget {
         return new Promise<Array<ResourceReview>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/authors/" + author + "/reviews", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceReviewImpl));
+                resolve(this.__mapTypeList(resArr, ResourceReview));
             }).catch(reject);
         });
     }
@@ -191,7 +185,7 @@ export class Spiget {
         return new Promise<Array<Category>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/categories", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, CategoryImpl));
+                resolve(this.__mapTypeList(resArr, Category));
             }).catch(reject);
         });
     }
@@ -214,7 +208,7 @@ export class Spiget {
         return new Promise<Category>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/categories/" + category + "", query).then(res => {
-                resolve(this.__mapType(res, CategoryImpl));
+                resolve(this.__mapType(res, Category));
             }).catch(reject);
         });
     }
@@ -237,7 +231,7 @@ export class Spiget {
         return new Promise<Array<Resource>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/categories/" + category + "/resources", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceImpl));
+                resolve(this.__mapTypeList(resArr, Resource));
             }).catch(reject);
         });
     }
@@ -254,7 +248,7 @@ export class Spiget {
         return new Promise<Array<Resource>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceImpl));
+                resolve(this.__mapTypeList(resArr, Resource));
             }).catch(reject);
         });
     }
@@ -279,7 +273,7 @@ export class Spiget {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             query["method"] = method;
             this.__request("GET", "/resources/for/" + version + "", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceImpl));
+                resolve(this.__mapTypeList(resArr, Resource));
             }).catch(reject);
         });
     }
@@ -294,7 +288,7 @@ export class Spiget {
         return new Promise<Array<Resource>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/free", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceImpl));
+                resolve(this.__mapTypeList(resArr, Resource));
             }).catch(reject);
         });
     }
@@ -316,7 +310,7 @@ export class Spiget {
         return new Promise<Array<Resource>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/new", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceImpl));
+                resolve(this.__mapTypeList(resArr, Resource));
             }).catch(reject);
         });
     }
@@ -331,7 +325,7 @@ export class Spiget {
         return new Promise<Array<Resource>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/premium", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceImpl));
+                resolve(this.__mapTypeList(resArr, Resource));
             }).catch(reject);
         });
     }
@@ -354,7 +348,7 @@ export class Spiget {
         return new Promise<Resource>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/resources/" + resource + "", query).then(res => {
-                resolve(this.__mapType(res, ResourceImpl));
+                resolve(this.__mapType(res, Resource));
             }).catch(reject);
         });
     }
@@ -377,7 +371,7 @@ export class Spiget {
         return new Promise<Author>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/resources/" + resource + "/author", query).then(res => {
-                resolve(this.__mapType(res, AuthorImpl));
+                resolve(this.__mapType(res, Author));
             }).catch(reject);
         });
     }
@@ -393,7 +387,7 @@ export class Spiget {
         return new Promise<Array<ResourceReview>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/" + resource + "/reviews", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceReviewImpl));
+                resolve(this.__mapTypeList(resArr, ResourceReview));
             }).catch(reject);
         });
     }
@@ -409,7 +403,7 @@ export class Spiget {
         return new Promise<Array<ResourceUpdate>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/" + resource + "/updates", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceUpdateImpl));
+                resolve(this.__mapTypeList(resArr, ResourceUpdate));
             }).catch(reject);
         });
     }
@@ -425,7 +419,7 @@ export class Spiget {
         return new Promise<Array<ResourceVersion>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/" + resource + "/versions", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceVersionImpl));
+                resolve(this.__mapTypeList(resArr, ResourceVersion));
             }).catch(reject);
         });
     }
@@ -446,7 +440,7 @@ export class Spiget {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             query["field"] = field;
             this.__request("GET", "/search/authors/" + query + "", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, AuthorImpl));
+                resolve(this.__mapTypeList(resArr, Author));
             }).catch(reject);
         });
     }
@@ -464,7 +458,7 @@ export class Spiget {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             query["field"] = field;
             this.__request("GET", "/search/resources/" + query + "", query).then(resArr => {
-                resolve(this.__mapTypeList(resArr, ResourceImpl));
+                resolve(this.__mapTypeList(resArr, Resource));
             }).catch(reject);
         });
     }

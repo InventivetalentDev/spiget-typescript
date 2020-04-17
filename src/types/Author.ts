@@ -1,21 +1,17 @@
-import Spiget, {Id} from "../Spiget"
-import SpigetType from "../SpigetType"
-import Icon from "./Icon";
+import AuthorBase from "../generated_types/AuthorBase";
+import { Pagination } from "../Pagination";
+import { Fields } from "../Spiget";
+import Resource from "./Resource";
+import ResourceReview from "./ResourceReview";
 
-export class Author extends SpigetType {
-  /** Id of the author **/
-  id: Id;
-  /** Author name **/
-  name: string;
-  icon: Icon;
+export default class Author extends AuthorBase {
 
-  constructor(source: any, spiget: Spiget = new Spiget()) {
-    super(source, spiget);
-    if (source !== undefined) {
-      if (source.hasOwnProperty("id")) this.id = source.id;
-      if (source.hasOwnProperty("name")) this.name = source.name;
-      if (source.hasOwnProperty("icon")) this.icon = source.icon;
+    getResources(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+        return this._spiget.getAuthorResources(this.id, pagination, fields);
     }
-  }
+
+    getReviews(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
+        return this._spiget.getAuthorReviews(this.id, pagination, fields);
+    }
+
 }
-export default Author;

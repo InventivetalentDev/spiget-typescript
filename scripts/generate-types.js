@@ -5,6 +5,7 @@ const definitions = swagger.definitions;
 const paths = swagger.paths;
 
 const TYPES_DIR = "../src/types";
+const GENERATED_TYPES_DIR = "../src/generated_types";
 
 let combinedImports = "";
 
@@ -37,7 +38,7 @@ Object.keys(definitions).forEach(k => {
                 constr += "      if (source.hasOwnProperty(\"" + p + "\")) this." + p + " = source." + p + ";\n";
 
                 if (conv.length > 1 && conv[1] !== undefined) {
-                    imports += 'import ' + conv[1] + ' from "./' + conv[1] + '";\n';
+                    imports += 'import ' + conv[1] + ' from "../types/' + conv[1] + '";\n';
                 }
             } else {
                 console.warn(p + " has no properties");
@@ -52,17 +53,17 @@ Object.keys(definitions).forEach(k => {
 
         combinedImports += 'import ' + k + ' from "./types/' + k + '";\n';
 
-        fs.writeFileSync(path.join(TYPES_DIR, k + ".ts"), imports + "\n" + content, "utf8");
+        fs.writeFileSync(path.join(GENERATED_TYPES_DIR, k + "Base.ts"), imports + "\n" + content, "utf8");
 
-        let implPath = path.join(TYPES_DIR + "_", k + "Impl.ts");
+        let implPath = path.join(TYPES_DIR, k + ".ts");
         if (!fs.existsSync(implPath)) {
-            fs.writeFileSync(implPath, "import " + k + " from \"../types/" + k + "\";\n\n" +
-                "export default class " + k + "Impl extends " + k + " {\n" +
+            fs.writeFileSync(implPath, "import " + k + "Base from \"../generated_types/" + k + "Base\";\n\n" +
+                "export default class " + k + " extends " + k + "Base {\n" +
                 "}\n")
         }
     }
 });
-fs.writeFileSync(path.join(TYPES_DIR, "_imports.txt"), combinedImports, "utf8");
+fs.writeFileSync(path.join(GENERATED_TYPES_DIR, "_imports.txt"), combinedImports, "utf8");
 
 /* original => alias */
 const pathAliases = {
@@ -178,7 +179,7 @@ Object.keys(paths).forEach(p => {
             replacedPath = replacedPath.replace("{" + n + "}", "\" + " + n + " + \"");
         });
         func += "    this.__request(\"" + method.toUpperCase() + "\", \"" + replacedPath + "\", query).then(res" + (isArrayReturn ? "Arr" : "") + " => {\n";
-        func += "      resolve(this.__mapType" + (isArrayReturn ? "List" : "") + "(res" + (isArrayReturn ? "Arr" : "") + ", " + returnTypeBase + "Impl));\n";
+        func += "      resolve(this.__mapType" + (isArrayReturn ? "List" : "") + "(res" + (isArrayReturn ? "Arr" : "") + ", " + returnTypeBase + "));\n";
         func += "    }).catch(reject);\n"
         func += "  });\n";
         func += "}\n";
@@ -195,7 +196,7 @@ Object.keys(paths).forEach(p => {
     })
 });
 functions += "}\n";
-fs.writeFileSync(path.join(TYPES_DIR, "_functions.ts"), functions, "utf8");
+fs.writeFileSync(path.join(GENERATED_TYPES_DIR, "_functions.ts"), functions, "utf8");
 
 function convertPropType(prop) {
     if (prop.hasOwnProperty("$ref")) {

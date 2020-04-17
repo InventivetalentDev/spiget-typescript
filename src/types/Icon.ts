@@ -1,18 +1,9 @@
-import Spiget, {Id} from "../Spiget"
-import SpigetType from "../SpigetType"
+import IconBase from "../generated_types/IconBase";
 
-export class Icon extends SpigetType {
-  /** Relative URL to the image **/
-  url: string;
-  /** Base64-Encoded image data **/
-  data: string;
+export default class Icon extends IconBase {
 
-  constructor(source: any, spiget: Spiget = new Spiget()) {
-    super(source, spiget);
-    if (source !== undefined) {
-      if (source.hasOwnProperty("url")) this.url = source.url;
-      if (source.hasOwnProperty("data")) this.data = source.data;
+    fullUrl() {
+        return this._spiget.__spigotMcUrl + this.url;
     }
-  }
+
 }
-export default Icon;

@@ -11,7 +11,7 @@
     "src/**/*"
   ],
   "exclude": [
-    "src/types/_functions.ts",
-    "src/types/_imports.txt"
+    "src/generated_types/_functions.ts",
+    "src/generated_types/_imports.txt"
   ]
 }
