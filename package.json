@@ -2,7 +2,7 @@
   "name": "spiget",
   "version": "0.0.1",
   "description": "Javascript/Typescript client for the spiget.org API",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha",
     "compile": "tsc",
