@@ -35,7 +35,7 @@ GET /authors/{author}/resources
 Get an author's resources
 
 **/
-getAuthorresources(author: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+getAuthorResources(author: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
   return new Promise<Array<Resource>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/authors/" + author + "/resources", query).then(resArr => {
@@ -50,7 +50,7 @@ GET /authors/{author}/reviews
 Get an author's reviews left on resources
 
 **/
-getAuthorreviews(author: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
+getAuthorReviews(author: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
   return new Promise<Array<ResourceReview>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/authors/" + author + "/reviews", query).then(resArr => {
@@ -125,7 +125,7 @@ GET /resources/for/{version}
 Get resources for the specified version(s)
 
 **/
-getResourcesforVersions(version: string, method: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+getResourcesForVersions(version: string, method: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
   return new Promise<Array<Resource>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     query["method"] = method;
@@ -355,7 +355,7 @@ GET /webhook/events
 Get a list of available events
 
 **/
-getWebhookevents(): Promise<any> {
+getWebhookEvents(): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/webhook/events", query).then(res => {
