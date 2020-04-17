@@ -25,7 +25,7 @@ export class Spiget {
     __spigotMcUrl: String;
     axios: AxiosInstance;
 
-    constructor(apiBase = "https://api.spiget.org/v2", userAgent = "spiget-typescript", spigotMcUrl = "https://spigotmc.org") {
+    constructor(userAgent = "spiget-typescript", apiBase = "https://api.spiget.org/v2", spigotMcUrl = "https://spigotmc.org") {
         this.__apiBase = apiBase;
         this.__spigotMcUrl = spigotMcUrl;
         this.axios = Axios.create({
