@@ -8,6 +8,13 @@ import ResourceReview from "./ResourceReview";
 
 export default class Resource extends ResourceBase {
 
+    /**
+     * Check if this is a full resource object (via /resources/:id) or a stripped down object (via /resources)
+     */
+    isFullResource() {
+        return this.updates != null && this.versions != null;
+    }
+
     getAuthor(): Promise<Author> {
         return this._spiget.getResourceAuthor(this.id);
     }
