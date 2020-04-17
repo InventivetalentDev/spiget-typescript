@@ -2,7 +2,9 @@ import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 
 export class ResourceRating extends SpigetType {
+  /** Number of ratings **/
   count: number;
+  /** Average rating **/
   average: number;
 
   constructor(source: any, spiget: Spiget = new Spiget()) {

@@ -3,7 +3,9 @@ import SpigetType from "../SpigetType"
 import Icon from "./Icon";
 
 export class Author extends SpigetType {
+  /** Id of the author **/
   id: number;
+  /** Author name **/
   name: string;
   icon: Icon;
 

@@ -2,7 +2,9 @@ import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 
 export class Category extends SpigetType {
+  /** Category ID **/
   id: number;
+  /** Category name **/
   name: string;
 
   constructor(source: any, spiget: Spiget = new Spiget()) {

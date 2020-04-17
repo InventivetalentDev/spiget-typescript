@@ -3,9 +3,13 @@ import SpigetType from "../SpigetType"
 import ResourceRating from "./ResourceRating";
 
 export class ResourceVersion extends SpigetType {
+  /** Version ID **/
   id: number;
+  /** Version name (e.g. v1.0) **/
   name: string;
+  /** Timestamp of the version's release date **/
   releaseDate: number;
+  /** Amount of downloads **/
   downloads: number;
   rating: ResourceRating;
 

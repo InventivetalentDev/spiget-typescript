@@ -23,6 +23,9 @@ Object.keys(definitions).forEach(k => {
             if (v.hasOwnProperty("properties")) {
                 let prop = v.properties[p];
                 let conv = convertPropType(prop);
+                if (prop.hasOwnProperty("description")) {
+                    content += "  /** " + prop.description + " **/\n"
+                }
                 content += "  " + p + ": ";
                 content += conv[0];
                 content += ";\n";
@@ -82,7 +85,7 @@ Object.keys(paths).forEach(p => {
             method.toUpperCase() + " " + p + "\n" +
             pathM.description + "\n" +
             "**/\n"
-        let funcName = camelize(method.trim()+pathM.summary);
+        let funcName = camelize(method.trim() + pathM.summary);
         func += funcName;
         func += "(";
         let first = true;
@@ -167,11 +170,11 @@ Object.keys(paths).forEach(p => {
         functions += func + "\n\n";
 
         if (pathAliases.hasOwnProperty(funcName)) {
-            functions+="/**\n" +
-                "Alias of "+funcName+"\n" +
+            functions += "/**\n" +
+                "Alias of " + funcName + "\n" +
                 "**/\n";
-            functions += pathAliases[funcName]+"("+paramString+")"+returnString+" {\n" +
-                "  return this."+funcName+"("+paramsInOrder.join(",")+");\n" +
+            functions += pathAliases[funcName] + "(" + paramString + ")" + returnString + " {\n" +
+                "  return this." + funcName + "(" + paramsInOrder.join(",") + ");\n" +
                 "}\n\n"
         }
     })
@@ -200,7 +203,7 @@ function convertPropType(prop) {
 
 // https://stackoverflow.com/a/2970667/6257838
 function camelize(str) {
-    return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+    return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
         if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
         return index === 0 ? match.toLowerCase() : match.toUpperCase();
     });

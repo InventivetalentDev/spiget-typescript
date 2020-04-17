@@ -2,7 +2,9 @@ import Spiget from "../Spiget"
 import SpigetType from "../SpigetType"
 
 export class Icon extends SpigetType {
+  /** Relative URL to the image **/
   url: string;
+  /** Base64-Encoded image data **/
   data: string;
 
   constructor(source: any, spiget: Spiget = new Spiget()) {
