@@ -129,7 +129,7 @@ export class Spiget {
      Get details about an author
 
      **/
-    getAuthorDetails(author: string): Promise<Author> {
+    getAuthorDetails(author: Id): Promise<Author> {
         return new Promise<Author>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/authors/" + author + "", query).then(res => {
@@ -151,7 +151,7 @@ export class Spiget {
      Get an author's resources
 
      **/
-    getAuthorResources(author: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+    getAuthorResources(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
         return new Promise<Array<Resource>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/authors/" + author + "/resources", query).then(resArr => {
@@ -166,7 +166,7 @@ export class Spiget {
      Get an author's reviews left on resources
 
      **/
-    getAuthorReviews(author: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
+    getAuthorReviews(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
         return new Promise<Array<ResourceReview>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/authors/" + author + "/reviews", query).then(resArr => {
@@ -204,7 +204,7 @@ export class Spiget {
      Get details about a category
 
      **/
-    getCategoryDetails(category: string): Promise<Category> {
+    getCategoryDetails(category: Id): Promise<Category> {
         return new Promise<Category>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/categories/" + category + "", query).then(res => {
@@ -217,7 +217,7 @@ export class Spiget {
     /**
      Alias of getCategoryDetails
      **/
-    getCategory(category: string): Promise<Category> {
+    getCategory(category: Id): Promise<Category> {
         return this.getCategoryDetails(category);
     }
 
@@ -226,7 +226,7 @@ export class Spiget {
      Get the resources in a category
 
      **/
-    getCategoryResources(category: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+    getCategoryResources(category: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
         return new Promise<Array<Resource>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/categories/" + category + "/resources", query).then(resArr => {
@@ -340,7 +340,7 @@ export class Spiget {
      Get a resource by its ID or name
 
      **/
-    getResourceDetails(resource: string): Promise<Resource> {
+    getResourceDetails(resource: Id): Promise<Resource> {
         return new Promise<Resource>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/resources/" + resource + "", query).then(res => {
@@ -353,7 +353,7 @@ export class Spiget {
     /**
      Alias of getResourceDetails
      **/
-    getResource(resource: string): Promise<Resource> {
+    getResource(resource: Id): Promise<Resource> {
         return this.getResourceDetails(resource);
     }
 
@@ -362,7 +362,7 @@ export class Spiget {
      Get the resource author
 
      **/
-    getResourceAuthor(resource: string): Promise<Author> {
+    getResourceAuthor(resource: Id): Promise<Author> {
         return new Promise<Author>((resolve, reject) => {
             let query = {};
             this.__request("GET", "/resources/" + resource + "/author", query).then(res => {
@@ -377,7 +377,7 @@ export class Spiget {
      Get reviews of a resource
 
      **/
-    getResourceReviews(resource: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
+    getResourceReviews(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
         return new Promise<Array<ResourceReview>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/" + resource + "/reviews", query).then(resArr => {
@@ -392,7 +392,7 @@ export class Spiget {
      Get updates of a resource
 
      **/
-    getResourceUpdates(resource: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceUpdate>> {
+    getResourceUpdates(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceUpdate>> {
         return new Promise<Array<ResourceUpdate>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/" + resource + "/updates", query).then(resArr => {
@@ -407,7 +407,7 @@ export class Spiget {
      Get versions of a resource
 
      **/
-    getResourceVersions(resource: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceVersion>> {
+    getResourceVersions(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceVersion>> {
         return new Promise<Array<ResourceVersion>>((resolve, reject) => {
             let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
             this.__request("GET", "/resources/" + resource + "/versions", query).then(resArr => {
