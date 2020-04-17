@@ -26,6 +26,7 @@ getAuthors(pagination: Pagination = undefined, fields: Fields = []): Promise<Arr
 GET /authors/{author}
 Get details about an author
 
+@param	author	Author ID
 **/
 getAuthorDetails(author: Id): Promise<Author> {
   return new Promise<Author>((resolve, reject) => {
@@ -48,6 +49,7 @@ getAuthor(author: Id): Promise<Author> {
 GET /authors/{author}/resources
 Get an author's resources
 
+@param	author	Author ID
 **/
 getAuthorResources(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
   return new Promise<Array<Resource>>((resolve, reject) => {
@@ -63,6 +65,7 @@ getAuthorResources(author: Id, pagination: Pagination = undefined, fields: Field
 GET /authors/{author}/reviews
 Get an author's reviews left on resources
 
+@param	author	Author ID
 **/
 getAuthorReviews(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
   return new Promise<Array<ResourceReview>>((resolve, reject) => {
@@ -100,6 +103,7 @@ getCategories(pagination: Pagination = undefined, fields: Fields = []): Promise<
 GET /categories/{category}
 Get details about a category
 
+@param	category	Category ID
 **/
 getCategoryDetails(category: Id): Promise<Category> {
   return new Promise<Category>((resolve, reject) => {
@@ -122,6 +126,7 @@ getCategory(category: Id): Promise<Category> {
 GET /categories/{category}/resources
 Get the resources in a category
 
+@param	category	Category ID
 **/
 getCategoryResources(category: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
   return new Promise<Array<Resource>>((resolve, reject) => {
@@ -159,6 +164,8 @@ getResources(pagination: Pagination = undefined, fields: Fields = []): Promise<A
 GET /resources/for/{version}
 Get resources for the specified version(s)
 
+@param	version	Version(s), separated by commas
+@param	method	Method to use to check for versions
 **/
 getResourcesForVersions(version: string, method: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
   return new Promise<Array<Resource>>((resolve, reject) => {
@@ -234,6 +241,7 @@ getPremiumResources(pagination: Pagination = undefined, fields: Fields = []): Pr
 GET /resources/{resource}
 Get a resource by its ID
 
+@param	resource	Resource ID
 **/
 getResourceDetails(resource: Id): Promise<Resource> {
   return new Promise<Resource>((resolve, reject) => {
@@ -256,6 +264,7 @@ getResource(resource: Id): Promise<Resource> {
 GET /resources/{resource}/author
 Get the resource author
 
+@param	resource	Resource ID
 **/
 getResourceAuthor(resource: Id): Promise<Author> {
   return new Promise<Author>((resolve, reject) => {
@@ -271,6 +280,7 @@ getResourceAuthor(resource: Id): Promise<Author> {
 GET /resources/{resource}/download
 Download a resource
 
+@param	resource	Resource ID
 **/
 getResourceDownload(resource: Id): Promise<any> {
   return new Promise<any>((resolve, reject) => {
@@ -286,6 +296,7 @@ getResourceDownload(resource: Id): Promise<any> {
 GET /resources/{resource}/reviews
 Get reviews of a resource
 
+@param	resource	Resource ID
 **/
 getResourceReviews(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
   return new Promise<Array<ResourceReview>>((resolve, reject) => {
@@ -301,6 +312,7 @@ getResourceReviews(resource: Id, pagination: Pagination = undefined, fields: Fie
 GET /resources/{resource}/updates
 Get updates of a resource
 
+@param	resource	Resource ID
 **/
 getResourceUpdates(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceUpdate>> {
   return new Promise<Array<ResourceUpdate>>((resolve, reject) => {
@@ -316,6 +328,7 @@ getResourceUpdates(resource: Id, pagination: Pagination = undefined, fields: Fie
 GET /resources/{resource}/versions
 Get versions of a resource
 
+@param	resource	Resource ID
 **/
 getResourceVersions(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceVersion>> {
   return new Promise<Array<ResourceVersion>>((resolve, reject) => {
@@ -333,6 +346,8 @@ Download a specific resource version
 
 Note: This only redirects to the stored download location and might not download a file (i.e. for external resources)
 
+@param	resource	Resource ID
+@param	version	Version ID or 'latest'
 **/
 getResourceVersionDownload(resource: Id, version: string) {
   return new any((resolve, reject) => {
@@ -348,6 +363,8 @@ getResourceVersionDownload(resource: Id, version: string) {
 GET /search/authors/{query}
 Search authors
 
+@param	query	Search query
+@param	field	Field to search in
 **/
 getAuthorSearch(query: string, field: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Author>> {
   return new Promise<Array<Author>>((resolve, reject) => {
@@ -364,6 +381,8 @@ getAuthorSearch(query: string, field: string, pagination: Pagination = undefined
 GET /search/resources/{query}
 Search resources
 
+@param	query	Search query
+@param	field	Field to search in
 **/
 getResourceSearch(query: string, field: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
   return new Promise<Array<Resource>>((resolve, reject) => {
@@ -395,6 +414,8 @@ getAPIStatus(): Promise<any> {
 DELETE /webhook/delete/{id}/{secret}
 Delete a Webhook
 
+@param	id	Webhook ID
+@param	secret	Webhook Secret
 **/
 deleteDeleteWebhook(id: string, secret: string): Promise<any> {
   return new Promise<any>((resolve, reject) => {
@@ -427,6 +448,8 @@ Register a new Webhook
 
 Use this form to easily register a new one: https://spiget.org/webhook/
 
+@param	url	URL to call
+@param	events	Events to register
 **/
 postRegisterWebhook(url: string, events: Array<string>): Promise<any> {
   return new Promise<any>((resolve, reject) => {
@@ -442,6 +465,7 @@ postRegisterWebhook(url: string, events: Array<string>): Promise<any> {
 GET /webhook/status/{id}
 Get the status of a Webhook
 
+@param	id	ID of the Webhook
 **/
 getWebhookStatus(id: string): Promise<any> {
   return new Promise<any>((resolve, reject) => {

@@ -87,11 +87,11 @@ Object.keys(paths).forEach(p => {
         let func = "";
         func += "/** \n" +
             method.toUpperCase() + " " + p + "\n" +
-            pathM.description + "\n" +
-            "**/\n"
+            pathM.description + "\n" ;
+
+
         let funcName = camelize(method.trim() + pathM.summary);
-        func += funcName;
-        func += "(";
+
         let first = true;
         let hasPagination = false;
         let hasFields = false;
@@ -118,8 +118,11 @@ Object.keys(paths).forEach(p => {
             } else {
                 paramString += param.name + ": ";
                 let paramType = convertPropType(param)[0];
-                if (paramType === "number" && param.hasOwnProperty("description") && param.description.toLowerCase().indexOf("id") !== -1) {
-                    paramType = "Id";
+                if(param.hasOwnProperty("description")) {
+                    if (paramType === "number" && param.description.toLowerCase().indexOf("id") !== -1) {
+                        paramType = "Id";
+                    }
+                    func+="@param\t"+param.name+"\t"+param.description+"\n";
                 }
                 paramString += paramType;
                 if (param.in === "path") {
@@ -131,6 +134,9 @@ Object.keys(paths).forEach(p => {
             }
             first = false;
         });
+        func+="**/\n";
+        func += funcName;
+        func += "(";
         func += paramString;
         func += ")";
         let returnType = "any";
