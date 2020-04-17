@@ -172,7 +172,7 @@ Object.keys(paths).forEach(p => {
             replacedPath = replacedPath.replace("{" + n + "}", "\" + " + n + " + \"");
         });
         func += "    this.__request(\"" + method.toUpperCase() + "\", \"" + replacedPath + "\", query).then(res" + (isArrayReturn ? "Arr" : "") + " => {\n";
-        func += "      resolve(this.__mapType" + (isArrayReturn ? "List" : "") + "(res" + (isArrayReturn ? "Arr" : "") + ", " + returnTypeBase + "));\n";
+        func += "      resolve(this.__mapType" + (isArrayReturn ? "List" : "") + "(res" + (isArrayReturn ? "Arr" : "") + ", " + returnTypeBase + "Impl));\n";
         func += "    }).catch(reject);\n"
         func += "  });\n";
         func += "}\n";
