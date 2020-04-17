@@ -134,7 +134,7 @@ Object.keys(paths).forEach(p => {
         });
         let replacedPath = p;
         pathParamNames.forEach(n => {
-            replacedPath = replacedPath.replace("{" + n + "}", "\"+" + n + "+\"");
+            replacedPath = replacedPath.replace("{" + n + "}", "\" + " + n + " + \"");
         });
         func += "    this.__request(\"" + method.toUpperCase() + "\", \"" + replacedPath + "\", query).then(res" + (isArrayReturn ? "Arr" : "") + " => {\n";
         func += "      resolve(this.__mapType" + (isArrayReturn ? "List" : "") + "(res" + (isArrayReturn ? "Arr" : "") + ", " + returnTypeBase + "));\n";
