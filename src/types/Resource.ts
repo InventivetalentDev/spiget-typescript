@@ -15,6 +15,10 @@ export default class Resource extends ResourceBase {
         return this.updates != null && this.versions != null;
     }
 
+    getFullResource(): Promise<Resource> {
+        return this._spiget.getResource(this.id);
+    }
+
     getAuthor(): Promise<Author> {
         return this._spiget.getResourceAuthor(this.id);
     }
