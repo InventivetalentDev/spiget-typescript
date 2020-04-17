@@ -35,7 +35,17 @@ Object.keys(definitions).forEach(k => {
                 content += propT;
                 content += ";\n";
 
-                constr += "      if (source.hasOwnProperty(\"" + p + "\")) this." + p + " = source." + p + ";\n";
+                constr += "      if (source.hasOwnProperty(\"" + p + "\"))";
+                constr += " this." + p + " = ";
+                if (conv.length > 1 && conv[1] !== undefined) {
+                    if (prop.type === "array") {
+                        constr += "this._spiget.__mapTypeList(source."+p+", "+conv[1]+");\n"
+                    }else{
+                        constr += "this._spiget.__mapType(source."+p+", " + conv[1] + ");\n";
+                    }
+                }else {
+                    constr += "source." + p + ";\n";
+                }
 
                 if (conv.length > 1 && conv[1] !== undefined) {
                     imports += 'import ' + conv[1] + ' from "../types/' + conv[1] + '";\n';

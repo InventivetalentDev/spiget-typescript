@@ -46,19 +46,19 @@ export class Resource extends SpigetType {
       if (source.hasOwnProperty("tag")) this.tag = source.tag;
       if (source.hasOwnProperty("contributors")) this.contributors = source.contributors;
       if (source.hasOwnProperty("likes")) this.likes = source.likes;
-      if (source.hasOwnProperty("file")) this.file = source.file;
+      if (source.hasOwnProperty("file")) this.file = this._spiget.__mapType(source.file, ResourceFile);
       if (source.hasOwnProperty("testedVersions")) this.testedVersions = source.testedVersions;
       if (source.hasOwnProperty("links")) this.links = source.links;
-      if (source.hasOwnProperty("rating")) this.rating = source.rating;
+      if (source.hasOwnProperty("rating")) this.rating = this._spiget.__mapType(source.rating, ResourceRating);
       if (source.hasOwnProperty("releaseDate")) this.releaseDate = source.releaseDate;
       if (source.hasOwnProperty("updateDate")) this.updateDate = source.updateDate;
       if (source.hasOwnProperty("downloads")) this.downloads = source.downloads;
       if (source.hasOwnProperty("external")) this.external = source.external;
-      if (source.hasOwnProperty("icon")) this.icon = source.icon;
+      if (source.hasOwnProperty("icon")) this.icon = this._spiget.__mapType(source.icon, Icon);
       if (source.hasOwnProperty("premium")) this.premium = source.premium;
       if (source.hasOwnProperty("price")) this.price = source.price;
       if (source.hasOwnProperty("currency")) this.currency = source.currency;
-      if (source.hasOwnProperty("reviews")) this.reviews = source.reviews;
+      if (source.hasOwnProperty("reviews")) this.reviews = this._spiget.__mapTypeList(source.reviews, ResourceReview);
     }
   }
 }
