@@ -142,7 +142,7 @@ export class Spiget {
     /**
      Alias of getAuthorDetails
      **/
-    getAuthor(author: string): Promise<Author> {
+    getAuthor(author: Id): Promise<Author> {
         return this.getAuthorDetails(author);
     }
 

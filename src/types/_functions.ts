@@ -27,7 +27,7 @@ GET /authors/{author}
 Get details about an author
 
 **/
-getAuthorDetails(author: string): Promise<Author> {
+getAuthorDetails(author: Id): Promise<Author> {
   return new Promise<Author>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/authors/" + author + "", query).then(res => {
@@ -40,7 +40,7 @@ getAuthorDetails(author: string): Promise<Author> {
 /**
 Alias of getAuthorDetails
 **/
-getAuthor(author: string): Promise<Author> {
+getAuthor(author: Id): Promise<Author> {
   return this.getAuthorDetails(author);
 }
 
@@ -49,7 +49,7 @@ GET /authors/{author}/resources
 Get an author's resources
 
 **/
-getAuthorResources(author: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+getAuthorResources(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
   return new Promise<Array<Resource>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/authors/" + author + "/resources", query).then(resArr => {
@@ -64,7 +64,7 @@ GET /authors/{author}/reviews
 Get an author's reviews left on resources
 
 **/
-getAuthorReviews(author: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
+getAuthorReviews(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
   return new Promise<Array<ResourceReview>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/authors/" + author + "/reviews", query).then(resArr => {
@@ -101,7 +101,7 @@ GET /categories/{category}
 Get details about a category
 
 **/
-getCategoryDetails(category: string): Promise<Category> {
+getCategoryDetails(category: Id): Promise<Category> {
   return new Promise<Category>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/categories/" + category + "", query).then(res => {
@@ -114,7 +114,7 @@ getCategoryDetails(category: string): Promise<Category> {
 /**
 Alias of getCategoryDetails
 **/
-getCategory(category: string): Promise<Category> {
+getCategory(category: Id): Promise<Category> {
   return this.getCategoryDetails(category);
 }
 
@@ -123,7 +123,7 @@ GET /categories/{category}/resources
 Get the resources in a category
 
 **/
-getCategoryResources(category: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+getCategoryResources(category: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
   return new Promise<Array<Resource>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/categories/" + category + "/resources", query).then(resArr => {
@@ -232,10 +232,10 @@ getPremiumResources(pagination: Pagination = undefined, fields: Fields = []): Pr
 
 /** 
 GET /resources/{resource}
-Get a resource by its ID or name
+Get a resource by its ID
 
 **/
-getResourceDetails(resource: string): Promise<Resource> {
+getResourceDetails(resource: Id): Promise<Resource> {
   return new Promise<Resource>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/resources/" + resource + "", query).then(res => {
@@ -248,7 +248,7 @@ getResourceDetails(resource: string): Promise<Resource> {
 /**
 Alias of getResourceDetails
 **/
-getResource(resource: string): Promise<Resource> {
+getResource(resource: Id): Promise<Resource> {
   return this.getResourceDetails(resource);
 }
 
@@ -257,7 +257,7 @@ GET /resources/{resource}/author
 Get the resource author
 
 **/
-getResourceAuthor(resource: string): Promise<Author> {
+getResourceAuthor(resource: Id): Promise<Author> {
   return new Promise<Author>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/resources/" + resource + "/author", query).then(res => {
@@ -272,7 +272,7 @@ GET /resources/{resource}/download
 Download a resource
 
 **/
-getResourceDownload(resource: string): Promise<any> {
+getResourceDownload(resource: Id): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     let query = {};
     this.__request("GET", "/resources/" + resource + "/download", query).then(res => {
@@ -287,7 +287,7 @@ GET /resources/{resource}/reviews
 Get reviews of a resource
 
 **/
-getResourceReviews(resource: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
+getResourceReviews(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
   return new Promise<Array<ResourceReview>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/resources/" + resource + "/reviews", query).then(resArr => {
@@ -302,7 +302,7 @@ GET /resources/{resource}/updates
 Get updates of a resource
 
 **/
-getResourceUpdates(resource: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceUpdate>> {
+getResourceUpdates(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceUpdate>> {
   return new Promise<Array<ResourceUpdate>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/resources/" + resource + "/updates", query).then(resArr => {
@@ -317,7 +317,7 @@ GET /resources/{resource}/versions
 Get versions of a resource
 
 **/
-getResourceVersions(resource: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceVersion>> {
+getResourceVersions(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceVersion>> {
   return new Promise<Array<ResourceVersion>>((resolve, reject) => {
     let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
     this.__request("GET", "/resources/" + resource + "/versions", query).then(resArr => {
@@ -334,7 +334,7 @@ Download a specific resource version
 Note: This only redirects to the stored download location and might not download a file (i.e. for external resources)
 
 **/
-getResourceVersionDownload(resource: string, version: string) {
+getResourceVersionDownload(resource: Id, version: string) {
   return new any((resolve, reject) => {
     let query = {};
     this.__request("GET", "/resources/" + resource + "/versions/" + version + "/download", query).then(res => {
@@ -428,7 +428,7 @@ Register a new Webhook
 Use this form to easily register a new one: https://spiget.org/webhook/
 
 **/
-postRegisterWebhook(url: string, events: Array<string>,): Promise<any> {
+postRegisterWebhook(url: string, events: Array<string>): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     let query = {};
     this.__request("POST", "/webhook/register", query).then(res => {

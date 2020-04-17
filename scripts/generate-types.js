@@ -112,7 +112,12 @@ Object.keys(paths).forEach(p => {
                 hasFields = true;
                 paramsInOrder.push("fields");
             } else {
-                paramString += param.name + ": " + convertPropType(param);
+                paramString += param.name + ": ";
+                let paramType = convertPropType(param)[0];
+                if (paramType === "number" && param.hasOwnProperty("description") && param.description.toLowerCase().indexOf("id") !== -1) {
+                    paramType = "Id";
+                }
+                paramString += paramType;
                 if (param.in === "path") {
                     pathParamNames.push(param.name);
                 } else if (param.in === "query") {
