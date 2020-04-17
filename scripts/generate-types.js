@@ -27,9 +27,9 @@ Object.keys(definitions).forEach(k => {
                 let propT = conv[0];
                 if (prop.hasOwnProperty("description")) {
                     content += "  /** " + prop.description + " **/\n"
-                    if (propT === "number" && prop.description.toLowerCase().indexOf("id") !== -1) {
-                        propT = "Id";
-                    }
+                }
+                if (propT === "number" && (p === "id" || (prop.hasOwnProperty("description") && prop.description.toLowerCase().indexOf("id") !== -1))) {
+                    propT = "Id";
                 }
                 content += "  " + p + ": ";
                 content += propT;

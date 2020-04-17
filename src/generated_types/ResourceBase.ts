@@ -3,7 +3,9 @@ import SpigetType from "../SpigetType"
 import ResourceFile from "../types/ResourceFile";
 import ResourceRating from "../types/ResourceRating";
 import Icon from "../types/Icon";
-import ResourceReview from "../types/ResourceReview";
+import IdReference from "../types/IdReference";
+import IdReference from "../types/IdReference";
+import IdReference from "../types/IdReference";
 
 export class Resource extends SpigetType {
   /** Id of the Resource **/
@@ -36,7 +38,12 @@ export class Resource extends SpigetType {
   price: number;
   /** Price Currency of the resource (only if the resource is premium) **/
   currency: string;
-  reviews: Array<ResourceReview>;
+  /** List of review IDs on this resource - only present if directly requesting the resource **/
+  reviews: Array<IdReference>;
+  /** List of version IDs of this resource - only present if directly requesting the resource **/
+  versions: Array<IdReference>;
+  /** List of update IDs of this resource - only present if directly requesting the resource **/
+  updates: Array<IdReference>;
 
   constructor(source: any, spiget: Spiget = new Spiget()) {
     super(source, spiget);
@@ -58,7 +65,9 @@ export class Resource extends SpigetType {
       if (source.hasOwnProperty("premium")) this.premium = source.premium;
       if (source.hasOwnProperty("price")) this.price = source.price;
       if (source.hasOwnProperty("currency")) this.currency = source.currency;
-      if (source.hasOwnProperty("reviews")) this.reviews = this._spiget.__mapTypeList(source.reviews, ResourceReview);
+      if (source.hasOwnProperty("reviews")) this.reviews = this._spiget.__mapTypeList(source.reviews, IdReference);
+      if (source.hasOwnProperty("versions")) this.versions = this._spiget.__mapTypeList(source.versions, IdReference);
+      if (source.hasOwnProperty("updates")) this.updates = this._spiget.__mapTypeList(source.updates, IdReference);
     }
   }
 }
