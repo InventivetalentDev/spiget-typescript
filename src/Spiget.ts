@@ -424,6 +424,37 @@ export class Spiget {
         });
     }
 
+    /**
+     GET /resources/{resource}/versions/latest
+     Get the latest resource version
+
+     @param	resource	Resource ID
+     **/
+    getLatestResourceVersion(resource: Id): Promise<ResourceVersion> {
+        return new Promise<ResourceVersion>((resolve, reject) => {
+            let query = {};
+            this.__request("GET", "/resources/" + resource + "/versions/latest", query).then(res => {
+                resolve(this.__mapType(res, ResourceVersion));
+            }).catch(reject);
+        });
+    }
+
+
+    /**
+     GET /resources/{resource}/versions/{version}
+     Get a specific resource version by its ID
+
+     @param	resource	Resource ID
+     @param	version	Version ID
+     **/
+    getResourceVersion(resource: Id, version: Id): Promise<ResourceVersion> {
+        return new Promise<ResourceVersion>((resolve, reject) => {
+            let query = {};
+            this.__request("GET", "/resources/" + resource + "/versions/" + version + "", query).then(res => {
+                resolve(this.__mapType(res, ResourceVersion));
+            }).catch(reject);
+        });
+    }
 
     ///// SEARCH
 
