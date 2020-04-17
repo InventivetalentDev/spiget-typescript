@@ -3,10 +3,7 @@ const should = require("chai").should;
 const expect = require("chai").expect;
 
 const {Spiget, Pagination} = require("../index");
-console.log(Spiget)
-console.log(Pagination)
 const spiget = new Spiget();
-console.log(spiget);
 
 describe("AUTHORS", function () {
     describe("#getAuthors()",function () {
@@ -46,11 +43,3 @@ describe("AUTHORS", function () {
         })
     })
 });
-
-// spiget.getAuthors().then(a=>{
-//     console.log(a);
-// });
-
-// spiget.getAuthor(6643).then(a=>{
-//     console.log(a);
-// })
