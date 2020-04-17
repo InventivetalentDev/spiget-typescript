@@ -12,7 +12,10 @@
   "author": "Haylee Schäfer",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3",
     "chai": "^4.2.0",
     "mocha": "^7.1.1"
   }
