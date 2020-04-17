@@ -4,8 +4,6 @@ import ResourceFile from "../types/ResourceFile";
 import ResourceRating from "../types/ResourceRating";
 import Icon from "../types/Icon";
 import IdReference from "../types/IdReference";
-import IdReference from "../types/IdReference";
-import IdReference from "../types/IdReference";
 
 export class Resource extends SpigetType {
   /** Id of the Resource **/

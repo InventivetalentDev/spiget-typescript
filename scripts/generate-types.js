@@ -16,6 +16,7 @@ Object.keys(definitions).forEach(k => {
 
         let imports = "import Spiget, {Id} from \"../Spiget\"\n" +
             "import SpigetType from \"../SpigetType\"\n";
+        let importArr = [];
         let content = "export class " + k + " extends SpigetType {\n";
         let constr = "  constructor(source: any, spiget: Spiget = new Spiget()) {\n" +
             "    super(source, spiget);\n" +
@@ -48,12 +49,16 @@ Object.keys(definitions).forEach(k => {
                 }
 
                 if (conv.length > 1 && conv[1] !== undefined) {
-                    imports += 'import ' + conv[1] + ' from "../types/' + conv[1] + '";\n';
+                    let imp = 'import ' + conv[1] + ' from "../types/' + conv[1] + '";\n';
+                    if (importArr.indexOf(imp) === -1) {
+                        importArr.push(imp);
+                    }
                 }
             } else {
                 console.warn(p + " has no properties");
             }
         });
+        imports += importArr.join("");
 
         constr += "    }\n";
         constr += "  }\n";
