@@ -1,6 +1,8 @@
 # spiget-typescript
 Typescript/Javascript Spiget API client
 
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/InventivetalentDev/spiget-typescript) ![npm](https://img.shields.io/npm/v/spiget)  
+
 ```
 npm install spiget
 ```
