@@ -200,6 +200,8 @@ export class FunctionAliasesGenerator extends Generator {
     }
 
     public generate() {
+        this.info(`Creating an alias of ${this.functionName} called ${this.name}`);
+
         // Write the comment of the function
         this.write("/**");
         this.write(`Alias of ${this.functionName}`);
