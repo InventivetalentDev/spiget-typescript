@@ -34,7 +34,7 @@ export class TypeGenerator extends Generator {
     }
 
     public generate() {
-        this.info(`Generating a typed class for [${name}]...`);
+        this.info(`Generating a typed class for [${this.name}]...`);
 
         // For each property and implement it in the content of the class
         for (const name of Object.keys(this.definition.properties)) {
@@ -52,7 +52,7 @@ export class TypeGenerator extends Generator {
 
         this.content.push(`\n${buildWithNewLines(this._constructor)}`);
         this.content.push("}");
-        this.content.push(`export default ${name};`);
+        this.content.push(`export default ${this.name};`);
 
         // Write everything into the generated file
         this.save();
@@ -126,7 +126,7 @@ export class TypeGenerator extends Generator {
     }
 
     private save() {
-        const path = join(GENERATED_TYPES_DIR, `${name}Base.ts`);
+        const path = join(GENERATED_TYPES_DIR, `${this.name}Base.ts`);
         const stream = createWriteStream(path, { encoding: "utf8" });
 
         // Write the imports in the file

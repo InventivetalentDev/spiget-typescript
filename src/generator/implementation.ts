@@ -15,13 +15,13 @@ export class ImplementationGenerator extends Generator {
     }
 
     public generate() {
-        const path = join(TYPES_DIR, `${name}.ts`);
+        const path = join(TYPES_DIR, `${this.name}.ts`);
         // Check if the implementation file exists
         if (existsSync(path)) {
             return;
         }
 
-        this.info(`Generating an implementation for [${name}Base.ts]...`);
+        this.info(`Generating an implementation for [${this.name}Base.ts]...`);
 
         // If not then generator the default implementation
         this.write();
@@ -30,16 +30,16 @@ export class ImplementationGenerator extends Generator {
         stream.write(buildWithNewLines(this.contents));
         stream.close();
 
-        allImplImports.push(`import ${this.name} from "./types/${name};`);
+        allImplImports.push(`import ${this.name} from "./types/${this.name};`);
     }
 
     private write() {
         // Write the import of the base class
-        this.contents.push(`import ${name}Base from "../generated_types/${name}Base";`);
+        this.contents.push(`import ${this.name}Base from "../generated_types/${this.name}Base";`);
         this.contents.push("\n");
 
         // Write the export of the implementation class that extends the base class
-        this.contents.push(`export default class ${name} extends ${name}Base {`);
+        this.contents.push(`export default class ${this.name} extends ${this.name}Base {`);
         this.contents.push("}");
     }
 
