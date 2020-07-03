@@ -1,6 +1,7 @@
 import { Definition } from "./swagger/definition";
+import { Generator } from "./generator";
 
-export class TypeGenerator {
+export class TypeGenerator implements Generator {
 
     constructor(
         private definition: Definition
