@@ -16,6 +16,6 @@ spiget.getAuthor(6643).then(author => {
 
     author.getResources().then(resources => {
         console.log(resources);
-    })
+    });
 });
 ```
