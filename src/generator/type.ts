@@ -4,6 +4,7 @@ import { Property } from "./swagger/property";
 import { convertPropertyType, buildWithNewLines, GENERATED_TYPES_DIR } from "./util";
 import { join } from "path";
 import { createWriteStream } from "fs";
+import { ImplementationGenerator } from "./implementation";
 
 const staticImport = [
     `import Spiget, {Id} from "../Spiget"`,
@@ -14,12 +15,15 @@ export class TypeGenerator extends Generator {
     private imports = staticImport;
     private content: string[];
     private _constructor: string[];
+    private implGenerator: ImplementationGenerator;
 
     constructor(
         private name: string,
         private definition: Definition
     ) {
         super("Type");
+        this.implGenerator = new ImplementationGenerator(name);
+
         // Initialize the class
         this.content.push(`export class ${name} extends SpigetType {`);
 
@@ -30,7 +34,7 @@ export class TypeGenerator extends Generator {
     }
 
     public generate() {
-        this.info("Generating...");
+        this.info(`Generating a typed class for [${name}]...`);
 
         // For each property and implement it in the content of the class
         for (const name of Object.keys(this.definition.properties)) {
@@ -50,10 +54,11 @@ export class TypeGenerator extends Generator {
         this.content.push("}");
         this.content.push(`export default ${name};`);
 
-        // TODO Generate an implementation of this type
-
         // Write everything into the generated file
         this.save();
+
+        // Generate an implementation of this type
+        this.implGenerator.generate();
     }
 
     private generateProperty(name: string, property: Property) {

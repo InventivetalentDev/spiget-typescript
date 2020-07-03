@@ -1,4 +1,3 @@
-import { Definition } from "./swagger/definition";
 import { Generator } from "./generator";
 import { existsSync, createWriteStream } from "fs";
 import { join } from "path";
@@ -10,8 +9,7 @@ export class ImplementationGenerator extends Generator {
     private contents: string[];
 
     constructor(
-        private name: string,
-        private definition: Definition
+        private name: string
     ) {
         super("Implementation");
     }
@@ -22,6 +20,8 @@ export class ImplementationGenerator extends Generator {
         if (existsSync(path)) {
             return;
         }
+
+        this.info(`Generating an implementation for [${name}Base.ts]...`);
 
         // If not then generator the default implementation
         this.write();
