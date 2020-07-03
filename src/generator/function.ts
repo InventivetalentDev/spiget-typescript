@@ -19,3 +19,20 @@ export class FunctionGenerator implements Generator {
     }
 
 }
+
+// TODO Get the path aliases from the original generator
+
+export class FunctionAliasesGenerator implements Generator {
+
+    constructor(
+        private name: string
+    ) {}
+
+    public generate() {
+        // TODO Write the comment of the aliases function
+        // TODO Write the name of the function
+        // TODO Write the parameters of the function
+        // TODO Write the return that points to the original function
+    }
+
+}
