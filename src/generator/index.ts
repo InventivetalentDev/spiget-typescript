@@ -1,3 +1,4 @@
 export function generator() {
-    // TODO Generator from the swagger
+    // TODO Generate the type classes
+    // TODO Generate the path functions
 }
