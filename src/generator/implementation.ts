@@ -3,11 +3,13 @@ import { Generator } from "./generator";
 
 // TODO A list of all implementations created
 
-export class ImplementationGenerator implements Generator {
+export class ImplementationGenerator extends Generator {
 
     constructor(
         private definition: Definition
-    ) {}
+    ) {
+        super("Implementation");
+    }
 
     public generate() {
         // TODO Check if the implementation file exists

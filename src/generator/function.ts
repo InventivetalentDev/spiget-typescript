@@ -1,12 +1,14 @@
 import { Generator } from "./generator";
 import { Method } from "./swagger/method";
 
-export class FunctionGenerator implements Generator {
+export class FunctionGenerator extends Generator {
 
     constructor(
         private name: string,
         private method: Method
-    ) {}
+    ) {
+        super("Function");
+    }
 
     public generate() {
         // TODO Write the description of the method
@@ -22,11 +24,13 @@ export class FunctionGenerator implements Generator {
 
 // TODO Get the path aliases from the original generator
 
-export class FunctionAliasesGenerator implements Generator {
+export class FunctionAliasesGenerator extends Generator {
 
     constructor(
         private name: string
-    ) {}
+    ) {
+        super("FunctionAliases");
+    }
 
     public generate() {
         // TODO Write the comment of the aliases function
