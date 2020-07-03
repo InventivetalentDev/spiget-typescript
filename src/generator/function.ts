@@ -2,7 +2,6 @@ import { Generator } from "./generator";
 import { Method } from "./swagger/method";
 import { Parameter } from "./swagger/parameter";
 import { WriteStream } from "fs";
-import { convertSchemaType } from "./util";
 
 export class FunctionGenerator extends Generator {
     private parameters: Parameter[];
@@ -124,7 +123,7 @@ export class FunctionGenerator extends Generator {
             } else if (parameter.name === "fields") {
                 result += "fields: Fields = []";
             } else {
-                let _type = convertSchemaType(parameter)[0];
+                let _type = this.convertSchemaType(parameter)[0];
                 if (parameter.description !== undefined) {
                     if (_type === "number" && parameter.description.toLowerCase().indexOf("id") !== -1) {
                         _type = "Id";
@@ -153,7 +152,7 @@ export class FunctionGenerator extends Generator {
         }
 
         const schema = responses[200].schema;
-        const _types = convertSchemaType(schema);
+        const _types = this.convertSchemaType(schema);
         let _type = _types[0];
         
         if (_type.startsWith("inline_response_")) {

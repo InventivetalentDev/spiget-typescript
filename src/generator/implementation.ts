@@ -3,7 +3,7 @@ import { existsSync, createWriteStream } from "fs";
 import { join } from "path";
 import { TYPES_DIR, buildWithNewLines } from "./util";
 
-// TODO A list of all implementations created
+export const allImplImports: string[] = [];
 
 export class ImplementationGenerator extends Generator {
     private contents: string[];
@@ -30,7 +30,7 @@ export class ImplementationGenerator extends Generator {
         stream.write(buildWithNewLines(this.contents));
         stream.close();
 
-        // TODO add the implementation to the list
+        allImplImports.push(`import ${this.name} from "./types/${name};`);
     }
 
     private write() {

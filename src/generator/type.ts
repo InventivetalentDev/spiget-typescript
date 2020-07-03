@@ -1,7 +1,7 @@
 import { Definition } from "./swagger/definition";
 import { Generator } from "./generator";
 import { Property } from "./swagger/property";
-import { convertPropertyType, buildWithNewLines, GENERATED_TYPES_DIR } from "./util";
+import { buildWithNewLines, GENERATED_TYPES_DIR } from "./util";
 import { join } from "path";
 import { createWriteStream } from "fs";
 import { ImplementationGenerator } from "./implementation";
@@ -68,7 +68,7 @@ export class TypeGenerator extends Generator {
         }
 
         // Check if it's a number and assume the type is Id ( which is a number by the way )
-        const convertedTypes = convertPropertyType(property);
+        const convertedTypes = this.convertSchemaType(property);
         let _type = convertedTypes[0];
 
         if (_type === "number" && (name === "id" || (property.description !== undefined && property.description.toLowerCase().indexOf("id") !== -1))) {
