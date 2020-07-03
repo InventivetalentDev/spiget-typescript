@@ -40,10 +40,13 @@ export class FunctionGenerator extends Generator {
         }
 
         this.write("**/");
-        this.write(`${functionName}(${this.buildParameters()})`)
+        
+        const inputParameters = this.buildParameters();
+        this.write(`${functionName}(${inputParameters})`)
 
         // Write the return type of the method
-        this.write(this.buildReturn());
+        const returnOutput = this.buildReturn()
+        this.write(returnOutput);
 
         // Open the function
         this.write(` {`);
@@ -68,10 +71,20 @@ export class FunctionGenerator extends Generator {
         this.write(`    }).catch(reject);`);
         this.write(`  });`);
 
-        // TODO Generate aliases functions that points towards the original function
-
-        // TODO Close the function
+        // Close the function
         this.write(`}`);
+
+        if (pathAliases[functionName] !== undefined) {
+            const aliasesGenerator = new FunctionAliasesGenerator(
+                pathAliases[functionName],
+                functionName,
+                inputParameters,
+                returnOutput,
+                this.parameters,
+                this.stream
+            );
+            aliasesGenerator.generate();
+        }
     }
 
     private writeParameter(parameter: Parameter) {
@@ -162,21 +175,54 @@ export class FunctionGenerator extends Generator {
 
 }
 
-// TODO Get the path aliases from the original generator
+const pathAliases = {
+    "getAuthorDetails": "getAuthor",
+    "getAuthorList": "getAuthors",
+    "getCategoryList": "getCategories",
+    "getCategoryDetails": "getCategory",
+    "getResourceList": "getResources",
+    "getResourceDetails": "getResource",
+    "getFreeResourceList": "getFreeResources",
+    "getPremiumResourceList": "getPremiumResources"
+};
 
 export class FunctionAliasesGenerator extends Generator {
 
     constructor(
-        private name: string
+        private name: string,
+        private functionName: string,
+        private parameters: string,
+        private returnString: string,
+        private invokeParameters: Parameter[],
+        private stream: WriteStream
     ) {
         super("FunctionAliases");
     }
 
     public generate() {
-        // TODO Write the comment of the aliases function
-        // TODO Write the name of the function
-        // TODO Write the parameters of the function
-        // TODO Write the return that points to the original function
+        // Write the comment of the function
+        this.write("/**");
+        this.write(`Alias of ${this.functionName}`);
+        this.write("**/");
+
+        // Write the name and the parameters of the function
+        this.write(`${this.name}(${this.parameters})${this.returnString} {`);
+
+        // Write the return that points to the original function
+        this.write(`  return this.${this.functionName}(${this.buildInvokeParameters()});`);
+        this.write(`}\n`);
+    }
+
+    private buildInvokeParameters(): string {
+        const result = [];
+        for (const parameter of this.invokeParameters) {
+            result.push(parameter.name);
+        }
+        return result.join(",");
+    }
+
+    private write(line: string) {
+        this.stream.write(`${line}\n`);
     }
 
 }
