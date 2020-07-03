@@ -6,6 +6,7 @@ Typescript/Javascript Spiget API client
 ```
 npm install spiget
 ```
+
 ## Quick Start
 ```js
 const {Spiget} = require("spiget");
