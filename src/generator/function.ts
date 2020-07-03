@@ -4,9 +4,9 @@ import { Parameter } from "./swagger/parameter";
 import { WriteStream } from "fs";
 
 export class FunctionGenerator extends Generator {
-    private parameters: Parameter[];
-    private pathParameters: string[];
-    private queryParameters: string[];
+    private parameters: Parameter[] = [];
+    private pathParameters: string[] = [];
+    private queryParameters: string[] = [];
     private hasPagination = false;
     private hasFields = false;
     private returnType = "any";

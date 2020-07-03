@@ -6,7 +6,7 @@ import { TYPES_DIR, buildWithNewLines } from "./util";
 export const allImplImports: string[] = [];
 
 export class ImplementationGenerator extends Generator {
-    private contents: string[];
+    private contents: string[] = [];
 
     constructor(
         private name: string
