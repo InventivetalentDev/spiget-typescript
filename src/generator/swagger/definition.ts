@@ -2,5 +2,5 @@ import { Property } from "./property";
 
 export interface Definition {
     type?: string;
-    properties?: Property[];
+    properties?: {[name: string]: Property | undefined};
 }
