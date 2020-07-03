@@ -4,19 +4,19 @@ export abstract class Generator {
         private logName: string
     ) {}
 
-    info(message: string) {
+    protected info(message: string) {
         this.print("INFO", message);
     }
 
-    warn(message: string) {
+    protected warn(message: string) {
         this.print("WARN", message);
     }
 
-    error(message: string) {
+    protected error(message: string) {
         this.print("ERR", message);
     }
 
-    debug(message: string) {
+    protected debug(message: string) {
         this.print("DEBUG", message);
     }
 
