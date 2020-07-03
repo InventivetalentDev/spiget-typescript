@@ -12,6 +12,7 @@
   ],
   "exclude": [
     "src/generated_types/_functions.ts",
-    "src/generated_types/_imports.txt"
+    "src/generated_types/_imports.txt",
+    "src/generator/**/*"
   ]
 }
