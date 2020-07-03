@@ -7,7 +7,7 @@
     "test": "mocha",
     "compile": "tsc",
     "generate-types": "node ./scripts/generate-types.js",
-    "build": "rm -r dist && npm run compile"
+    "build": "rm -rf dist && npm run compile"
   },
   "author": "Haylee Schäfer",
   "license": "MIT",

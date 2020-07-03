@@ -10,6 +10,8 @@ import { Method } from "./swagger/method";
 import { allImplImports } from "./implementation";
 
 export function generator() {
+    console.log("[INFO] Generating from swagger...");
+
     // Generate the type classes
     for (const name of Object.keys(definitions)) {
         const definition: Definition = definitions[name];
@@ -40,8 +42,12 @@ export function generator() {
     // Save all implementation imports in the _imports.txt
     const allImportsPath = join(GENERATED_TYPES_DIR, "_imports.txt");
     writeFileSync(allImportsPath, buildWithNewLines(allImplImports), "utf8");
+
+    console.log("[INFO] Successfully! Generated from the swagger.");
 }
 
 function write(stream: WriteStream, line: string) {
     stream.write(`${line}\n`);
 }
+
+generator();
