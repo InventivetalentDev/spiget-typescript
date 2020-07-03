@@ -7,6 +7,7 @@ Typescript/Javascript Spiget API client
 npm install spiget
 ```
 
+## Quick Start
 ```js
 const {Spiget} = require("spiget");
 const spiget = new Spiget("MyExampleSpigetApp");
@@ -16,6 +17,22 @@ spiget.getAuthor(6643).then(author => {
 
     author.getResources().then(resources => {
         console.log(resources);
-    })
+    });
 });
+```
+
+## Async / Await
+```js
+const {Spiget} = require("spiget");
+const spiget = new Spiget("MyExampleSpigetApp");
+
+async function start() {
+    const author = await spiget.getAuthor(6643);
+    console.log(author);
+
+    const resources = await author.getResources();
+    console.log(resources);
+}
+
+start();
 ```
