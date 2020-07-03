@@ -7,7 +7,7 @@
     "test": "mocha",
     "compile": "tsc",
     "generate-types": "node ./scripts/generate-types.js",
-    "compile-types-generator": "rm -rf dist/generator && tsc -p tsconfig.generator.json",
+    "compile-generator": "rm -rf dist/generator && tsc -p tsconfig.generator.json",
     "build": "rm -rf dist && npm run compile"
   },
   "author": "Haylee Schäfer",
