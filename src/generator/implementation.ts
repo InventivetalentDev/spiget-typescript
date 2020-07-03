@@ -1,25 +1,46 @@
 import { Definition } from "./swagger/definition";
 import { Generator } from "./generator";
+import { existsSync, createWriteStream } from "fs";
+import { join } from "path";
+import { TYPES_DIR, buildWithNewLines } from "./util";
 
 // TODO A list of all implementations created
 
 export class ImplementationGenerator extends Generator {
+    private contents: string[];
 
     constructor(
+        private name: string,
         private definition: Definition
     ) {
         super("Implementation");
     }
 
     public generate() {
-        // TODO Check if the implementation file exists
-        // TODO If not then generator the default implementation
+        const path = join(TYPES_DIR, `${name}.ts`);
+        // Check if the implementation file exists
+        if (existsSync(path)) {
+            return;
+        }
+
+        // If not then generator the default implementation
+        this.write();
+
+        const stream = createWriteStream(path, { encoding: "utf-8" });
+        stream.write(buildWithNewLines(this.contents));
+        stream.close();
+
         // TODO add the implementation to the list
     }
 
     private write() {
-        // TODO Write the import of the base class
-        // TODO Write the export of the implementation class that extends the base class
+        // Write the import of the base class
+        this.contents.push(`import ${name}Base from "../generated_types/${name}Base";`);
+        this.contents.push("\n");
+
+        // Write the export of the implementation class that extends the base class
+        this.contents.push(`export default class ${name} extends ${name}Base {`);
+        this.contents.push("}");
     }
 
 }

@@ -1,6 +1,7 @@
 import { Property } from "./swagger/property";
 
 export const GENERATED_TYPES_DIR = "../src/generated_types";
+export const TYPES_DIR = "../src/types"
 
 export function convertPropertyType(property: Property): string[] {
     if (property.$ref !== undefined) {
