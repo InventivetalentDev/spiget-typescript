@@ -18,7 +18,7 @@ export abstract class AbstractFunctionGenerator extends Generator {
 
     /**
      * Takes a line and writes it to the stream with a new line
-     * 
+     *
      * @param line The line to add the new line to it
      */
     protected write(line: string) {
@@ -70,16 +70,16 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
         }
 
         this.write("**/");
-        
+
         const inputParameters = this.buildParameters();
         const returnOutput = this.buildReturn()
-        
+
         // Write the header of the function
         this.write(`${functionName}(${inputParameters})${returnOutput} {`)
 
         // Write the content of the function
         this.write(`  return new ${this.returnType}((resolve, reject) => {`);
-        
+
         // Check if we should add the pagination or the fields during the intiailiztion of the query
         const addToQuery = (this.hasPagination || this.hasFields) ? "this.__addPaginationAndFieldsToQuery(pagination, fields)" : "{}";
         this.write(`    let query = ${addToQuery};`);
@@ -97,7 +97,11 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
 
         // Write the request call of the function
         this.write(`    this.__request("${this.name.toUpperCase()}", \`${replacedPath}\`, query).then(res${this.isArrayReturn ? "Arr" : ""} => {`);
-        this.write(`      resolve(this.__mapType${this.isArrayReturn ? "List" : ""}(res${this.isArrayReturn ? "Arr" : ""}, ${this.returnTypeBase}));`)
+        if (this.returnTypeBase === "any") {
+            this.write(`      resolve(res);`)
+        } else {
+            this.write(`      resolve(this.__mapType${ this.isArrayReturn ? "List" : "" }(res${ this.isArrayReturn ? "Arr" : "" }, ${ this.returnTypeBase }));`)
+        }
         this.write(`    }).catch(reject);`);
         this.write(`  });`);
 
@@ -165,7 +169,7 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
                 if (parameter.description !== undefined) {
                     if (_type === "number" && parameter.description.toLowerCase().indexOf("id") !== -1) {
                         _type = "Id";
-                    } 
+                    }
                 }
                 result += `${parameter.name}: ${_type}`
             }
@@ -195,7 +199,7 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
         const schema = responses[200].schema;
         const _types = this.convertSchemaType(schema);
         let _type = _types[0];
-        
+
         if (_type.startsWith("inline_response_")) {
             _type = "any";
             this.returnTypeBase = "any";
@@ -261,7 +265,7 @@ export class FunctionAliasesGenerator extends AbstractFunctionGenerator {
     }
 
     /**
-     * Combine all the parameters into 
+     * Combine all the parameters into
      */
     private buildInvokeParameters(): string {
         let result = "";
