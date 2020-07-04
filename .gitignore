@@ -3,3 +3,6 @@ node_modules
 
 # VS Code Configurations
 .vscode
+
+# Typescript compiler destination
+dist
