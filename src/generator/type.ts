@@ -87,7 +87,7 @@ export class TypeGenerator extends Generator {
 
     private writeProperty(name: string, _type: string) {
         // Write the property name and its type in the content
-        this.content.push(` ${name}: ${_type};`);
+        this.content.push(`  ${name}: ${_type};`);
     }
 
     private writeConstructorChecker(name: string, property: Property, _types: string[]) {
