@@ -12,7 +12,7 @@ const staticImport = [
 ];
 
 export class TypeGenerator extends Generator {
-    private imports = staticImport;
+    private imports = [...staticImport];
     private content: string[] = [];
     private _constructor: string[] = [];
     private implGenerator: ImplementationGenerator;
