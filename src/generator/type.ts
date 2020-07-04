@@ -129,7 +129,7 @@ export class TypeGenerator extends Generator {
         const stream = createWriteStream(path, { encoding: "utf8" });
 
         // Write the imports in the file
-        stream.write(`${buildWithNewLines(this.imports)}`);
+        stream.write(`${buildWithNewLines(this.imports)}\n`);
         // Write the class contents in the file
         stream.write(`${buildWithNewLines(this.content)}`);
 

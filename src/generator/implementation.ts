@@ -36,7 +36,6 @@ export class ImplementationGenerator extends Generator {
     private write() {
         // Write the import of the base class
         this.contents.push(`import ${this.name}Base from "../generated_types/${this.name}Base";`);
-        this.contents.push("\n");
 
         // Write the export of the implementation class that extends the base class
         this.contents.push(`export default class ${this.name} extends ${this.name}Base {`);
