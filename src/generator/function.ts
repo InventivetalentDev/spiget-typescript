@@ -10,7 +10,7 @@ export class FunctionGenerator extends Generator {
     private queryParameters: string[] = [];
     private hasPagination = false;
     private hasFields = false;
-    private returnType = "any";
+    private returnType = "Promise<any>";
     private returnTypeBase = "any";
     private isArrayReturn = false;
 
