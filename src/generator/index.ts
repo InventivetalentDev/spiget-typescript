@@ -19,6 +19,10 @@ export function generator() {
     for (const name of Object.keys(definitions)) {
         const definition: Definition = definitions[name];
 
+        if (definition.type === undefined) {
+            continue;
+        }
+
         const generator = new TypeGenerator(name, definition);
         generator.generate();
     }

@@ -43,7 +43,6 @@ export class TypeGenerator extends Generator {
                 this.warn(`${name} has no properties!`);
                 continue;
             }
-
             this.generateProperty(name, property);
         }
 
