@@ -1,6 +1,6 @@
 import { Schema } from "./swagger/schema";
 
-const SOURCE_DIR = "../../../../src"
+const SOURCE_DIR = "./src"
 export const GENERATED_TYPES_DIR = `${SOURCE_DIR}/generated_types`;
 export const TYPES_DIR = `${SOURCE_DIR}/types`;
 

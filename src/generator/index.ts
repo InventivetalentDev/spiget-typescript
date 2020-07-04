@@ -12,13 +12,8 @@ import { allImplImports } from "./implementation";
 export function generator() {
     console.log("[INFO] Generating from swagger...");
 
-    if (!existsSync(GENERATED_TYPES_DIR)) {
-        mkdirSync(GENERATED_TYPES_DIR);
-    }
-
-    if (!existsSync(TYPES_DIR)) {
-        mkdirSync(TYPES_DIR);
-    }
+    mkdir(GENERATED_TYPES_DIR);
+    mkdir(TYPES_DIR);
 
     // Generate the type classes
     for (const name of Object.keys(definitions)) {
@@ -56,6 +51,15 @@ export function generator() {
 
 function write(stream: WriteStream, line: string) {
     stream.write(`${line}\n`);
+}
+
+function mkdir(filename: string) {
+    const path = join(filename);
+    if (existsSync(path)) {
+        return;
+    }
+
+    mkdirSync(path, { recursive: true });
 }
 
 generator();
