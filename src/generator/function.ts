@@ -2,6 +2,7 @@ import { Generator } from "./generator";
 import { Method } from "./swagger/method";
 import { Parameter } from "./swagger/parameter";
 import { WriteStream } from "fs";
+import { camelize } from "./util";
 
 export class FunctionGenerator extends Generator {
     private parameters: Parameter[] = [];
@@ -26,12 +27,12 @@ export class FunctionGenerator extends Generator {
         this.info(`Converting ${this.pathName}/${this.name.toUpperCase()} into a function...`);
 
         // Write the description of the method
-        this.write(`/**`);
+        this.write(`/** `);
         this.write(`${this.name.toUpperCase()} ${this.pathName}`);
         this.write(`${this.method.description}`);
 
         // Write the name of the method to be the function name
-        const functionName = this.name.trim() + this.method.summary;
+        const functionName = camelize(this.name.trim() + this.method.summary);
 
         // Generate each parameter of the method
         for (const parameter of this.method.parameters) {
@@ -41,11 +42,8 @@ export class FunctionGenerator extends Generator {
         this.write("**/");
         
         const inputParameters = this.buildParameters();
-        this.write(`${functionName}(${inputParameters})`)
-
-        // Write the return type of the method
         const returnOutput = this.buildReturn()
-        this.write(returnOutput);
+        this.write(`${functionName}(${inputParameters})${returnOutput}`)
 
         // Open the function
         this.write(` {`);
