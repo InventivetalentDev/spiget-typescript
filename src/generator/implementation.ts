@@ -30,7 +30,7 @@ export class ImplementationGenerator extends Generator {
         stream.write(buildWithNewLines(this.contents));
         stream.close();
 
-        allImplImports.push(`import ${this.name} from "./types/${this.name};`);
+        allImplImports.push(`import ${this.name} from "./types/${this.name}";`);
     }
 
     private write() {
