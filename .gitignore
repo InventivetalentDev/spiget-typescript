@@ -1,1 +1,8 @@
-# Created by .ignore support plugin (hsz.mobi)
+# Node Modules
+node_modules
+
+# VS Code Configurations
+.vscode
+
+# Typescript compiler destination
+dist
