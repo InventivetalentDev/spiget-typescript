@@ -9,13 +9,14 @@ import { FunctionGenerator } from "./function";
 import { Method } from "./swagger/method";
 import { allImplImports } from "./implementation";
 
-export function generator() {
+export function start() {
     console.log("[INFO] Generating from swagger...");
 
+    // Check if the output directories exists
     mkdir(GENERATED_TYPES_DIR);
     mkdir(TYPES_DIR);
 
-    // Generate the type classes
+    // Generate the type classes and their implementations
     for (const name of Object.keys(definitions)) {
         const definition: Definition = definitions[name];
 
@@ -27,7 +28,7 @@ export function generator() {
         generator.generate();
     }
 
-    // Generate the path functions
+    // Generate the path functions and its aliases
     const path = join(GENERATED_TYPES_DIR, "_functions.ts");
     const stream = createWriteStream(path, { encoding: "utf8" });
     write(stream, `class Paths {`);
@@ -66,4 +67,4 @@ function mkdir(filename: string) {
     mkdirSync(path, { recursive: true });
 }
 
-generator();
+start();
