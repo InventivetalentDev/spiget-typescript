@@ -21,7 +21,7 @@ export class ImplementationGenerator extends Generator {
             return;
         }
 
-        this.info(`Generating an implementation for [${this.name}Base.ts]...`);
+        this.info(`Generating an implementation for [${this.name}]...`);
 
         // If not then generator the default implementation
         this.write();
