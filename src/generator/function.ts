@@ -264,16 +264,19 @@ export class FunctionAliasesGenerator extends AbstractFunctionGenerator {
      * Combine all the parameters into 
      */
     private buildInvokeParameters(): string {
-        // FIXME: Optimize instead of creating an array and fill it and then join it to combine string we could write the combined string directly
-        const result = [];
-        for (const parameter of this.invokeParameters) {
-            if (parameter.name === "size") {
-                result.push("pagination");
-                continue;    
+        let result = "";
+        for (let i = 0; i < this.invokeParameters.length; i++) {
+            if (i > 0) {
+                result += ",";
             }
-            result.push(parameter.name);
+            const name = this.invokeParameters[i].name;
+            if (name === "size") {
+                result += "pagination";
+                continue;
+            }
+            result += name;
         }
-        return result.join(",");
+        return result;
     }
 
 }
