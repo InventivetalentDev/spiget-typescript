@@ -4,14 +4,18 @@ const SOURCE_DIR = "./src"
 export const GENERATED_TYPES_DIR = `${SOURCE_DIR}/generated_types`;
 export const TYPES_DIR = `${SOURCE_DIR}/types`;
 
-export function buildWithNewLines(array: string[]): string {
+export function buildWithNewLines(array: string[], endWithNewLine = true): string {
     if (array.length <= 0) {
         return "";
     }
 
     let result = "";
-    for (const line of array) {
-        result += `${line}\n`;
+    for (let i = 0; i < array.length; i++) {
+        result += array[i];
+        if (i === array.length - 1 && !endWithNewLine) {
+            continue;
+        }
+        result += "\n";
     }
 
     return result;

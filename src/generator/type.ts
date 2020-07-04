@@ -49,7 +49,7 @@ export class TypeGenerator extends Generator {
         this._constructor.push(`    }`);
         this._constructor.push(`  }`);
 
-        this.content.push(`\n${buildWithNewLines(this._constructor)}`);
+        this.content.push(`\n${buildWithNewLines(this._constructor, false)}`);
         this.content.push("}");
         this.content.push(`export default ${this.name};`);
 
