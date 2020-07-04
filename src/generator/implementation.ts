@@ -5,6 +5,9 @@ import { TYPES_DIR, buildWithNewLines } from "./util";
 
 export const allImplImports: string[] = [];
 
+/**
+ * Generates an implementation of the type class
+ */
 export class ImplementationGenerator extends Generator {
     private contents: string[] = [];
 
@@ -14,6 +17,9 @@ export class ImplementationGenerator extends Generator {
         super("Implementation");
     }
 
+    /**
+     * Generate the implementation
+     */
     public generate() {
         // Add the implementation import even if it exists
         allImplImports.push(`import ${this.name} from "./types/${this.name}";`);
@@ -34,6 +40,9 @@ export class ImplementationGenerator extends Generator {
         stream.close();
     }
 
+    /**
+     * Write the default implementation to the content of the class
+     */
     private write() {
         // Write the import of the base class
         this.contents.push(`import ${this.name}Base from "../generated_types/${this.name}Base";\n`);
