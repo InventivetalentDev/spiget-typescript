@@ -3,7 +3,7 @@ import { Definition } from "./swagger/definition";
 import { TypeGenerator } from "./type";
 import { Path } from "./swagger/path";
 import { join } from "path";
-import { GENERATED_TYPES_DIR, buildWithNewLines, TYPES_DIR } from "./util";
+import { GENERATED_TYPES_DIR, buildWithNewLines, TYPES_DIR, SKIPPED_PATHS } from "./util";
 import { createWriteStream, WriteStream, writeFileSync, existsSync, mkdirSync } from "fs";
 import { FunctionGenerator } from "./function";
 import { Method } from "./swagger/method";
@@ -35,6 +35,7 @@ export function start() {
     write(stream, `class Paths {`);
 
     for (const name of Object.keys(paths)) {
+        if (SKIPPED_PATHS.includes(name)) continue;
         const path: Path = paths[name];
 
         for (const methodName of Object.keys(path)) {

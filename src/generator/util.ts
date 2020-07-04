@@ -16,8 +16,13 @@ export const GENERATED_TYPES_DIR = `${SOURCE_DIR}/generated_types`;
 export const TYPES_DIR = `${SOURCE_DIR}/types`;
 
 /**
+ * Swagger paths to skip in generation
+ */
+export const SKIPPED_PATHS = ["/resources/{resource}/download", "/resources/{resource}/versions/{version}/download"];
+
+/**
  * Transforms an array of string into a combined string with new lines
- * 
+ *
  * @param source A source to build the combined string with it
  * @param endWithNewLine Finish the string with a new line or not
  */
@@ -40,10 +45,10 @@ export function buildWithNewLines(source: string[], endWithNewLine = true): stri
 
 /**
  * Transform a name into camelized form
- * 
+ *
  * Reference: https://stackoverflow.com/a/2970667/6257838
- * 
- * @param source A name to camelize it 
+ *
+ * @param source A name to camelize it
  */
 export function camelize(name: string): string {
     return name.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
