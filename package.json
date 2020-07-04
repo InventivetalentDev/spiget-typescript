@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha",
     "compile": "tsc",
-    "generate-types": "node ./scripts/generate-types.js",
+    "generate-types": "node ./dist/generator/src/generator",
     "build-generator": "rm -rf dist/generator && tsc -p tsconfig.generator.json",
     "clear-generated-types": "rm -rf src/types src/generated_types",
     "build": "rm -rf dist && npm run compile"
