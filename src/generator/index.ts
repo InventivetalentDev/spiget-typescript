@@ -3,14 +3,22 @@ import { Definition } from "./swagger/definition";
 import { TypeGenerator } from "./type";
 import { Path } from "./swagger/path";
 import { join } from "path";
-import { GENERATED_TYPES_DIR, buildWithNewLines } from "./util";
-import { createWriteStream, WriteStream, writeFileSync } from "fs";
+import { GENERATED_TYPES_DIR, buildWithNewLines, TYPES_DIR } from "./util";
+import { createWriteStream, WriteStream, writeFileSync, existsSync, mkdirSync } from "fs";
 import { FunctionGenerator } from "./function";
 import { Method } from "./swagger/method";
 import { allImplImports } from "./implementation";
 
 export function generator() {
     console.log("[INFO] Generating from swagger...");
+
+    if (!existsSync(GENERATED_TYPES_DIR)) {
+        mkdirSync(GENERATED_TYPES_DIR);
+    }
+
+    if (!existsSync(TYPES_DIR)) {
+        mkdirSync(TYPES_DIR);
+    }
 
     // Generate the type classes
     for (const name of Object.keys(definitions)) {
