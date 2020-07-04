@@ -18,7 +18,10 @@ export const TYPES_DIR = `${SOURCE_DIR}/types`;
 /**
  * Swagger paths to skip in generation
  */
-export const SKIPPED_PATHS = ["/resources/{resource}/download", "/resources/{resource}/versions/{version}/download"];
+export const SKIPPED_PATHS = [
+    "/resources/{resource}/download",
+    "/resources/{resource}/versions/{version}/download"
+];
 
 /**
  * Transforms an array of string into a combined string with new lines
