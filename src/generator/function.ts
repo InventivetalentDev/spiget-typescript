@@ -24,7 +24,7 @@ export class FunctionGenerator extends Generator {
     }
 
     public generate() {
-        this.info(`Converting ${this.pathName}/${this.name.toUpperCase()} into a function...`);
+        this.info(`Converting [${this.name.toUpperCase()}] ${this.pathName} into a function...`);
 
         // Write the description of the method
         this.write(`/** `);
