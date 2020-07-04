@@ -90,14 +90,13 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
         }
 
         // Replace each path in their string form and implement them as variable
-        // FIXME: Use '`' instead of '"" to write the path
         let replacedPath = this.pathName;
         for (const path of this.pathParameters) {
-            replacedPath = replacedPath.replace(`{${path}}`, `" + ${path} + "`);
+            replacedPath = replacedPath.replace(`{${path}}`, "${" + path + "}");
         }
 
         // Write the request call of the function
-        this.write(`    this.__request("${this.name.toUpperCase()}", "${replacedPath}", query).then(res${this.isArrayReturn ? "Arr" : ""} => {`);
+        this.write(`    this.__request("${this.name.toUpperCase()}", \`${replacedPath}\`, query).then(res${this.isArrayReturn ? "Arr" : ""} => {`);
         this.write(`      resolve(this.__mapType${this.isArrayReturn ? "List" : ""}(res${this.isArrayReturn ? "Arr" : ""}, ${this.returnTypeBase}));`)
         this.write(`    }).catch(reject);`);
         this.write(`  });`);
