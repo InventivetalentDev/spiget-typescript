@@ -1,7 +1,8 @@
 import { Schema } from "./swagger/schema";
 
-export const GENERATED_TYPES_DIR = "../src/generated_types";
-export const TYPES_DIR = "../src/types"
+const SOURCE_DIR = "../../../../src"
+export const GENERATED_TYPES_DIR = `${SOURCE_DIR}/generated_types`;
+export const TYPES_DIR = `${SOURCE_DIR}/types`;
 
 export function buildWithNewLines(array: string[]): string {
     if (array.length <= 0) {
