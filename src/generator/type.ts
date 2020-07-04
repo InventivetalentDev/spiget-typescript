@@ -11,6 +11,9 @@ const staticImport = [
     `import SpigetType from "../SpigetType"`
 ];
 
+/**
+ * Generate a type class from swagger definition
+ */
 export class TypeGenerator extends Generator {
     private imports = [...staticImport];
     private content: string[] = [];
@@ -22,6 +25,8 @@ export class TypeGenerator extends Generator {
         private definition: Definition
     ) {
         super("Type");
+
+        // Initialize the implementation generator
         this.implGenerator = new ImplementationGenerator(name);
 
         // Initialize the class
@@ -33,6 +38,9 @@ export class TypeGenerator extends Generator {
         this._constructor.push(`    if (source !== undefined) {`);
     }
 
+    /**
+     * Generate the type class
+     */
     public generate() {
         this.info(`Generating a typed class for [${this.name}]...`);
 
@@ -60,6 +68,10 @@ export class TypeGenerator extends Generator {
         this.implGenerator.generate();
     }
 
+    /**
+     * Generate a property and implement it safely in the class
+     *
+     */
     private generateProperty(name: string, property: Property) {
         // Check if the property has a description and if so include it as comment
         if (property.description !== undefined) {
@@ -84,11 +96,16 @@ export class TypeGenerator extends Generator {
         this.writeImports(convertedTypes);
     }
 
+    /**
+     * Write the property name and its type in the class content
+     */
     private writeProperty(name: string, _type: string) {
-        // Write the property name and its type in the content
         this.content.push(`  ${name}: ${_type};`);
     }
 
+    /**
+     * Write a constructor that checks if the property exists in the source and if so then implement it in the class closure
+     */
     private writeConstructorChecker(name: string, property: Property, _types: string[]) {
         // Write the if statement to check if the property name exists in the source
         let checker = `      if (source.hasOwnProperty("${name}"))`;
@@ -108,6 +125,9 @@ export class TypeGenerator extends Generator {
         this._constructor.push(checker);
     }
 
+    /**
+     * Write the required imports to the class
+     */
     private writeImports(_types: string[]) {
         // Check if there's any required imports to add it
         if (_types.length <= 0 || _types[1] === undefined) {
@@ -124,6 +144,9 @@ export class TypeGenerator extends Generator {
         this.imports.push(_import);
     }
 
+    /**
+     * Combine the generated content of the class and save it
+     */
     private save() {
         const path = join(GENERATED_TYPES_DIR, `${this.name}Base.ts`);
         const stream = createWriteStream(path, { encoding: "utf8" });
