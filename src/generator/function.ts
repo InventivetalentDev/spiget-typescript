@@ -135,11 +135,11 @@ export class FunctionGenerator extends Generator {
         let result = "";
         const responses = this.method.responses;
         if (responses === undefined) {
-            return;
+            return "";
         }
 
         if (responses[200] === undefined) {
-            return;
+            return "";
         }
 
         if (responses[200].schema === undefined) {
