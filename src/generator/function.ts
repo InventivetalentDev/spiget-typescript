@@ -49,7 +49,7 @@ export class FunctionGenerator extends Generator {
         this.write(` {`);
 
         // Write the content of the function
-        this.write(`  return new ${this.returnType} ((resolve, reject) => {`);
+        this.write(`  return new ${this.returnType}((resolve, reject) => {`);
         
         const addToQuery = (this.hasPagination || this.hasFields) ? "this.__addPaginationAndFieldsToQuery(pagination, fields)" : "{}";
         this.write(`    let query = ${addToQuery};`);
@@ -159,7 +159,7 @@ export class FunctionGenerator extends Generator {
         } else {
             this.returnTypeBase = _types[1];
         }
-        this.returnType = `Promise<${_type}`;
+        this.returnType = `Promise<${_type}>`;
         result += `: ${this.returnType}`;
         this.isArrayReturn = schema.type === "array";
 
