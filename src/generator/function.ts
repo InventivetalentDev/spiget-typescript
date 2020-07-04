@@ -43,10 +43,7 @@ export class FunctionGenerator extends Generator {
         
         const inputParameters = this.buildParameters();
         const returnOutput = this.buildReturn()
-        this.write(`${functionName}(${inputParameters})${returnOutput}`)
-
-        // Open the function
-        this.write(` {`);
+        this.write(`${functionName}(${inputParameters})${returnOutput} {`)
 
         // Write the content of the function
         this.write(`  return new ${this.returnType}((resolve, reject) => {`);
@@ -69,7 +66,7 @@ export class FunctionGenerator extends Generator {
         this.write(`  });`);
 
         // Close the function
-        this.write(`}`);
+        this.write(`}\n\n`);
 
         if (pathAliases[functionName] !== undefined) {
             const aliasesGenerator = new FunctionAliasesGenerator(
@@ -215,6 +212,10 @@ export class FunctionAliasesGenerator extends Generator {
     private buildInvokeParameters(): string {
         const result = [];
         for (const parameter of this.invokeParameters) {
+            if (parameter.name === "size") {
+                result.push("pagination");
+                continue;    
+            }
             result.push(parameter.name);
         }
         return result.join(",");
