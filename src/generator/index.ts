@@ -3,11 +3,10 @@ import { Definition } from "./swagger/definition";
 import { TypeGenerator } from "./type";
 import { Path } from "./swagger/path";
 import { join } from "path";
-import { GENERATED_TYPES_DIR, buildWithNewLines, TYPES_DIR, SKIPPED_PATHS } from "./util";
-import { createWriteStream, WriteStream, writeFileSync, existsSync, mkdirSync } from "fs";
+import { GENERATED_TYPES_DIR, TYPES_DIR, SKIPPED_PATHS } from "./util";
+import { createWriteStream, WriteStream, existsSync, mkdirSync } from "fs";
 import { FunctionGenerator } from "./function";
 import { Method } from "./swagger/method";
-import { allImplImports } from "./implementation";
 import { ImportsGenerator } from "./imports";
 
 export function start() {

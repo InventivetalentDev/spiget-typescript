@@ -1,5 +1,3 @@
-import { Schema } from "./swagger/schema";
-
 /**
  * The source directory to generate the types inside it
  */
