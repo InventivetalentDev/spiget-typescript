@@ -5,9 +5,33 @@ import { WriteStream } from "fs";
 import { camelize } from "./util";
 
 /**
+ * A common class that includes functions that both function and function aliases generator have
+ */
+export abstract class AbstractFunctionGenerator extends Generator {
+
+    constructor(
+        name: string,
+        protected stream: WriteStream
+    ) {
+        super(name);
+    }
+
+    /**
+     * Takes a line and writes it to the stream with a new line
+     * 
+     * @param line The line to add the new line to it
+     */
+    protected write(line: string) {
+        this.stream.write(`${line}\n`);
+    }
+
+    abstract generate(): void;
+}
+
+/**
  * Generate a function out of swagger path
  */
-export class FunctionGenerator extends Generator {
+export class FunctionGenerator extends AbstractFunctionGenerator {
     private parameters: Parameter[] = [];
     private pathParameters: string[] = [];
     private queryParameters: string[] = [];
@@ -21,9 +45,9 @@ export class FunctionGenerator extends Generator {
         private name: string,
         private pathName: string,
         private method: Method,
-        private stream: WriteStream
+        stream: WriteStream
     ) {
-        super("Function");
+        super("Function", stream);
     }
 
     /**
@@ -186,15 +210,6 @@ export class FunctionGenerator extends Generator {
         return result;
     }
 
-    /**
-     * Takes a line and writes it to the stream with a new line
-     * 
-     * @param line The line to add the new line to it
-     */
-    private write(line: string) {
-        this.stream.write(`${line}\n`);
-    }
-
 }
 
 /**
@@ -214,7 +229,7 @@ const pathAliases = {
 /**
  * Generate an alias function using the original path function data
  */
-export class FunctionAliasesGenerator extends Generator {
+export class FunctionAliasesGenerator extends AbstractFunctionGenerator {
 
     constructor(
         private name: string,
@@ -222,9 +237,9 @@ export class FunctionAliasesGenerator extends Generator {
         private parameters: string,
         private returnString: string,
         private invokeParameters: Parameter[],
-        private stream: WriteStream
+        stream: WriteStream
     ) {
-        super("FunctionAliases");
+        super("FunctionAliases", stream);
     }
 
     /**
@@ -260,15 +275,6 @@ export class FunctionAliasesGenerator extends Generator {
             result.push(parameter.name);
         }
         return result.join(",");
-    }
-
-    /**
-     * Takes a line and writes it to the stream with a new line
-     * 
-     * @param line The line to add the new line to it
-     */
-    private write(line: string) {
-        this.stream.write(`${line}\n`);
     }
 
 }
