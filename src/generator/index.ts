@@ -8,6 +8,7 @@ import { createWriteStream, WriteStream, writeFileSync, existsSync, mkdirSync } 
 import { FunctionGenerator } from "./function";
 import { Method } from "./swagger/method";
 import { allImplImports } from "./implementation";
+import { ImportsGenerator } from "./imports";
 
 export function start() {
     console.log("[INFO] Generating from swagger...");
@@ -47,9 +48,8 @@ export function start() {
     write(stream, `}`);
     stream.close();
 
-    // Save all implementation imports in the _imports.txt
-    const allImportsPath = join(GENERATED_TYPES_DIR, "_imports.txt");
-    writeFileSync(allImportsPath, buildWithNewLines(allImplImports), "utf8");
+    const importsGen = new ImportsGenerator();
+    importsGen.generate();
 
     console.log("[INFO] Successfully! Generated from the swagger.");
 }
