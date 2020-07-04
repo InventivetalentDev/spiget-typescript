@@ -15,6 +15,9 @@ export class ImplementationGenerator extends Generator {
     }
 
     public generate() {
+        // Add the implementation import even if it exists
+        allImplImports.push(`import ${this.name} from "./types/${this.name}";`);
+
         const path = join(TYPES_DIR, `${this.name}.ts`);
         // Check if the implementation file exists
         if (existsSync(path)) {
@@ -29,8 +32,6 @@ export class ImplementationGenerator extends Generator {
         const stream = createWriteStream(path, { encoding: "utf-8" });
         stream.write(buildWithNewLines(this.contents));
         stream.close();
-
-        allImplImports.push(`import ${this.name} from "./types/${this.name}";`);
     }
 
     private write() {
