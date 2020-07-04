@@ -4,6 +4,9 @@ import { Parameter } from "./swagger/parameter";
 import { WriteStream } from "fs";
 import { camelize } from "./util";
 
+/**
+ * Generate a function out of swagger path
+ */
 export class FunctionGenerator extends Generator {
     private parameters: Parameter[] = [];
     private pathParameters: string[] = [];
@@ -23,6 +26,9 @@ export class FunctionGenerator extends Generator {
         super("Function");
     }
 
+    /**
+     * Generate the function
+     */
     public generate() {
         this.info(`Converting [${this.name.toUpperCase()}] ${this.pathName} into a function...`);
 
@@ -43,23 +49,30 @@ export class FunctionGenerator extends Generator {
         
         const inputParameters = this.buildParameters();
         const returnOutput = this.buildReturn()
+        
+        // Write the header of the function
         this.write(`${functionName}(${inputParameters})${returnOutput} {`)
 
         // Write the content of the function
         this.write(`  return new ${this.returnType}((resolve, reject) => {`);
         
+        // Check if we should add the pagination or the fields during the intiailiztion of the query
         const addToQuery = (this.hasPagination || this.hasFields) ? "this.__addPaginationAndFieldsToQuery(pagination, fields)" : "{}";
         this.write(`    let query = ${addToQuery};`);
 
+        // Write each query and their value
         for (const name of this.queryParameters) {
             this.write(`    query["${name}"] = ${name};`);
         }
 
+        // Replace each path in their string form and implement them as variable
+        // FIXME: Use '`' instead of '"" to write the path
         let replacedPath = this.pathName;
         for (const path of this.pathParameters) {
             replacedPath = replacedPath.replace(`{${path}}`, `" + ${path} + "`);
         }
 
+        // Write the request call of the function
         this.write(`    this.__request("${this.name.toUpperCase()}", "${replacedPath}", query).then(res${this.isArrayReturn ? "Arr" : ""} => {`);
         this.write(`      resolve(this.__mapType${this.isArrayReturn ? "List" : ""}(res${this.isArrayReturn ? "Arr" : ""}, ${this.returnTypeBase}));`)
         this.write(`    }).catch(reject);`);
@@ -68,6 +81,7 @@ export class FunctionGenerator extends Generator {
         // Close the function
         this.write(`}\n\n`);
 
+        // Check if the function has aliases and generate them
         if (pathAliases[functionName] !== undefined) {
             const aliasesGenerator = new FunctionAliasesGenerator(
                 pathAliases[functionName],
@@ -81,6 +95,9 @@ export class FunctionGenerator extends Generator {
         }
     }
 
+    /**
+     * Seperate each parameter into query or path and write them in array
+     */
     private writeParameter(parameter: Parameter) {
         const name = parameter.name;
         // Ignored, handled by size
@@ -106,6 +123,9 @@ export class FunctionGenerator extends Generator {
         }
     }
 
+    /**
+     * Build the parameters of the function
+     */
     private buildParameters(): string {
         let result = "";
         let first = true;
@@ -131,6 +151,9 @@ export class FunctionGenerator extends Generator {
         return result;
     }
 
+    /**
+     * Build the return type of the function
+     */
     private buildReturn(): string {
         let result = "";
         const responses = this.method.responses;
@@ -163,12 +186,20 @@ export class FunctionGenerator extends Generator {
         return result;
     }
 
+    /**
+     * Takes a line and writes it to the stream with a new line
+     * 
+     * @param line The line to add the new line to it
+     */
     private write(line: string) {
         this.stream.write(`${line}\n`);
     }
 
 }
 
+/**
+ * Path aliases and their original path
+ */
 const pathAliases = {
     "getAuthorDetails": "getAuthor",
     "getAuthorList": "getAuthors",
@@ -180,6 +211,9 @@ const pathAliases = {
     "getPremiumResourceList": "getPremiumResources"
 };
 
+/**
+ * Generate an alias function using the original path function data
+ */
 export class FunctionAliasesGenerator extends Generator {
 
     constructor(
@@ -193,6 +227,9 @@ export class FunctionAliasesGenerator extends Generator {
         super("FunctionAliases");
     }
 
+    /**
+     * Generate the function
+     */
     public generate() {
         this.info(`Creating an alias of ${this.functionName} called ${this.name}`);
 
@@ -209,7 +246,11 @@ export class FunctionAliasesGenerator extends Generator {
         this.write(`}\n`);
     }
 
+    /**
+     * Combine all the parameters into 
+     */
     private buildInvokeParameters(): string {
+        // FIXME: Optimize instead of creating an array and fill it and then join it to combine string we could write the combined string directly
         const result = [];
         for (const parameter of this.invokeParameters) {
             if (parameter.name === "size") {
@@ -221,6 +262,11 @@ export class FunctionAliasesGenerator extends Generator {
         return result.join(",");
     }
 
+    /**
+     * Takes a line and writes it to the stream with a new line
+     * 
+     * @param line The line to add the new line to it
+     */
     private write(line: string) {
         this.stream.write(`${line}\n`);
     }
