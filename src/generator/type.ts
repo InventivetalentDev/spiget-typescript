@@ -39,7 +39,7 @@ export class TypeGenerator extends Generator {
         // For each property and implement it in the content of the class
         for (const name of Object.keys(this.definition.properties)) {
             const property = this.definition.properties[name];
-            if (property !== undefined) {
+            if (property === undefined) {
                 this.warn(`${name} has no properties!`);
                 continue;
             }
