@@ -10,14 +10,10 @@ const NOT_FOUND = -1;
  * Takes source with code and apply it to the target
  */
 class ApplyGenerator extends Generator {
+    private targetContent: string[] = [];
+
     private startIndex = NOT_FOUND;
     private endIndex = NOT_FOUND;
-
-    // FIXME: Use one array to store the target content
-    // Use the startLine and endLine to point to know how to devide the target content
-    private startLines: string[] = [];
-    private endLines: string[] = [];
-    // private targetContent: string[] = [];
 
     constructor(
 
@@ -73,17 +69,13 @@ class ApplyGenerator extends Generator {
             let filteredLine = line.trim();
 
             if (!filteredLine.startsWith("/**")) {
+                this.targetContent.push(line);
+                continue;
+            }
 
-                // Add any line till we have a start point
-                if (this.startIndex == NOT_FOUND) {
-                    this.startLines.push(line);
-                }
-    
-                // Add any line to the end after we have the end point
-                if (this.endIndex != NOT_FOUND) {
-                    this.endLines.push(line);
-                }
-
+            // Maybe we have "/**" but its length is not enough
+            if (filteredLine.length < 5)  {
+                this.targetContent.push(line);
                 continue;
             }
 
@@ -93,20 +85,18 @@ class ApplyGenerator extends Generator {
                     throw new Error("Too many start points!");
                 }
 
-                // FIXME: Since we are using two arrays no need to point the start line to anything for now
-                this.startIndex = 0;
+                this.startIndex = this.targetContent.length;
 
                 continue;
-            }
-
-            // Declare the end line
-            if (filteredLine[4] === "E") {
+            } else if (filteredLine[4] === "E") { // Declare the end line
                 if (this.endIndex != NOT_FOUND) {
                     throw new Error("Too many end points!");
                 }
 
-                // FIXME: Since we are using two arrays no need to point the end line to anything for now
-                this.endIndex = 0;
+                this.endIndex = this.targetContent.length;
+            } else { // It didn't match anything above
+                this.targetContent.push(line);
+                continue;
             }
 
         }
@@ -122,7 +112,8 @@ class ApplyGenerator extends Generator {
         const stream = createWriteStream(this.target, { encoding: 'utf8' });
     
         // Write from the target content ( stored in mem )
-        for (const line of this.startLines) {
+        for (let i = 0; i < this.startIndex; i++) {
+            const line = this.targetContent[i];
             stream.write(line);
             stream.write("\n");
         }
@@ -151,7 +142,8 @@ class ApplyGenerator extends Generator {
 
         // When the source file is finished write the end point
         // Continue you writing from the target content ( stored in mem ) till the end
-        for (const line of this.endLines) {
+        for (let i = this.endIndex; i < this.targetContent.length; i++) {
+            const line = this.targetContent[i];
             stream.write(this.prefix);
             stream.write(line);
             stream.write("\n");
