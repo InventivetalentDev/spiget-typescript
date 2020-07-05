@@ -16,14 +16,13 @@ import SpigetType, { Constructor as TypeConstructor } from "./SpigetType";
 
 
 export class Spiget {
+    private axios: AxiosInstance;
 
-    __apiBase: String;
-    __spigotMcUrl: String;
-    axios: AxiosInstance;
-
-    constructor(userAgent = "spiget-typescript", apiBase = "https://api.spiget.org/v2", spigotMcUrl = "https://spigotmc.org") {
-        this.__apiBase = apiBase;
-        this.__spigotMcUrl = spigotMcUrl;
+    constructor(
+        userAgent = "spiget-typescript",
+        public apiBase = "https://api.spiget.org/v2",
+        public spigotMcUrl = "https://spigotmc.org"
+    ) {
         this.axios = Axios.create({
             baseURL: apiBase,
             timeout: 10000,
