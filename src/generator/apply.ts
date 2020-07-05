@@ -151,7 +151,6 @@ class ApplyGenerator extends Generator {
         // Continue you writing from the target content ( stored in mem ) till the end
         for (let i = this.endIndex; i < this.targetContent.length; i++) {
             const line = this.targetContent[i];
-            stream.write(this.prefix);
             stream.write(line);
             stream.write("\n");
         }
