@@ -161,7 +161,7 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
                 result += ", ";
             }
             if (parameter.name === "size") {
-                result += "pagination: Pagination = undefined"
+                result += "pagination?: Pagination"
             } else if (parameter.name === "fields") {
                 result += "fields: Fields = []";
             } else {
