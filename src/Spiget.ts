@@ -78,7 +78,7 @@ export class Spiget {
         return mapped;
     }
 
-    ///// Generated Functions
+    /** Generated: Functions */
 
     /**
      GET /authors
@@ -556,6 +556,8 @@ export class Spiget {
             }).catch(reject);
         });
     }
+
+    /** End Generated */
 
 }
 
