@@ -18,7 +18,7 @@ class ApplyGenerator extends Generator {
     constructor(
 
         /**
-         * The name of start and end point
+         * The name of start and end placeholder
          */
         private name: string,
 
@@ -82,6 +82,7 @@ class ApplyGenerator extends Generator {
                 continue;
             }
 
+            // FIXME: No checking for the name
             // Declare the start line
             if (filteredLine[4] === "G") {
                 if (this.startIndex != NOT_FOUND) {
@@ -128,9 +129,9 @@ class ApplyGenerator extends Generator {
             input: sourceStream
         });
 
-        // Write the start point
+        // Write the start placeholder
         stream.write(this.prefix);
-        stream.write(this.startPoint);
+        stream.write(this.startPlaceholder);
         stream.write("\n\n");
 
         // Read from the source file and write it to the target
@@ -140,13 +141,13 @@ class ApplyGenerator extends Generator {
             stream.write("\n");
         }
 
-        // Write the end point
+        // Write the end placeholder
         stream.write(this.prefix);
-        stream.write(this.endPoint);
+        stream.write(this.endPlaceholder);
         stream.write("\n");
 
         this.info(`Writing the end part of ${this.target}...`);
-        // When the source file is finished write the end point
+        // When the source file is finished write the end placeholder
         // Continue you writing from the target content ( stored in mem ) till the end
         for (let i = this.endIndex; i < this.targetContent.length; i++) {
             const line = this.targetContent[i];
@@ -162,11 +163,11 @@ class ApplyGenerator extends Generator {
         return `/** ${value} */`;
     }
 
-    private get startPoint() {
+    private get startPlaceholder() {
         return this.comment(`Generated: ${this.name}`);
     }
 
-    private get endPoint() {
+    private get endPlaceholder() {
         return this.comment(`End Generated`);
     }
 
