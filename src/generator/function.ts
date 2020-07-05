@@ -78,7 +78,7 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
         this.write(`${functionName}(${inputParameters})${returnOutput} {`)
 
         // Write the content of the function
-        this.write(`  return new ${this.returnType}((resolve, reject) => {`);
+        this.write(`  return new ${this.returnType}(async (resolve, reject) => {`);
 
         // Check if we should add the pagination or the fields during the intiailiztion of the query
         const addToQuery = (this.hasPagination || this.hasFields) ? "this.__addPaginationAndFieldsToQuery(pagination, fields)" : "{}";
@@ -95,14 +95,22 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
             replacedPath = replacedPath.replace(`{${path}}`, "${" + path + "}");
         }
 
+        this.write(`    try {`);
+
         // Write the request call of the function
-        this.write(`    this.__request("${this.name.toUpperCase()}", \`${replacedPath}\`, query).then(res${this.isArrayReturn ? "Arr" : ""} => {`);
+        const resultName = `result${this.isArrayReturn ? "Arr" : ""}`;
+        this.write(`        const ${resultName} = await this.__request("${this.name.toUpperCase()}", \`${replacedPath}\`, query)`);
         if (this.returnTypeBase === "any") {
-            this.write(`      resolve(res);`)
+            this.write(`        resolve(${resultName});`)
         } else {
-            this.write(`      resolve(this.__mapType${ this.isArrayReturn ? "List" : "" }(res${ this.isArrayReturn ? "Arr" : "" }, ${ this.returnTypeBase }));`)
+            this.write(`        resolve(this.__mapType${ this.isArrayReturn ? "List" : "" }(${resultName}, ${ this.returnTypeBase }));`)
         }
-        this.write(`    }).catch(reject);`);
+
+        // this.write(`    }).catch(reject);`);
+        this.write(`    } catch (e) {`);
+        this.write(`        reject(e)`);
+        this.write(`    }`);
+
         this.write(`  });`);
 
         // Close the function
@@ -161,7 +169,7 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
                 result += ", ";
             }
             if (parameter.name === "size") {
-                result += "pagination: Pagination = undefined"
+                result += "pagination?: Pagination"
             } else if (parameter.name === "fields") {
                 result += "fields: Fields = []";
             } else {

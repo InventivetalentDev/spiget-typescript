@@ -6,8 +6,7 @@
   "scripts": {
     "test": "mocha test/**/*.ts --require ts-node/register",
     "compile": "tsc",
-    "generate-types": "node ./dist/generator/src/generator",
-    "build-generator": "rm -rf dist/generator && tsc -p tsconfig.generator.json",
+    "generate-types": "ts-node src/generator",
     "clear-generated-types": "rm -rf src/generated_types",
     "build": "rm -rf dist && npm run compile"
   },
