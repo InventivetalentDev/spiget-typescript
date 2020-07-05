@@ -1,7 +1,7 @@
 /**
- * The source directory to generate the types inside it
+ * Directory of the source code
  */
-const SOURCE_DIR = "./src"
+export const SOURCE_DIR = "./src"
 
 /**
  * Directory of generated types classes
