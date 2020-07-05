@@ -6,7 +6,7 @@ import Resource from "./Resource";
 export default class Category extends CategoryBase {
 
     getResources(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-        return this._spiget.getCategoryResources(this.id, pagination, fields);
+        return this.spiget.getCategoryResources(this.id, pagination, fields);
     }
 
 }
