@@ -32,14 +32,21 @@ describe("AUTHORS", () => {
         });
     });
 
-    describe("#getAuthor(6643)", () => {
-        it("should return inventivetalent", async () => {
-            let author = await spiget.getAuthor(6643);
-            expect(author).to.be.an("object");
-            expect(author).to.include.all.keys("id", "name", "icon");
-            expect(author.id).to.equal(6643);
-            expect(author.name).to.equal("inventivetalent")
+    const authorsToTest: { id: number, name: string }[] = [
+        { id: 6643, name: "inventivetalent" },
+        { id: 342233, name: "iHDeveloper" }
+    ];
+
+    for (const authorToTest of authorsToTest) {
+        describe(`#getAuthor(${authorToTest.id})`, () => {
+            it(`should return ${authorToTest.name}`, async () => {
+                let author = await spiget.getAuthor(authorToTest.id);
+                expect(author).to.be.an("object");
+                expect(author).to.include.all.keys("id", "name", "icon");
+                expect(author.id).to.equal(authorToTest.id);
+                expect(author.name).to.equal(authorToTest.name);
+            });
         });
-    });
+    }
 
 });
