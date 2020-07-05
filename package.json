@@ -14,10 +14,10 @@
   "author": "Haylee Schäfer",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "0.19.2"
   },
   "devDependencies": {
-    "@types/node": "^14.0.14",
+    "@types/node": "14.0.14",
     "chai": "4.2.0",
     "mocha": "8.0.1"
   }
