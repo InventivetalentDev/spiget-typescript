@@ -41,11 +41,13 @@ class ApplyGenerator extends Generator {
     }
 
     public async generate() {
-        this.info(`Applying ${this.name} from ${this.source} to ${this.target}`);
+        this.info(`Applying ${this.name} from ${this.source} to ${this.target}...`);
         try {
             await this.read();
 
             await this.apply();
+
+            this.info(`Successfully! Applied ${this.name} from ${this.source} to ${this.target}.`);
         } catch (e) {
             this.error(`Failed to apply! Message: ${e}`);
             
@@ -58,6 +60,7 @@ class ApplyGenerator extends Generator {
      * Read the target file and store it in the memory
      */
     private async read() {
+        this.info(`Reading from the ${this.target}...`);
         const stream = createReadStream(this.target, { encoding: 'utf8' });
 
         const lines = createInterface({
@@ -111,6 +114,7 @@ class ApplyGenerator extends Generator {
         // Rewrite the target file
         const stream = createWriteStream(this.target, { encoding: 'utf8' });
     
+        this.info(`Writing the start part of ${this.target}...`);
         // Write from the target content ( stored in mem )
         for (let i = 0; i < this.startIndex; i++) {
             const line = this.targetContent[i];
@@ -118,6 +122,7 @@ class ApplyGenerator extends Generator {
             stream.write("\n");
         }
         
+        this.info(`Applying ${this.source} in the middle of ${this.target}...`);
         const sourceStream = createReadStream(this.source, { encoding: 'utf8' });
         const source = createInterface({
             input: sourceStream
@@ -140,6 +145,7 @@ class ApplyGenerator extends Generator {
         stream.write(this.endPoint);
         stream.write("\n");
 
+        this.info(`Writing the end part of ${this.target}...`);
         // When the source file is finished write the end point
         // Continue you writing from the target content ( stored in mem ) till the end
         for (let i = this.endIndex; i < this.targetContent.length; i++) {
