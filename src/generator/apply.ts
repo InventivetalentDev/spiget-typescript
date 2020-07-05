@@ -34,7 +34,12 @@ class ApplyGenerator extends Generator {
         /**
          * Target to apply the generated code to it
          */
-        private target: string
+        private target: string,
+
+        /**
+         * A prefix written before any written line to the stream
+         */
+        private prefix: string = ""
     ) {
         super("Apply");
     }
@@ -88,7 +93,7 @@ class ApplyGenerator extends Generator {
                     throw new Error("Too many start points!");
                 }
 
-                // FIXME: Since we are using two arraies no need to point the start line to anything for now
+                // FIXME: Since we are using two arrays no need to point the start line to anything for now
                 this.startIndex = 0;
 
                 continue;
@@ -100,7 +105,7 @@ class ApplyGenerator extends Generator {
                     throw new Error("Too many end points!");
                 }
 
-                // FIXME: Since we are using two arraies no need to point the end line to anything for now
+                // FIXME: Since we are using two arrays no need to point the end line to anything for now
                 this.endIndex = 0;
             }
 
@@ -121,8 +126,6 @@ class ApplyGenerator extends Generator {
             stream.write(line);
             stream.write("\n");
         }
-
-        // TODO When the line is the start line
         
         const sourceStream = createReadStream(this.source, { encoding: 'utf8' });
         const source = createInterface({
@@ -130,22 +133,26 @@ class ApplyGenerator extends Generator {
         });
 
         // Write the start point
+        stream.write(this.prefix);
         stream.write(this.startPoint);
-        stream.write("\n");
+        stream.write("\n\n");
 
         // Read from the source file and write it to the target
         for await (const line of source) {
+            stream.write(this.prefix);
             stream.write(line)
             stream.write("\n");
         }
 
         // Write the end point
+        stream.write(this.prefix);
         stream.write(this.endPoint);
         stream.write("\n");
 
         // When the source file is finished write the end point
         // Continue you writing from the target content ( stored in mem ) till the end
         for (const line of this.endLines) {
+            stream.write(this.prefix);
             stream.write(line);
             stream.write("\n");
         }
@@ -171,7 +178,8 @@ export function start() {
     const functionsGen = new ApplyGenerator(
         "Functions",
         join(GENERATED_TYPES_DIR, "_functions.ts"),
-        join(SOURCE_DIR, "Spiget.ts")
+        join(SOURCE_DIR, "Spiget.ts"),
+        "    "
     );
     functionsGen.generate();
 }
