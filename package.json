@@ -6,9 +6,8 @@
   "scripts": {
     "test": "mocha",
     "compile": "tsc",
-    "generate-types": "node ./dist/generator/src/generator",
-    "apply-functions": "node ./dist/generator/src/generator/apply",
-    "build-generator": "rm -rf dist/generator && tsc -p tsconfig.generator.json",
+    "generate-types": "ts-node src/generator",
+    "apply-functions": "ts-node src/generator/apply",
     "clear-generated-types": "rm -rf src/generated_types",
     "build": "rm -rf dist && npm run compile"
   },
@@ -21,6 +20,8 @@
     "@types/axios": "0.14.0",
     "@types/node": "^14.0.14",
     "chai": "4.2.0",
-    "mocha": "7.1.1"
+    "mocha": "7.1.1",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
   }
 }
