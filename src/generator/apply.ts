@@ -38,6 +38,11 @@ class ApplyGenerator extends Generator {
         private prefix: string = ""
     ) {
         super("Apply");
+        this.name = this.name.trim();
+
+        if (this.name.length <= 0) {
+            throw new Error("There's no name to find the placeholder in the target!");
+        }
     }
 
     public async generate() {
@@ -67,42 +72,57 @@ class ApplyGenerator extends Generator {
             input: stream
         });
 
+        const min = Math.min(this.startPlaceholder.length, this.endPlaceholder.length);
 
         for await (const line of lines) {
             let filteredLine = line.trim();
 
-            if (!filteredLine.startsWith("/**")) {
+            // Before doing any string operation let's check if the line content match our minimum length
+            if (filteredLine.length < min)  {
                 this.targetContent.push(line);
                 continue;
             }
 
-            // Maybe we have "/**" but its length is not enough
-            if (filteredLine.length < 5)  {
+            if (!filteredLine.startsWith("/** ") && !filteredLine.endsWith(" */")) {
                 this.targetContent.push(line);
                 continue;
             }
 
-            // FIXME: No checking for the name
+            // Filter "/** " in the start
+            filteredLine = filteredLine.substring(4);
+
+            // Filter the end " */"
+            filteredLine = filteredLine.substring(0, filteredLine.indexOf(" */"));
+
             // Declare the start line
-            if (filteredLine[4] === "G") {
-                if (this.startIndex != NOT_FOUND) {
-                    throw new Error("Too many start points!");
+            if (filteredLine.startsWith("Generated: ")) {
+
+                // "Generated: ".length
+                filteredLine = filteredLine.substring(11);
+
+                // Check the name
+                if (filteredLine == this.name) {
+                    if (this.startIndex != NOT_FOUND) {
+                        throw new Error("Too many start placeholders!");
+                    }
+
+                    this.info("[!] Found the start placeholder!");
+                    this.startIndex = this.targetContent.length;
+                    continue;
                 }
 
-                this.startIndex = this.targetContent.length;
-
-                continue;
-            } else if (filteredLine[4] === "E") { // Declare the end line
+            } else if (filteredLine === "End Generated") { // Declare the end placeholder
                 if (this.endIndex != NOT_FOUND) {
                     throw new Error("Too many end points!");
                 }
 
+                this.info("[!] Found the end placeholder!");
                 this.endIndex = this.targetContent.length;
-            } else { // It didn't match anything above
-                this.targetContent.push(line);
                 continue;
             }
 
+            // When the place holder is not what we are looking for
+            this.targetContent.push(line);
         }
 
         stream.close();
