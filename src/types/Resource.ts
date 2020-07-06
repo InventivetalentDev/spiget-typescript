@@ -16,23 +16,23 @@ export default class Resource extends ResourceBase {
     }
 
     getFullResource(): Promise<Resource> {
-        return this._spiget.getResource(this.id);
+        return this.spiget.getResource(this.id);
     }
 
     getAuthor(): Promise<Author> {
-        return this._spiget.getResourceAuthor(this.id);
+        return this.spiget.getResourceAuthor(this.id);
     }
 
     getUpdates(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceUpdate>> {
-        return this._spiget.getResourceUpdates(this.id, pagination, fields);
+        return this.spiget.getResourceUpdates(this.id, pagination, fields);
     }
 
     getVersions(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceVersion>> {
-        return this._spiget.getResourceVersions(this.id, pagination, fields);
+        return this.spiget.getResourceVersions(this.id, pagination, fields);
     }
 
     getReviews(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
-        return this._spiget.getResourceReviews(this.id, pagination, fields);
+        return this.spiget.getResourceReviews(this.id, pagination, fields);
     }
 
 }

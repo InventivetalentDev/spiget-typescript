@@ -20,7 +20,7 @@ export class ResourceVersion extends SpigetType {
       if (source.hasOwnProperty("name")) this.name = source.name;
       if (source.hasOwnProperty("releaseDate")) this.releaseDate = source.releaseDate;
       if (source.hasOwnProperty("downloads")) this.downloads = source.downloads;
-      if (source.hasOwnProperty("rating")) this.rating = this._spiget.__mapType(source.rating, ResourceRating);
+      if (source.hasOwnProperty("rating")) this.rating = this.spiget.mapType(source.rating, ResourceRating);
     }
   }
 }
