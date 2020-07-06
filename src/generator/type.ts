@@ -114,9 +114,9 @@ export class TypeGenerator extends Generator {
         // If so we will take that object and reference it in this object instead of the source object
         if (_types.length > 1 && _types[1] !== undefined) {
             if (property.type === "array") {
-                checker += `this.spiget.__mapTypeList(source.${name}, ${_types[1]});`
+                checker += `this.spiget.mapTypeList(source.${name}, ${_types[1]});`
             } else {
-                checker += `this.spiget.__mapType(source.${name}, ${_types[1]});`
+                checker += `this.spiget.mapType(source.${name}, ${_types[1]});`
             }
         } else {
             checker += `source.${name};`
