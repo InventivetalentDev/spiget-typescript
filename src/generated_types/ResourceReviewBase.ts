@@ -18,8 +18,8 @@ export class ResourceReview extends SpigetType {
   constructor(source: any, spiget: Spiget = new Spiget()) {
     super(source, spiget);
     if (source !== undefined) {
-      if (source.hasOwnProperty("author")) this.author = this.spiget.__mapType(source.author, Author);
-      if (source.hasOwnProperty("rating")) this.rating = this.spiget.__mapType(source.rating, ResourceRating);
+      if (source.hasOwnProperty("author")) this.author = this.spiget.mapType(source.author, Author);
+      if (source.hasOwnProperty("rating")) this.rating = this.spiget.mapType(source.rating, ResourceRating);
       if (source.hasOwnProperty("message")) this.message = source.message;
       if (source.hasOwnProperty("responseMessage")) this.responseMessage = source.responseMessage;
       if (source.hasOwnProperty("version")) this.version = source.version;

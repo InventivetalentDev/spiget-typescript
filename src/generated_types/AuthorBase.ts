@@ -14,7 +14,7 @@ export class Author extends SpigetType {
     if (source !== undefined) {
       if (source.hasOwnProperty("id")) this.id = source.id;
       if (source.hasOwnProperty("name")) this.name = source.name;
-      if (source.hasOwnProperty("icon")) this.icon = this.spiget.__mapType(source.icon, Icon);
+      if (source.hasOwnProperty("icon")) this.icon = this.spiget.mapType(source.icon, Icon);
     }
   }
 }

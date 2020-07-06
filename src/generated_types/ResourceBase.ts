@@ -51,21 +51,21 @@ export class Resource extends SpigetType {
       if (source.hasOwnProperty("tag")) this.tag = source.tag;
       if (source.hasOwnProperty("contributors")) this.contributors = source.contributors;
       if (source.hasOwnProperty("likes")) this.likes = source.likes;
-      if (source.hasOwnProperty("file")) this.file = this.spiget.__mapType(source.file, ResourceFile);
+      if (source.hasOwnProperty("file")) this.file = this.spiget.mapType(source.file, ResourceFile);
       if (source.hasOwnProperty("testedVersions")) this.testedVersions = source.testedVersions;
       if (source.hasOwnProperty("links")) this.links = source.links;
-      if (source.hasOwnProperty("rating")) this.rating = this.spiget.__mapType(source.rating, ResourceRating);
+      if (source.hasOwnProperty("rating")) this.rating = this.spiget.mapType(source.rating, ResourceRating);
       if (source.hasOwnProperty("releaseDate")) this.releaseDate = source.releaseDate;
       if (source.hasOwnProperty("updateDate")) this.updateDate = source.updateDate;
       if (source.hasOwnProperty("downloads")) this.downloads = source.downloads;
       if (source.hasOwnProperty("external")) this.external = source.external;
-      if (source.hasOwnProperty("icon")) this.icon = this.spiget.__mapType(source.icon, Icon);
+      if (source.hasOwnProperty("icon")) this.icon = this.spiget.mapType(source.icon, Icon);
       if (source.hasOwnProperty("premium")) this.premium = source.premium;
       if (source.hasOwnProperty("price")) this.price = source.price;
       if (source.hasOwnProperty("currency")) this.currency = source.currency;
-      if (source.hasOwnProperty("reviews")) this.reviews = this.spiget.__mapTypeList(source.reviews, IdReference);
-      if (source.hasOwnProperty("versions")) this.versions = this.spiget.__mapTypeList(source.versions, IdReference);
-      if (source.hasOwnProperty("updates")) this.updates = this.spiget.__mapTypeList(source.updates, IdReference);
+      if (source.hasOwnProperty("reviews")) this.reviews = this.spiget.mapTypeList(source.reviews, IdReference);
+      if (source.hasOwnProperty("versions")) this.versions = this.spiget.mapTypeList(source.versions, IdReference);
+      if (source.hasOwnProperty("updates")) this.updates = this.spiget.mapTypeList(source.updates, IdReference);
     }
   }
 }

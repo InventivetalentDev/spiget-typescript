@@ -5,12 +5,15 @@ Get a list of available authors
 Note: This only includes members involved with resources, either being their author or having reviewed a resource
 
 **/
-getAuthorList(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Author>> {
-  return new Promise<Array<Author>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/authors`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Author));
-    }).catch(reject);
+getAuthorList(pagination?: Pagination, fields: Fields = []): Promise<Array<Author>> {
+  return new Promise<Array<Author>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/authors`, query)
+        resolve(this.mapTypeList(resultArr, Author));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -18,7 +21,7 @@ getAuthorList(pagination: Pagination = undefined, fields: Fields = []): Promise<
 /**
 Alias of getAuthorList
 **/
-getAuthors(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Author>> {
+getAuthors(pagination?: Pagination, fields: Fields = []): Promise<Array<Author>> {
   return this.getAuthorList(pagination,fields);
 }
 
@@ -29,11 +32,14 @@ Get details about an author
 @param	author	Author ID
 **/
 getAuthorDetails(author: Id): Promise<Author> {
-  return new Promise<Author>((resolve, reject) => {
+  return new Promise<Author>(async (resolve, reject) => {
     let query = {};
-    this.__request("GET", `/authors/${author}`, query).then(res => {
-      resolve(this.__mapType(res, Author));
-    }).catch(reject);
+    try {
+        const result = await this.request("GET", `/authors/${author}`, query)
+        resolve(this.mapType(result, Author));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -51,12 +57,15 @@ Get an author's resources
 
 @param	author	Author ID
 **/
-getAuthorResources(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-  return new Promise<Array<Resource>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/authors/${author}/resources`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Resource));
-    }).catch(reject);
+getAuthorResources(author: Id, pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
+  return new Promise<Array<Resource>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/authors/${author}/resources`, query)
+        resolve(this.mapTypeList(resultArr, Resource));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -67,12 +76,15 @@ Get an author's reviews left on resources
 
 @param	author	Author ID
 **/
-getAuthorReviews(author: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
-  return new Promise<Array<ResourceReview>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/authors/${author}/reviews`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceReview));
-    }).catch(reject);
+getAuthorReviews(author: Id, pagination?: Pagination, fields: Fields = []): Promise<Array<ResourceReview>> {
+  return new Promise<Array<ResourceReview>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/authors/${author}/reviews`, query)
+        resolve(this.mapTypeList(resultArr, ResourceReview));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -82,12 +94,15 @@ GET /categories
 Get a list of categories
 
 **/
-getCategoryList(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Category>> {
-  return new Promise<Array<Category>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/categories`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Category));
-    }).catch(reject);
+getCategoryList(pagination?: Pagination, fields: Fields = []): Promise<Array<Category>> {
+  return new Promise<Array<Category>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/categories`, query)
+        resolve(this.mapTypeList(resultArr, Category));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -95,7 +110,7 @@ getCategoryList(pagination: Pagination = undefined, fields: Fields = []): Promis
 /**
 Alias of getCategoryList
 **/
-getCategories(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Category>> {
+getCategories(pagination?: Pagination, fields: Fields = []): Promise<Array<Category>> {
   return this.getCategoryList(pagination,fields);
 }
 
@@ -106,11 +121,14 @@ Get details about a category
 @param	category	Category ID
 **/
 getCategoryDetails(category: Id): Promise<Category> {
-  return new Promise<Category>((resolve, reject) => {
+  return new Promise<Category>(async (resolve, reject) => {
     let query = {};
-    this.__request("GET", `/categories/${category}`, query).then(res => {
-      resolve(this.__mapType(res, Category));
-    }).catch(reject);
+    try {
+        const result = await this.request("GET", `/categories/${category}`, query)
+        resolve(this.mapType(result, Category));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -128,12 +146,15 @@ Get the resources in a category
 
 @param	category	Category ID
 **/
-getCategoryResources(category: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-  return new Promise<Array<Resource>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/categories/${category}/resources`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Resource));
-    }).catch(reject);
+getCategoryResources(category: Id, pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
+  return new Promise<Array<Resource>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/categories/${category}/resources`, query)
+        resolve(this.mapTypeList(resultArr, Resource));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -143,12 +164,15 @@ GET /resources
 Get a list of available resources (premium and free)
 
 **/
-getResourceList(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-  return new Promise<Array<Resource>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/resources`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Resource));
-    }).catch(reject);
+getResourceList(pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
+  return new Promise<Array<Resource>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/resources`, query)
+        resolve(this.mapTypeList(resultArr, Resource));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -156,7 +180,7 @@ getResourceList(pagination: Pagination = undefined, fields: Fields = []): Promis
 /**
 Alias of getResourceList
 **/
-getResources(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+getResources(pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
   return this.getResourceList(pagination,fields);
 }
 
@@ -167,13 +191,16 @@ Get resources for the specified version(s)
 @param	version	Version(s), separated by commas
 @param	method	Method to use to check for versions
 **/
-getResourcesForVersions(version: string, method: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-  return new Promise<Array<Resource>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
+getResourcesForVersions(version: string, method: string, pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
+  return new Promise<Array<Resource>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
     query["method"] = method;
-    this.__request("GET", `/resources/for/${version}`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Resource));
-    }).catch(reject);
+    try {
+        const resultArr = await this.request("GET", `/resources/for/${version}`, query)
+        resolve(this.mapTypeList(resultArr, Resource));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -183,12 +210,15 @@ GET /resources/free
 Get a list of available free resources
 
 **/
-getFreeResourceList(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-  return new Promise<Array<Resource>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/resources/free`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Resource));
-    }).catch(reject);
+getFreeResourceList(pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
+  return new Promise<Array<Resource>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/resources/free`, query)
+        resolve(this.mapTypeList(resultArr, Resource));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -196,7 +226,7 @@ getFreeResourceList(pagination: Pagination = undefined, fields: Fields = []): Pr
 /**
 Alias of getFreeResourceList
 **/
-getFreeResources(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+getFreeResources(pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
   return this.getFreeResourceList(pagination,fields);
 }
 
@@ -205,12 +235,15 @@ GET /resources/new
 Get all new resources
 
 **/
-getNewResources(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-  return new Promise<Array<Resource>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/resources/new`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Resource));
-    }).catch(reject);
+getNewResources(pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
+  return new Promise<Array<Resource>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/resources/new`, query)
+        resolve(this.mapTypeList(resultArr, Resource));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -220,12 +253,15 @@ GET /resources/premium
 Get a list of available premium resources
 
 **/
-getPremiumResourceList(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-  return new Promise<Array<Resource>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/resources/premium`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Resource));
-    }).catch(reject);
+getPremiumResourceList(pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
+  return new Promise<Array<Resource>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/resources/premium`, query)
+        resolve(this.mapTypeList(resultArr, Resource));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -233,7 +269,7 @@ getPremiumResourceList(pagination: Pagination = undefined, fields: Fields = []):
 /**
 Alias of getPremiumResourceList
 **/
-getPremiumResources(pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
+getPremiumResources(pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
   return this.getPremiumResourceList(pagination,fields);
 }
 
@@ -244,11 +280,14 @@ Get a resource by its ID
 @param	resource	Resource ID
 **/
 getResourceDetails(resource: Id): Promise<Resource> {
-  return new Promise<Resource>((resolve, reject) => {
+  return new Promise<Resource>(async (resolve, reject) => {
     let query = {};
-    this.__request("GET", `/resources/${resource}`, query).then(res => {
-      resolve(this.__mapType(res, Resource));
-    }).catch(reject);
+    try {
+        const result = await this.request("GET", `/resources/${resource}`, query)
+        resolve(this.mapType(result, Resource));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -267,11 +306,14 @@ Get the resource author
 @param	resource	Resource ID
 **/
 getResourceAuthor(resource: Id): Promise<Author> {
-  return new Promise<Author>((resolve, reject) => {
+  return new Promise<Author>(async (resolve, reject) => {
     let query = {};
-    this.__request("GET", `/resources/${resource}/author`, query).then(res => {
-      resolve(this.__mapType(res, Author));
-    }).catch(reject);
+    try {
+        const result = await this.request("GET", `/resources/${resource}/author`, query)
+        resolve(this.mapType(result, Author));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -282,12 +324,15 @@ Get reviews of a resource
 
 @param	resource	Resource ID
 **/
-getResourceReviews(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceReview>> {
-  return new Promise<Array<ResourceReview>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/resources/${resource}/reviews`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceReview));
-    }).catch(reject);
+getResourceReviews(resource: Id, pagination?: Pagination, fields: Fields = []): Promise<Array<ResourceReview>> {
+  return new Promise<Array<ResourceReview>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/resources/${resource}/reviews`, query)
+        resolve(this.mapTypeList(resultArr, ResourceReview));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -298,12 +343,15 @@ Get updates of a resource
 
 @param	resource	Resource ID
 **/
-getResourceUpdates(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceUpdate>> {
-  return new Promise<Array<ResourceUpdate>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/resources/${resource}/updates`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceUpdate));
-    }).catch(reject);
+getResourceUpdates(resource: Id, pagination?: Pagination, fields: Fields = []): Promise<Array<ResourceUpdate>> {
+  return new Promise<Array<ResourceUpdate>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/resources/${resource}/updates`, query)
+        resolve(this.mapTypeList(resultArr, ResourceUpdate));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -314,12 +362,15 @@ Get versions of a resource
 
 @param	resource	Resource ID
 **/
-getResourceVersions(resource: Id, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<ResourceVersion>> {
-  return new Promise<Array<ResourceVersion>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
-    this.__request("GET", `/resources/${resource}/versions`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, ResourceVersion));
-    }).catch(reject);
+getResourceVersions(resource: Id, pagination?: Pagination, fields: Fields = []): Promise<Array<ResourceVersion>> {
+  return new Promise<Array<ResourceVersion>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+    try {
+        const resultArr = await this.request("GET", `/resources/${resource}/versions`, query)
+        resolve(this.mapTypeList(resultArr, ResourceVersion));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -331,11 +382,14 @@ Get the latest resource version
 @param	resource	Resource ID
 **/
 getLatestResourceVersion(resource: Id): Promise<ResourceVersion> {
-  return new Promise<ResourceVersion>((resolve, reject) => {
+  return new Promise<ResourceVersion>(async (resolve, reject) => {
     let query = {};
-    this.__request("GET", `/resources/${resource}/versions/latest`, query).then(res => {
-      resolve(this.__mapType(res, ResourceVersion));
-    }).catch(reject);
+    try {
+        const result = await this.request("GET", `/resources/${resource}/versions/latest`, query)
+        resolve(this.mapType(result, ResourceVersion));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -348,11 +402,14 @@ Get a specific resource version by its ID
 @param	version	Version ID
 **/
 getResourceVersion(resource: Id, version: Id): Promise<ResourceVersion> {
-  return new Promise<ResourceVersion>((resolve, reject) => {
+  return new Promise<ResourceVersion>(async (resolve, reject) => {
     let query = {};
-    this.__request("GET", `/resources/${resource}/versions/${version}`, query).then(res => {
-      resolve(this.__mapType(res, ResourceVersion));
-    }).catch(reject);
+    try {
+        const result = await this.request("GET", `/resources/${resource}/versions/${version}`, query)
+        resolve(this.mapType(result, ResourceVersion));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -364,13 +421,16 @@ Search authors
 @param	query	Search query
 @param	field	Field to search in
 **/
-getAuthorSearch(query: string, field: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Author>> {
-  return new Promise<Array<Author>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
+getAuthorSearch(query: string, field: string, pagination?: Pagination, fields: Fields = []): Promise<Array<Author>> {
+  return new Promise<Array<Author>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
     query["field"] = field;
-    this.__request("GET", `/search/authors/${query}`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Author));
-    }).catch(reject);
+    try {
+        const resultArr = await this.request("GET", `/search/authors/${query}`, query)
+        resolve(this.mapTypeList(resultArr, Author));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -382,13 +442,16 @@ Search resources
 @param	query	Search query
 @param	field	Field to search in
 **/
-getResourceSearch(query: string, field: string, pagination: Pagination = undefined, fields: Fields = []): Promise<Array<Resource>> {
-  return new Promise<Array<Resource>>((resolve, reject) => {
-    let query = this.__addPaginationAndFieldsToQuery(pagination, fields);
+getResourceSearch(query: string, field: string, pagination?: Pagination, fields: Fields = []): Promise<Array<Resource>> {
+  return new Promise<Array<Resource>>(async (resolve, reject) => {
+    let query = this.addPaginationAndFieldsToQuery(pagination, fields);
     query["field"] = field;
-    this.__request("GET", `/search/resources/${query}`, query).then(resArr => {
-      resolve(this.__mapTypeList(resArr, Resource));
-    }).catch(reject);
+    try {
+        const resultArr = await this.request("GET", `/search/resources/${query}`, query)
+        resolve(this.mapTypeList(resultArr, Resource));
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -399,11 +462,14 @@ Get the API status
 
 **/
 getAPIStatus(): Promise<any> {
-  return new Promise<any>((resolve, reject) => {
+  return new Promise<any>(async (resolve, reject) => {
     let query = {};
-    this.__request("GET", `/status`, query).then(res => {
-      resolve(res);
-    }).catch(reject);
+    try {
+        const result = await this.request("GET", `/status`, query)
+        resolve(result);
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -416,11 +482,14 @@ Delete a Webhook
 @param	secret	Webhook Secret
 **/
 deleteDeleteWebhook(id: string, secret: string): Promise<any> {
-  return new Promise<any>((resolve, reject) => {
+  return new Promise<any>(async (resolve, reject) => {
     let query = {};
-    this.__request("DELETE", `/webhook/delete/${id}/${secret}`, query).then(res => {
-      resolve(res);
-    }).catch(reject);
+    try {
+        const result = await this.request("DELETE", `/webhook/delete/${id}/${secret}`, query)
+        resolve(result);
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -431,11 +500,14 @@ Get a list of available events
 
 **/
 getWebhookEvents(): Promise<any> {
-  return new Promise<any>((resolve, reject) => {
+  return new Promise<any>(async (resolve, reject) => {
     let query = {};
-    this.__request("GET", `/webhook/events`, query).then(res => {
-      resolve(res);
-    }).catch(reject);
+    try {
+        const result = await this.request("GET", `/webhook/events`, query)
+        resolve(result);
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -450,13 +522,16 @@ Use this form to easily register a new one: https://spiget.org/webhook/
 @param	events	Events to register
 **/
 postRegisterWebhook(url: string, events: Array<string>): Promise<any> {
-  return new Promise<any>((resolve, reject) => {
+  return new Promise<any>(async (resolve, reject) => {
     let query = {};
     query["url"] = url;
     query["events"] = events;
-    this.__request("POST", `/webhook/register`, query).then(res => {
-      resolve(res);
-    }).catch(reject);
+    try {
+        const result = await this.request("POST", `/webhook/register`, query)
+        resolve(result);
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
@@ -468,11 +543,14 @@ Get the status of a Webhook
 @param	id	ID of the Webhook
 **/
 getWebhookStatus(id: string): Promise<any> {
-  return new Promise<any>((resolve, reject) => {
+  return new Promise<any>(async (resolve, reject) => {
     let query = {};
-    this.__request("GET", `/webhook/status/${id}`, query).then(res => {
-      resolve(res);
-    }).catch(reject);
+    try {
+        const result = await this.request("GET", `/webhook/status/${id}`, query)
+        resolve(result);
+    } catch (e) {
+        reject(e)
+    }
   });
 }
 
