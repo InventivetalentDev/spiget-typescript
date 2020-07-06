@@ -64,11 +64,11 @@ export class Spiget {
         return query;
     }
 
-    private mapType<T extends SpigetType>(data: any, type: TypeConstructor<T>): T {
+    public mapType<T extends SpigetType>(data: any, type: TypeConstructor<T>): T {
         return new type(data, this);
     }
 
-    private mapTypeList<T extends SpigetType>(data: any, type: TypeConstructor<T>): Array<T> {
+    public mapTypeList<T extends SpigetType>(data: any, type: TypeConstructor<T>): Array<T> {
         let mapped = [];
         data.forEach(d => {
             mapped.push(this.mapType(d, type));
