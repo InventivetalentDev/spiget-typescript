@@ -3,6 +3,10 @@
   "version": "0.0.3",
   "description": "Javascript/Typescript client for the spiget.org API",
   "main": "index.js",
+  "files": [
+    "dist/**/*",
+    "example.js"
+  ],
   "scripts": {
     "test": "mocha",
     "compile": "tsc",
