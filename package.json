@@ -3,8 +3,12 @@
   "version": "0.0.3",
   "description": "Javascript/Typescript client for the spiget.org API",
   "main": "index.js",
+  "files": [
+    "dist/**/*",
+    "example.js"
+  ],
   "scripts": {
-    "test": "mocha",
+    "test": "mocha test/**/*.ts --require ts-node/register",
     "compile": "tsc",
     "generate-types": "ts-node src/generator",
     "apply-functions": "ts-node src/generator/apply",
@@ -14,14 +18,16 @@
   "author": "Haylee Schäfer",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "0.19.2"
   },
   "devDependencies": {
     "@types/axios": "0.14.0",
-    "@types/node": "^14.0.14",
+    "@types/chai": "4.2.11",
+    "@types/mocha": "7.0.2",
+    "@types/node": "14.0.14",
     "chai": "4.2.0",
-    "mocha": "7.1.1",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.6"
+    "mocha": "8.0.1",
+    "ts-node": "8.10.2",
+    "typescript": "3.9.6"
   }
 }

@@ -81,7 +81,7 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
         this.write(`  return new ${this.returnType}(async (resolve, reject) => {`);
 
         // Check if we should add the pagination or the fields during the intiailiztion of the query
-        const addToQuery = (this.hasPagination || this.hasFields) ? "this.__addPaginationAndFieldsToQuery(pagination, fields)" : "{}";
+        const addToQuery = (this.hasPagination || this.hasFields) ? "this.addPaginationAndFieldsToQuery(pagination, fields)" : "{}";
         this.write(`    let query = ${addToQuery};`);
 
         // Write each query and their value
@@ -99,11 +99,11 @@ export class FunctionGenerator extends AbstractFunctionGenerator {
 
         // Write the request call of the function
         const resultName = `result${this.isArrayReturn ? "Arr" : ""}`;
-        this.write(`        const ${resultName} = await this.__request("${this.name.toUpperCase()}", \`${replacedPath}\`, query)`);
+        this.write(`        const ${resultName} = await this.request("${this.name.toUpperCase()}", \`${replacedPath}\`, query)`);
         if (this.returnTypeBase === "any") {
             this.write(`        resolve(${resultName});`)
         } else {
-            this.write(`        resolve(this.__mapType${ this.isArrayReturn ? "List" : "" }(${resultName}, ${ this.returnTypeBase }));`)
+            this.write(`        resolve(this.mapType${ this.isArrayReturn ? "List" : "" }(${resultName}, ${ this.returnTypeBase }));`)
         }
 
         // this.write(`    }).catch(reject);`);
