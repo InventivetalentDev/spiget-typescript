@@ -439,6 +439,25 @@ export class Spiget {
     
     
     /** 
+    GET /resources/{resource}/updates/latest
+    Get the latest resource update
+    
+    @param	resource	Resource ID
+    **/
+    getLatestResourceUpdate(resource: Id, pagination?: Pagination, fields: Fields = []): Promise<ResourceUpdate> {
+      return new Promise<ResourceUpdate>(async (resolve, reject) => {
+        let query = this.addPaginationAndFieldsToQuery(pagination, fields);
+        try {
+            const result = await this.request("GET", `/resources/${resource}/updates/latest`, query)
+            resolve(this.mapType(result, ResourceUpdate));
+        } catch (e) {
+            reject(e)
+        }
+      });
+    }
+    
+    
+    /** 
     GET /resources/{resource}/versions
     Get versions of a resource
     
