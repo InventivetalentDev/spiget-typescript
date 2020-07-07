@@ -13,7 +13,7 @@
     "generate-types": "ts-node src/generator",
     "apply": "ts-node src/generator/apply",
     "clear-generated-types": "rm -rf src/generated_types",
-    "build": "rm -rf dist && npm run compile"
+    "build": "rm -rf dist && npm run clear-generated-types && npm run generate-types && npm run apply && npm run compile"
   },
   "author": "Haylee Schäfer",
   "license": "MIT",
