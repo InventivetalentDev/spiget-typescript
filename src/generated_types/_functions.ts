@@ -1,4 +1,3 @@
-class Paths {
 /** 
 GET /authors
 Get a list of available authors
@@ -555,4 +554,3 @@ getWebhookStatus(id: string): Promise<any> {
 }
 
 
-}

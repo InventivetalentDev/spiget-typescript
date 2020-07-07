@@ -31,7 +31,6 @@ export function start() {
     // Generate the path functions and its aliases
     const path = join(GENERATED_TYPES_DIR, "_functions.ts");
     const stream = createWriteStream(path, { encoding: "utf8" });
-    write(stream, `class Paths {`);
 
     for (const name of Object.keys(paths)) {
         if (SKIPPED_PATHS.includes(name)) continue;
@@ -45,7 +44,6 @@ export function start() {
         }
     }
 
-    write(stream, `}`);
     stream.close();
 
     const importsGen = new ImportsGenerator();
