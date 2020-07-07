@@ -11,7 +11,7 @@
     "test": "mocha test/**/*.ts --require ts-node/register",
     "compile": "tsc",
     "generate-types": "ts-node src/generator",
-    "apply-functions": "ts-node src/generator/apply",
+    "apply": "ts-node src/generator/apply",
     "clear-generated-types": "rm -rf src/generated_types",
     "build": "rm -rf dist && npm run compile"
   },
