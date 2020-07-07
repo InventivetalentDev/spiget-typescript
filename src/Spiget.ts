@@ -1,5 +1,7 @@
 import Axios, { AxiosInstance, AxiosResponse, Method } from "axios";
 
+/** Generated: Start */
+
 import Resource from "./types/Resource";
 import ResourceFile from "./types/ResourceFile";
 import Icon from "./types/Icon";
@@ -10,6 +12,7 @@ import ResourceReview from "./types/ResourceReview";
 import Author from "./types/Author";
 import Category from "./types/Category";
 import IdReference from "./types/IdReference";
+/** End Generated */
 import Error from "./Error"
 import { Pagination } from "./Pagination";
 import SpigetType, { Constructor as TypeConstructor } from "./SpigetType";

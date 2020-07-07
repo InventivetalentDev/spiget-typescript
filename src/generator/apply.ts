@@ -14,6 +14,9 @@ class ApplyGenerator extends Generator {
 
     private startIndex = NOT_FOUND;
     private endIndex = NOT_FOUND;
+    
+    // Check if the next end placeholder is ours or not
+    private isEndNext = false;
 
     constructor(
 
@@ -54,7 +57,7 @@ class ApplyGenerator extends Generator {
 
             this.info(`Successfully! Applied ${this.name} from ${this.source} to ${this.target}.`);
         } catch (e) {
-            this.error(`Failed to apply! Message: ${e}`);
+            this.error(`Failed to apply! ${e}`);
             
             // To log the stack trace of the error
             throw e;
@@ -108,21 +111,23 @@ class ApplyGenerator extends Generator {
 
                     this.info("[!] Found the start placeholder!");
                     this.startIndex = this.targetContent.length;
+                    this.isEndNext = true;
                     continue;
                 }
 
-            } else if (filteredLine === "End Generated") { // Declare the end placeholder
-                if (this.endIndex != NOT_FOUND) {
-                    throw new Error("Too many end points!");
-                }
-
+            } else if (filteredLine === "End Generated" && this.isEndNext && this.endIndex == NOT_FOUND) { // Declare the end placeholder
                 this.info("[!] Found the end placeholder!");
                 this.endIndex = this.targetContent.length;
+                this.isEndNext = false;
                 continue;
             }
 
             // When the place holder is not what we are looking for
             this.targetContent.push(line);
+        }
+
+        if (this.startIndex == NOT_FOUND) {
+            throw new Error("No start placeholder found!");
         }
 
         stream.close();
@@ -176,6 +181,15 @@ class ApplyGenerator extends Generator {
         }
 
         stream.close();
+        this.info(`Saving ${this.target}...`);
+
+        // Finish after saving everything in the stream
+        return new Promise((resolve) => {
+            stream.on("finish", () => {
+                this.info(`Saved! ${this.target}`);
+                resolve()
+            });
+        });
     }
     
     private comment(value: string): string{
@@ -192,14 +206,21 @@ class ApplyGenerator extends Generator {
 
 }
 
-export function start() {
+export async function start() {
+    const importsGen = new ApplyGenerator(
+        "Imports",
+        join(GENERATED_TYPES_DIR, "_imports.txt"),
+        join(SOURCE_DIR, "Spiget.ts")
+    );
+    await importsGen.generate();
+
     const functionsGen = new ApplyGenerator(
         "Functions",
         join(GENERATED_TYPES_DIR, "_functions.ts"),
         join(SOURCE_DIR, "Spiget.ts"),
         "    "
     );
-    functionsGen.generate();
+    await functionsGen.generate();
 }
 
 start();
