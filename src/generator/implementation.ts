@@ -4,6 +4,7 @@ import { join } from "path";
 import { TYPES_DIR, buildWithNewLines } from "./util";
 
 export const allImplImports: string[] = [];
+export const allImplExports: string[] = [];
 
 /**
  * Generates an implementation of the type class
@@ -23,6 +24,7 @@ export class ImplementationGenerator extends Generator {
     public generate() {
         // Add the implementation import even if it exists
         allImplImports.push(`import ${this.name} from "./types/${this.name}";`);
+        allImplExports.push(`export * from "./${this.name}";`);
 
         const path = join(TYPES_DIR, `${this.name}.ts`);
         // Check if the implementation file exists

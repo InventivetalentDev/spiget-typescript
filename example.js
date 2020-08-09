@@ -1,4 +1,4 @@
-const {Spiget} = require("./index");
+const { Spiget } = require("./dist/index");
 const spiget = new Spiget("MyExampleSpigetApp");
 
 spiget.getAuthor(6643).then(author => {

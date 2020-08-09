@@ -2,7 +2,7 @@
   "name": "spiget",
   "version": "0.1.0",
   "description": "Javascript/Typescript client for the spiget.org API",
-  "main": "index.js",
+  "main": "dist/index.js",
   "files": [
     "dist/**/*",
     "example.js"
@@ -16,7 +16,10 @@
     "generate": "npm run clear-generated-types && npm run generate-types && npm run apply",
     "build": "rm -rf dist && npm run compile"
   },
-  "author": "Haylee Schäfer",
+  "contributors": [
+    "Haylee Schäfer <mail@inventivetalent.org> (https://inventivetalent.org)",
+    "iHDeveloper <20463031+iHDeveloper@users.noreply.github.com> (https://ihdeveloper.me)"
+  ],
   "license": "MIT",
   "dependencies": {
     "axios": "0.19.2"

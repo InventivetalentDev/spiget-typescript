@@ -8,6 +8,7 @@ import { createWriteStream, WriteStream, existsSync, mkdirSync } from "fs";
 import { FunctionGenerator } from "./function";
 import { Method } from "./swagger/method";
 import { ImportsGenerator } from "./imports";
+import { ExportsGenerator } from "./exports";
 
 export function start() {
     console.log("[INFO] Generating from swagger...");
@@ -48,6 +49,9 @@ export function start() {
 
     const importsGen = new ImportsGenerator();
     importsGen.generate();
+
+    const exportsGen = new ExportsGenerator();
+    exportsGen.generate();
 
     console.log("[INFO] Successfully! Generated from the swagger.");
 }

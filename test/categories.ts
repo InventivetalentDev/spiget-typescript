@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Spiget, Pagination } from "../index";
+import { Spiget, Pagination } from "../src";
 
 describe("CATEGORIES", () => {
     const spiget = new Spiget();
