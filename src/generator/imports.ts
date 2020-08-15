@@ -14,8 +14,8 @@ export class ImportsGenerator extends Generator {
         this.info("Generating...");
 
         // Save all implementation imports in the _imports.txt
-        const allImportsPath = join(GENERATED_TYPES_DIR, "_imports.txt");
-        writeFileSync(allImportsPath, buildWithNewLines(allImplImports), "utf8");
+        const path = join(GENERATED_TYPES_DIR, "_imports.txt");
+        writeFileSync(path, buildWithNewLines(allImplImports), "utf8");
     }
 
 }
