@@ -1,6 +1,6 @@
 {
   "name": "spiget",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Javascript/Typescript client for the spiget.org API",
   "main": "dist/index.js",
   "files": [
